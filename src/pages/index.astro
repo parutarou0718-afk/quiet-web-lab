@@ -3,54 +3,54 @@ import AdSlot from "@/components/AdSlot.astro";
 import RecipeCard from "@/components/RecipeCard.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { categories } from "@/data/categories";
+import { latestNews } from "@/data/news";
 import { recipes } from "@/data/recipes";
 import { siteConfig } from "@/config/site";
 ---
 
-<BaseLayout title="Static Mini Games and AI Prompt Tools" description={siteConfig.description} canonicalPath="/" showPromptCart={false}>
+<BaseLayout title="AI Image Prompt Library and Builder" description={siteConfig.description} canonicalPath="/" showPromptCart={false}>
   <section class="hero hub-hero">
     <div>
       <p class="eyebrow">Quiet Web Lab</p>
-      <h1>One static hub for playful browser tools and creative AI workflows.</h1>
+      <h1>Build cleaner AI image prompts from reusable fragments, examples, and model notes.</h1>
       <p class="lead">
-        This site brings together two lightweight products in one deployable Astro project: a mini games area led by
-        Link Match Puzzle, and an AI Image Prompt Atlas with recipes, reusable fragments, LoRA guides, and a local prompt
-        builder.
+        Quiet Web Lab is now focused on AI image prompt workflows: a local prompt builder, reusable prompt recipes,
+        model comparison notes, LoRA learning pages, and production checklists for ComfyUI sample images.
       </p>
       <div class="hero-actions">
-        <a class="button" href="/games/link-match/">Play Link Match Puzzle</a>
-        <a class="button secondary" href="/builder/">Open Prompt Builder</a>
+        <a class="button" href="/builder/">Open Prompt Builder</a>
+        <a class="button secondary" href="/models/">View Model Comparisons</a>
       </div>
     </div>
     <aside class="hero-panel hub-panel">
       <div class="stat-grid">
-        <div class="stat"><strong>2</strong><span>main products</span></div>
-        <div class="stat"><strong>static</strong><span>Cloudflare ready</span></div>
         <div class="stat"><strong>{recipes.length}</strong><span>prompt recipes</span></div>
-        <div class="stat"><strong>8x8</strong><span>first game board</span></div>
+        <div class="stat"><strong>4</strong><span>local models compared</span></div>
+        <div class="stat"><strong>static</strong><span>Cloudflare ready</span></div>
+        <div class="stat"><strong>local</strong><span>no login or backend</span></div>
       </div>
     </aside>
   </section>
 
   <section class="content-section product-grid">
-    <a class="product-card product-card--game" href="/games/link-match/">
-      <span class="eyebrow">Mini Games</span>
-      <h2>Link Match Puzzle</h2>
+    <a class="product-card product-card--ai" href="/builder/">
+      <span class="eyebrow">Prompt Builder</span>
+      <h2>Assemble prompts without losing the pieces.</h2>
       <p>
-        A mobile-first mahjong-connect style game with Eastern cultural tile symbols, hints, shuffle, timer, move count,
-        victory stats, and reusable TypeScript pathfinding logic.
+        Pick subject, pose, camera, lighting, style, quality, negative prompts, and parameters. The basket highlights
+        likely conflicts while still letting users copy the final text.
       </p>
-      <span class="button">Play now</span>
+      <span class="button">Build a prompt</span>
     </a>
 
-    <a class="product-card product-card--ai" href="/recipes/">
-      <span class="eyebrow">AI Image Prompt Site</span>
-      <h2>Prompt Atlas</h2>
+    <a class="product-card product-card--models" href="/models/">
+      <span class="eyebrow">Model Guide</span>
+      <h2>Compare local checkpoints with the same prompts.</h2>
       <p>
-        Browse all-ages image prompt recipes, collect reusable fragments, learn prompt structure, and assemble cleaner
-        prompts with the localStorage builder.
+        See anime, 2.5D, and realistic checkpoints side by side across character, Eastern outfit, interior, night street,
+        and portrait prompts.
       </p>
-      <span class="button">Browse recipes</span>
+      <span class="button">Compare models</span>
     </a>
   </section>
 
@@ -58,21 +58,21 @@ import { siteConfig } from "@/config/site";
 
   <section class="content-section">
     <div class="section-heading">
-      <h2>AI Prompt Shortcuts</h2>
-      <p class="muted">The AI prompt site remains fully available as a product area under the main hub.</p>
+      <h2>Start Here</h2>
+      <p class="muted">Fast entry points for prompt writing, generation planning, and model choice.</p>
     </div>
     <div class="category-grid">
-      <a class="category-card" href="/builder/">
-        <h3>Prompt Builder</h3>
-        <p>Assemble positive prompts, negative prompts, and parameters from saved fragments.</p>
+      <a class="category-card" href="/recipes/">
+        <h3>Prompt Recipes</h3>
+        <p>Browse complete prompt examples that can be broken down into reusable fragments.</p>
       </a>
       <a class="category-card" href="/guides/">
         <h3>Prompt Guides</h3>
-        <p>Read practical guides for structure, camera angles, pose prompts, and iteration workflow.</p>
+        <p>Learn structure, camera angles, negative prompts, clothing terms, poses, and iteration habits.</p>
       </a>
       <a class="category-card" href="/lora/">
-        <h3>LoRA Basics</h3>
-        <p>Explore dataset preparation, captioning, training settings, testing, and common mistakes.</p>
+        <h3>LoRA Notes</h3>
+        <p>Plan datasets, captions, training settings, testing, and common cleanup decisions.</p>
       </a>
     </div>
   </section>
@@ -80,10 +80,27 @@ import { siteConfig } from "@/config/site";
   <section class="content-section">
     <div class="section-heading">
       <h2>Latest Prompt Recipes</h2>
-      <p class="muted">A sample of the existing AI Image Prompt Atlas content.</p>
+      <p class="muted">A sample of the current AI Image Prompt Atlas content.</p>
     </div>
     <div class="recipe-grid">
       {recipes.slice(0, 3).map((recipe) => <RecipeCard recipe={recipe} />)}
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="section-heading">
+      <h2>Latest Updates</h2>
+      <p class="muted">Short notes from prompt tests, model comparisons, and image generation batches.</p>
+    </div>
+    <div class="article-grid">
+      {latestNews.slice(0, 3).map((post) => (
+        <a class="article-card" href={`/news/${post.slug}/`}>
+          <span class="category-badge">{post.category}</span>
+          <time datetime={post.date}>{post.date}</time>
+          <h3>{post.title}</h3>
+          <p>{post.description}</p>
+        </a>
+      ))}
     </div>
   </section>
 

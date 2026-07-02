@@ -1,101 +1,228 @@
 # Quiet Web Lab
 
-Quiet Web Lab is a static Astro hub that hosts two browser-first products in one Cloudflare Pages-ready repository:
+Quiet Web Lab 是一个基于 Astro + TypeScript 的静态 AI 生图提示词网站。当前主站专注于提示词库、提示词组合器、模型对比、新闻更新和 LoRA 学习内容。
 
-- **Mini Games**: starting with `/games/link-match/`, a playable Link Match Puzzle with reusable TypeScript game logic.
-- **AI Image Prompt Atlas**: prompt recipes, prompt categories, a localStorage prompt cart, a React island prompt builder, and LoRA learning pages.
+项目默认是纯静态站点，不需要数据库、不需要登录、不需要后端，也不依赖付费服务。可以直接部署到 Cloudflare Pages。
 
-The project is static by default. It does not require a database, login system, backend server, or paid service.
+## 主要功能
 
-## Local Development
+- **提示词配方库**：按场景、姿势、镜头、服装、光线和风格整理完整提示词。
+- **提示词构建器**：用本地浏览器存储保存提示词篮子，并检查重复或冲突片段。
+- **模型对比页**：用同一组 ComfyUI 提示词对比本地模型效果。
+- **新闻/更新栏目**：用于每天发布生图记录、模型测试、提示词实验和网站更新。
+- **LoRA 学习页**：记录数据集准备、打标、训练参数、测试和常见问题。
+- **AdSense/Analytics 预留**：默认关闭，不填真实广告和统计代码。
 
-This workspace includes a local Node runtime under `.tools/node-v20.19.4-win-x64`. New terminal windows should recognize `node` and `npm` because the user PATH has been updated. If an older terminal does not, run:
+## 本地运行
+
+本项目已经带了一个本地 Node 运行环境：
 
 ```powershell
-$env:PATH=(Join-Path (Get-Location) '.tools\node-v20.19.4-win-x64') + ';' + $env:PATH
+.tools\node-v20.19.4-win-x64\npm.cmd install
+.tools\node-v20.19.4-win-x64\npm.cmd run dev
 ```
 
-Install dependencies:
+如果你的终端已经能直接识别 `node` 和 `npm`，也可以直接运行：
 
 ```powershell
 npm install
-```
-
-Start the development server:
-
-```powershell
 npm run dev
 ```
 
-Build output is generated in `dist/`:
+本地开发地址通常是：
+
+```text
+http://127.0.0.1:4321/
+```
+
+## 构建
+
+Cloudflare Pages 使用的构建命令是：
 
 ```powershell
 npm run build
 ```
 
-## Cloudflare Pages
+输出目录是：
 
-Use these settings:
+```text
+dist
+```
 
-- Framework preset: Astro
+如果本地普通 `npm run build` 被 Windows 权限或路径问题挡住，可以用项目内置 Node：
+
+```powershell
+.tools\node-v20.19.4-win-x64\npm.cmd run build
+```
+
+## Cloudflare Pages 部署
+
+Cloudflare Pages 推荐设置：
+
+- Framework preset: `Astro`
 - Build command: `npm run build`
 - Build output directory: `dist`
-- Node version: 20.19 or newer
+- Node version: `20.19` 或更新
 
-## Main Routes
+部署前记得在 `src/config/site.ts` 里修改：
 
-- `/`: main hub landing page
-- `/games/link-match/`: Link Match Puzzle
-- `/recipes/`: AI image prompt recipe library
-- `/builder/`: prompt builder
-- `/guides/`: prompt writing guides
-- `/lora/`: LoRA learning pages
-- `/about/`, `/privacy/`, `/terms/`, `/disclaimer/`, `/contact/`
-- `/sitemap.xml`, `/robots.txt`
+```ts
+siteUrl: "https://你的真实域名"
+```
 
-## Project Structure
+## 主要路由
 
-- `src/games/link-match/`: game rules, board generation, pathfinding, hints, and shuffle logic.
-- `src/components/LinkMatchGame.astro`: game UI wrapper.
-- `src/data/recipes.ts`: prompt recipe data, full prompts, fragments, variations, mistakes, and related recipes.
-- `src/data/categories.ts`: category metadata for category landing pages.
-- `src/data/articles.ts`: guide and LoRA article indexes.
-- `src/lib/promptCart.ts`: shared Prompt Cart and recipe types.
-- `src/lib/promptCompose.ts`: positive, negative, and parameter composition helpers.
-- `src/lib/promptConflict.ts`: conflict and duplicate warning rules.
-- `src/components/PromptBuilder.tsx`: React island builder UI.
-- `src/components/PromptCartDrawer.astro`: site-wide prompt cart drawer.
-- `src/config/site.ts`: site name, URL, analytics, and AdSense configuration.
+- `/`：首页
+- `/builder/`：提示词构建器
+- `/recipes/`：提示词配方库
+- `/models/`：本地模型对比
+- `/news/`：新闻和每日更新
+- `/guides/`：提示词写作指南
+- `/lora/`：LoRA 学习内容
+- `/about/`：关于本站
+- `/privacy/`：隐私政策
+- `/terms/`：使用条款
+- `/disclaimer/`：免责声明
+- `/contact/`：联系方式
+- `/sitemap.xml`：站点地图
+- `/robots.txt`：爬虫规则
 
-## Adding A Mini Game
+## 项目结构
 
-1. Create a folder under `src/games/your-game/`.
-2. Keep reusable game logic in TypeScript modules.
-3. Add a UI component in `src/components/`.
-4. Add a route under `src/pages/games/your-game/index.astro`.
-5. Add the route to `src/pages/sitemap.xml.ts`.
-6. Link it from the main hub or a future games index page.
+- `src/data/recipes.ts`：提示词配方数据。
+- `src/data/categories.ts`：提示词分类数据。
+- `src/data/articles.ts`：指南和 LoRA 文章索引。
+- `src/data/promptLibrary.ts`：提示词构建器使用的片段库和模型推荐数据。
+- `src/data/modelComparison.ts`：模型对比页的模型、提示词和图片路径。
+- `src/data/news.ts`：新闻/更新文章数据。
+- `src/lib/promptCart.ts`：提示词篮子类型和本地存储逻辑。
+- `src/lib/promptCompose.ts`：正向、负向和参数提示词组合逻辑。
+- `src/lib/promptConflict.ts`：提示词冲突和重复检查规则。
+- `src/components/PromptBuilder.tsx`：React 提示词构建器。
+- `src/components/PromptCartDrawer.astro`：全站提示词篮子抽屉。
+- `src/config/site.ts`：站点名称、域名、统计和广告配置。
+- `public/images/model-comparison/`：模型对比页使用的图片。
 
-## Adding Prompt Content
+早期的连连看小游戏底层代码暂时还留在源码中，但当前主站不再生成小游戏页面。以后可以把小游戏单独拆成另一个仓库。
 
-Add a new seed object in `src/data/recipes.ts` with title, slug, category, tags, subject, pose, action, clothing, scene, camera, lighting, mood, style, and short description. The helper builds the full prompt, breakdown fragments, variations, negative prompt, and parameters.
+## 新增提示词配方
 
-Guides are indexed in `src/data/articles.ts`, with matching Astro pages under `src/pages/guides/` or `src/pages/lora/`.
+在 `src/data/recipes.ts` 中新增一条配方数据即可。
 
-## AdSense And Analytics
+建议每条配方至少包含：
 
-Configure provider IDs in `src/config/site.ts`:
+- 标题和 slug
+- 分类和标签
+- 主体、姿势、动作、服装
+- 场景、镜头、光线、情绪、风格
+- 简短介绍
+
+配方系统会自动生成完整提示词、负向提示词、参数、拆分片段和常见错误说明。
+
+## 新增新闻文章
+
+在 `src/data/news.ts` 的 `newsPosts` 数组里新增一条对象。
+
+每篇文章需要：
+
+- `slug`：URL 片段，例如 `rainy-lantern-street-test`
+- `title`：标题
+- `date`：文章日期，格式为 `YYYY-MM-DD`
+- `publishDate`：可选，预约发布日期
+- `category`：文章分类
+- `description`：SEO 摘要
+- `heroImage`：可选，放在 `public/` 下的图片路径
+- `takeaways`：要点列表
+- `body`：正文段落
+- `relatedLinks`：相关文章或页面链接
+
+示例：
+
+```ts
+{
+  slug: "rainy-lantern-street-test",
+  title: "Rainy Lantern Street Prompt Test",
+  date: "2026-07-05",
+  publishDate: "2026-07-05",
+  category: "Generation Notes",
+  description: "A short note about a rainy lantern street prompt test.",
+  heroImage: "/images/model-comparison/b04-meinahentai.png",
+  takeaways: ["Lantern reflections help the scene read clearly."],
+  body: ["Write the update body here."],
+  relatedLinks: [{ label: "Open Builder", href: "/builder/" }]
+}
+```
+
+构建时，系统会自动生成：
+
+- `/news/`
+- `/news/[slug]/`
+- 首页 Latest Updates
+- sitemap 条目
+
+## 预约发布
+
+可以提前写好一周的新闻，然后给每篇设置不同的 `publishDate`。
+
+未来日期的文章在构建时会自动隐藏，不会出现在首页、新闻列表、详情页或 sitemap 中。到了发布日期后，只要网站重新构建一次，文章就会自动发布。
+
+项目里已经有 GitHub Actions 文件：
+
+```text
+.github/workflows/daily-pages-build.yml
+```
+
+它会每天日本时间 `09:10` 触发一次 Cloudflare Pages 重新构建。
+
+启用方法：
+
+1. 打开 Cloudflare Pages 项目。
+2. 进入 `Settings > Builds & deployments > Deploy hooks`。
+3. 创建一个 Deploy Hook。
+4. 打开 GitHub 仓库设置。
+5. 进入 `Secrets and variables > Actions`。
+6. 新增仓库 secret：`CF_PAGES_DEPLOY_HOOK`。
+7. 把 Cloudflare Deploy Hook URL 粘贴进去。
+
+之后你就可以提前写文章，让网站每天自动放出一部分内容。
+
+## AdSense 和 Google Analytics
+
+配置文件在：
+
+```text
+src/config/site.ts
+```
+
+可配置项：
 
 - `adsenseClientId`
 - `adsenseSlotId`
 - `analyticsId`
 - `analyticsEnabled`
 
-IDs are empty by default. Placeholder ad components are present, but live ad code is not included.
+默认都是空值或关闭状态。页面里已经有广告位组件，但没有真实广告代码。
 
-## SEO Checklist
+## SEO 检查清单
 
-- Update `siteUrl` in `src/config/site.ts`.
-- Replace placeholder recipe images with licensed or original assets.
-- Run `npm run build`.
-- Confirm `dist/sitemap.xml` includes the main hub, game pages, recipes, guides, LoRA pages, categories, and base pages.
+上线前建议检查：
+
+- `src/config/site.ts` 里的 `siteUrl` 是否是真实域名。
+- 每个页面是否有合适的 title、description 和 canonical。
+- 新闻文章是否有稳定更新节奏。
+- 图片是否是自己生成、自己拥有或有授权的素材。
+- 运行 `npm run build`。
+- 检查 `dist/sitemap.xml` 是否包含首页、配方、新闻、模型、指南、LoRA 和基础页面。
+
+## GitHub 更新流程
+
+常规流程：
+
+```powershell
+git status
+git add .
+git commit -m "Update prompt site"
+git push origin main
+```
+
+如果只想提交网站正式文件，不要提交本地检查图。`image_review_sheets/` 已经加入 `.gitignore`。

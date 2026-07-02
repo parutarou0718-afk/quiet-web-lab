@@ -1,0 +1,100 @@
+---
+import AdSlot from "@/components/AdSlot.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { comparisonImage, comparisonModels, comparisonPrompts } from "@/data/modelComparison";
+---
+
+<BaseLayout
+  title="Local Model Comparison Guide"
+  description="Side-by-side AI image model comparisons using the same ComfyUI prompts and seeds."
+  canonicalPath="/models/"
+>
+  <section class="hero">
+    <div>
+      <p class="eyebrow">Model Guide</p>
+      <h1>Four local checkpoints compared with the same five prompts.</h1>
+      <p class="lead">
+        These samples compare an anime baseline, a 2.5D anime model, and two realism-oriented checkpoints. Each row uses
+        the same prompt group and the same picked image number, so the differences are mostly model behavior rather than
+        hand-picked luck.
+      </p>
+      <div class="hero-actions">
+        <a class="button" href="/builder/">Open Builder</a>
+        <a class="button secondary" href="/recipes/">Browse Recipes</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="section-heading">
+      <h2>Model Notes</h2>
+      <p class="muted">Use these as practical recommendations for your RTX 3080 ComfyUI workflow.</p>
+    </div>
+    <div class="model-grid model-grid--notes">
+      {comparisonModels.map((model) => (
+        <article class="model-card">
+          <span class="category-badge">{model.label}</span>
+          <h2>{model.name}</h2>
+          <p>{model.tone}</p>
+          <h3>Best For</h3>
+          <p>{model.bestFor}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <AdSlot />
+
+  <section class="content-section">
+    <div class="section-heading">
+      <h2>Side-by-Side Results</h2>
+      <p class="muted">Rows are prompt groups. Columns are models. Images are copied from the local ComfyUI comparison run.</p>
+    </div>
+
+    <div class="comparison-table" aria-label="Local checkpoint comparison grid">
+      <div class="comparison-corner">Prompt</div>
+      {comparisonModels.map((model) => (
+        <div class="comparison-model-head">
+          <strong>{model.name}</strong>
+          <span>{model.label}</span>
+        </div>
+      ))}
+
+      {comparisonPrompts.map((prompt) => (
+        <>
+          <article class="comparison-prompt">
+            <span class="category-badge">{prompt.id.toUpperCase()} {prompt.seedPick}</span>
+            <h3>{prompt.title}</h3>
+            <p>{prompt.description}</p>
+          </article>
+          {comparisonModels.map((model) => (
+            <figure class="comparison-image">
+              <img src={comparisonImage(prompt.id, model.id)} alt={`${model.name} result for ${prompt.title}`} loading="lazy" />
+              <figcaption>{model.label}</figcaption>
+            </figure>
+          ))}
+        </>
+      ))}
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="section-heading">
+      <h2>Quick Recommendation</h2>
+    </div>
+    <div class="category-grid">
+      <article class="category-card">
+        <h3>Main Library</h3>
+        <p>Use meinamix_v5Final when the site needs consistent anime sample cards for prompt fragments.</p>
+      </article>
+      <article class="category-card">
+        <h3>Stylized Variant</h3>
+        <p>Use DarkSushiMix-2.25D when you want a slightly richer illustrated look without going fully realistic.</p>
+      </article>
+      <article class="category-card">
+        <h3>Realism Tests</h3>
+        <p>Use majicmixRealistic_v7 and japaneseStyleRealistic_v20 for portrait and camera-language comparison pages.</p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

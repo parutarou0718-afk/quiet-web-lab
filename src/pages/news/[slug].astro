@@ -1,0 +1,51 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { publishedNews } from "@/data/news";
+
+export function getStaticPaths() {
+  return publishedNews.map((post) => ({
+    params: { slug: post.slug },
+    props: { post }
+  }));
+}
+
+const { post } = Astro.props;
+---
+
+<BaseLayout title={post.title} description={post.description} canonicalPath={`/news/${post.slug}/`} image={post.heroImage}>
+  <article class="content-section news-detail">
+    <div class="section-heading">
+      <p class="eyebrow">{post.category}</p>
+      <h1>{post.title}</h1>
+      <p class="lead">{post.description}</p>
+      <time datetime={post.date}>{post.date}</time>
+    </div>
+
+    {post.heroImage ? <img class="news-hero-image" src={post.heroImage} alt="" /> : null}
+
+    <section class="prompt-block">
+      <h2>Key Takeaways</h2>
+      <ul>
+        {post.takeaways.map((takeaway) => <li>{takeaway}</li>)}
+      </ul>
+    </section>
+
+    <div class="article-body">
+      {post.body.map((paragraph) => <p>{paragraph}</p>)}
+    </div>
+
+    <section class="content-section">
+      <div class="section-heading">
+        <h2>Related</h2>
+      </div>
+      <div class="category-grid">
+        {post.relatedLinks.map((link) => (
+          <a class="category-card" href={link.href}>
+            <h3>{link.label}</h3>
+            <p>Continue exploring this workflow area.</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  </article>
+</BaseLayout>

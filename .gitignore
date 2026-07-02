@@ -5,3 +5,4 @@ dist/
 .astro-dev.log
 .DS_Store
 npm-debug.log*
+image_review_sheets/

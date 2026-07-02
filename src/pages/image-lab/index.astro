@@ -1,0 +1,74 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { comfyShotList, libraryGroups } from "@/data/promptLibrary";
+---
+
+<BaseLayout
+  title="Image Lab Shot List"
+  description="A production checklist for creating AI image prompt sample images in ComfyUI."
+  canonicalPath="/image-lab/"
+>
+  <section class="hero">
+    <div>
+      <p class="eyebrow">Image Lab</p>
+      <h1>ComfyUI 样图生产清单</h1>
+      <p class="lead">
+        这里是你要去 ComfyUI 生成的样图库任务。你是 RTX 3080，所以第一版先以 SD1.5 系模型为主，
+        XL 只做少量可选测试。先按类别做基础样图，回来后我会把图片挂到 Builder 和模型推荐页里。
+      </p>
+      <div class="hero-actions">
+        <a class="button" href="/builder/">Open Builder</a>
+        <a class="button secondary" href="/models/">Model Recommendations</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="section-heading">
+      <h2>优先出图顺序</h2>
+      <p class="muted">先做 Pose、Camera、Lighting、Style。这四组最适合让用户根据样图选提示词，也最适合用 3080 快速批量跑。</p>
+    </div>
+    <div class="shot-list">
+      {comfyShotList.map((task, index) => (
+        <article class="shot-card">
+          <span class="category-badge">#{index + 1} · {task.category}</span>
+          <h3>{task.title}</h3>
+          <p>{task.sampleBrief}</p>
+          <small>{task.count} samples: {task.fragmentLabels.join(", ")}</small>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="content-section article-body">
+    <h2>推荐 ComfyUI 基础工作流</h2>
+    <p>
+      先用 <strong>meinamix_v5Final</strong> 做第一套基准图，不要一开始就全用 XL。基础工作流：Load Checkpoint → CLIP Text Encode
+      Positive/Negative → Empty Latent Image → KSampler → VAE Decode → Save Image。每一组对比图尽量固定 seed、角色、
+      服装和背景，只改变一个变量，例如只改变 pose 或 camera。
+    </p>
+    <p>
+      建议分辨率先用 512x768 或 640x960，20-28 steps，CFG 6-7。第一批建议做 6 张姿势图、6 张镜头图、
+      6 张光线图、6 张风格图、6 张场景图。文件名可以按
+      <code>pose-standing.webp</code>、<code>camera-close-up.webp</code> 这样的规则保存，后面我会批量接进网站。
+    </p>
+  </section>
+
+  <section class="content-section">
+    <div class="section-heading">
+      <h2>完整片段库</h2>
+      <p class="muted">这些就是 Builder 里现在可选的提示词片段。</p>
+    </div>
+    <div class="fragment-index">
+      {libraryGroups.map((group) => (
+        <article class="builder-group">
+          <h3>{group.title}</h3>
+          <p class="muted">{group.description}</p>
+          <ul>
+            {group.fragments.map((fragment) => <li><strong>{fragment.label}</strong>: {fragment.text}</li>)}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

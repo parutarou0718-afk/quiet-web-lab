@@ -1,12 +1,14 @@
 import { categories } from "@/data/categories";
 import { guides, loraGuides } from "@/data/articles";
+import { publishedNews } from "@/data/news";
 import { recipes } from "@/data/recipes";
 import { canonicalUrl } from "@/config/site";
 
 const pages = [
   "/",
-  "/games/link-match/",
+  "/models/",
   "/builder/",
+  "/news/",
   "/recipes/",
   "/guides/",
   "/lora/",
@@ -16,6 +18,7 @@ const pages = [
   "/terms/",
   "/disclaimer/",
   ...recipes.map((recipe) => `/recipes/${recipe.slug}/`),
+  ...publishedNews.map((post) => `/news/${post.slug}/`),
   ...categories.map((category) => `/categories/${category.slug}/`),
   ...guides.map(([slug]) => `/guides/${slug}/`),
   ...loraGuides.map(([slug]) => `/lora/${slug}/`)

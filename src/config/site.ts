@@ -2,7 +2,7 @@ export const siteConfig = {
   siteName: "Quiet Web Lab",
   siteUrl: "https://example.com",
   description:
-    "A static web hub for browser mini games, AI image prompt tools, practical guides, and lightweight creative utilities.",
+    "A static AI image prompt library with reusable prompt fragments, model comparisons, practical guides, and local creative tools.",
   analyticsId: "",
   analyticsEnabled: false,
   adsenseClientId: "",
