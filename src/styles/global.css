@@ -346,6 +346,12 @@ pre, textarea {
   margin: 0;
   color: var(--muted);
 }
+.library-fragment strong,
+.library-fragment p,
+.builder-fragment strong {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
 .library-fragment button,
 .prompt-output-head button {
   width: fit-content;
