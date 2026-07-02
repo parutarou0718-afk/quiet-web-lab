@@ -1,0 +1,22 @@
+{
+  "slug": "local-model-comparison-first-pass",
+  "title": "First Local Model Comparison: Anime, 2.5D, and Realistic Checkpoints",
+  "date": "2026-07-02",
+  "category": "Model Test",
+  "description": "A first pass comparing four local checkpoints with the same five prompt groups for classroom, hanfu, interior, rainy street, and portrait outputs.",
+  "heroImage": "/images/model-comparison/b05-japaneseStyleRealistic-v20.png",
+  "takeaways": [
+    "The anime checkpoints are better for consistent prompt-library character cards.",
+    "Realistic checkpoints are strongest in portrait and fashion-like samples.",
+    "No-person scenes are the safest model comparison rows because composition is easier to judge."
+  ],
+  "body": [
+    "The first model comparison page now uses four local checkpoints with the same five prompt groups: a classroom character, an Eastern culture outfit, a warm study room, a rainy lantern street, and a window light portrait. Keeping the same prompt group and picked image number makes the comparison easier to read.",
+    "The anime-oriented models are stronger when the site needs reusable character samples. They keep the illustrated style readable, and the outputs are easier to connect with prompt fragments. The realistic models show their advantage in portraits, camera language, skin rendering, and soft fashion lighting.",
+    "For future updates, the comparison should grow slowly. A useful model page does not need every checkpoint or every seed. It needs enough stable examples for a visitor to decide which model fits their own prompt goal."
+  ],
+  "relatedLinks": [
+    { "label": "View Model Comparison", "href": "/models/" },
+    { "label": "Read Prompt Guides", "href": "/guides/" }
+  ]
+}

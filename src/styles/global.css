@@ -653,6 +653,18 @@ pre, textarea {
   overflow: auto;
   font-size: 0.88rem;
 }
+.admin-status {
+  min-height: 26px;
+  margin: 0;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+.admin-status[data-status="ok"] {
+  color: var(--accent-strong);
+}
+.admin-status[data-status="error"] {
+  color: var(--red);
+}
 .admin-embed {
   display: block;
   width: 100%;

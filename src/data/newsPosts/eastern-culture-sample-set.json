@@ -1,0 +1,22 @@
+{
+  "slug": "eastern-culture-sample-set",
+  "title": "Building the First Eastern Culture Prompt Sample Set",
+  "date": "2026-07-02",
+  "category": "Generation Notes",
+  "description": "A production note about preparing mahjong, tea ceremony, yukata, qipao, shrine, calligraphy, and lantern street samples for the prompt library.",
+  "heroImage": "/images/model-comparison/b02-meinahentai.png",
+  "takeaways": [
+    "Mahjong and tea ceremony samples are useful for testing hand quality and object coherence.",
+    "Yukata, qipao, shrine, and lantern street images give the site a clearer East Asian visual direction.",
+    "Public sample galleries should avoid fake text, overly cropped bodies, and repeated character faces."
+  ],
+  "body": [
+    "Today we prepared the first usable Eastern culture image sample batch for the prompt library. The goal was not to create a perfect art gallery, but to build practical examples that explain prompt fragments visually. A good sample image should make the prompt category obvious at a glance: mahjong table, tea ceremony, hanfu garden, yukata festival, qipao street portrait, calligraphy desk, shrine steps, lantern festival, or ink painting room.",
+    "The most useful samples were the ones with clear scenes and restrained composition. Mahjong and calligraphy prompts can easily create unreadable symbols or awkward hands, so only the cleaner outputs should be used in public pages. Tea ceremony and shrine scenes were more stable because the model could lean on strong room, floor, and lighting patterns.",
+    "This batch will support future prompt cards, category pages, and the builder interface. The next step is to connect selected images to individual prompt fragments so users can choose prompts by looking at real output examples instead of abstract text alone."
+  ],
+  "relatedLinks": [
+    { "label": "Open Prompt Builder", "href": "/builder/" },
+    { "label": "Browse Models", "href": "/models/" }
+  ]
+}
