@@ -1,0 +1,17 @@
+---
+import PromptBuilder from "@/components/PromptBuilder.tsx";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Prompt Builder"
+  description="Use the Prompt Builder to combine saved fragments, detect prompt conflicts, copy positive prompts, negative prompts, and parameters."
+  canonicalPath="/builder/"
+>
+  <PromptBuilder client:load />
+  <section class="content-section article-body">
+    <h2>How to use the Builder</h2>
+    <p>Add fragments from recipe pages, then return here to review the generated prompt. A strong prompt usually follows this order: subject, pose or action, clothing, scene, camera angle, lighting, mood, style direction, and quality tags. Keep only one main pose and one camera framing unless you have a specific reason to combine them.</p>
+    <p>The cart is saved in localStorage, so your fragments remain available after refreshing the page. Edit any fragment when you want to customize the wording, or reset it to return to the original recipe text. Conflict checks are suggestions, not rules; use them to find duplicated ideas, mismatched framing, or prompts that have grown too long.</p>
+  </section>
+</BaseLayout>

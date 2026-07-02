@@ -1,0 +1,22 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { loraGuides } from "@/data/articles";
+---
+
+<BaseLayout title="LoRA Guide" description="All-ages introductory LoRA training guides covering datasets, captions, settings, mistakes, and safe testing." canonicalPath="/lora/">
+  <section class="content-section">
+    <div class="section-heading">
+      <p class="eyebrow">LoRA Basics</p>
+      <h1>Learn LoRA concepts with safe, lawful, original-content workflows.</h1>
+      <p class="lead">These pages explain LoRA ideas for education. They avoid real-person imitation, private identity use, mature content, and copied IP workflows.</p>
+    </div>
+    <div class="lora-grid">
+      {loraGuides.map(([slug, title, summary]) => (
+        <a class="article-card" href={`/lora/${slug}/`}>
+          <h3>{title}</h3>
+          <p>{summary}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

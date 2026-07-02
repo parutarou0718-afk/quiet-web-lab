@@ -1,0 +1,104 @@
+---
+import AdSlot from "@/components/AdSlot.astro";
+import RecipeCard from "@/components/RecipeCard.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { categories } from "@/data/categories";
+import { recipes } from "@/data/recipes";
+import { siteConfig } from "@/config/site";
+---
+
+<BaseLayout title="Static Mini Games and AI Prompt Tools" description={siteConfig.description} canonicalPath="/" showPromptCart={false}>
+  <section class="hero hub-hero">
+    <div>
+      <p class="eyebrow">Quiet Web Lab</p>
+      <h1>One static hub for playful browser tools and creative AI workflows.</h1>
+      <p class="lead">
+        This site brings together two lightweight products in one deployable Astro project: a mini games area led by
+        Link Match Puzzle, and an AI Image Prompt Atlas with recipes, reusable fragments, LoRA guides, and a local prompt
+        builder.
+      </p>
+      <div class="hero-actions">
+        <a class="button" href="/games/link-match/">Play Link Match Puzzle</a>
+        <a class="button secondary" href="/builder/">Open Prompt Builder</a>
+      </div>
+    </div>
+    <aside class="hero-panel hub-panel">
+      <div class="stat-grid">
+        <div class="stat"><strong>2</strong><span>main products</span></div>
+        <div class="stat"><strong>static</strong><span>Cloudflare ready</span></div>
+        <div class="stat"><strong>{recipes.length}</strong><span>prompt recipes</span></div>
+        <div class="stat"><strong>8x8</strong><span>first game board</span></div>
+      </div>
+    </aside>
+  </section>
+
+  <section class="content-section product-grid">
+    <a class="product-card product-card--game" href="/games/link-match/">
+      <span class="eyebrow">Mini Games</span>
+      <h2>Link Match Puzzle</h2>
+      <p>
+        A mobile-first mahjong-connect style game with Eastern cultural tile symbols, hints, shuffle, timer, move count,
+        victory stats, and reusable TypeScript pathfinding logic.
+      </p>
+      <span class="button">Play now</span>
+    </a>
+
+    <a class="product-card product-card--ai" href="/recipes/">
+      <span class="eyebrow">AI Image Prompt Site</span>
+      <h2>Prompt Atlas</h2>
+      <p>
+        Browse all-ages image prompt recipes, collect reusable fragments, learn prompt structure, and assemble cleaner
+        prompts with the localStorage builder.
+      </p>
+      <span class="button">Browse recipes</span>
+    </a>
+  </section>
+
+  <AdSlot />
+
+  <section class="content-section">
+    <div class="section-heading">
+      <h2>AI Prompt Shortcuts</h2>
+      <p class="muted">The AI prompt site remains fully available as a product area under the main hub.</p>
+    </div>
+    <div class="category-grid">
+      <a class="category-card" href="/builder/">
+        <h3>Prompt Builder</h3>
+        <p>Assemble positive prompts, negative prompts, and parameters from saved fragments.</p>
+      </a>
+      <a class="category-card" href="/guides/">
+        <h3>Prompt Guides</h3>
+        <p>Read practical guides for structure, camera angles, pose prompts, and iteration workflow.</p>
+      </a>
+      <a class="category-card" href="/lora/">
+        <h3>LoRA Basics</h3>
+        <p>Explore dataset preparation, captioning, training settings, testing, and common mistakes.</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="section-heading">
+      <h2>Latest Prompt Recipes</h2>
+      <p class="muted">A sample of the existing AI Image Prompt Atlas content.</p>
+    </div>
+    <div class="recipe-grid">
+      {recipes.slice(0, 3).map((recipe) => <RecipeCard recipe={recipe} />)}
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="section-heading">
+      <h2>Popular Categories</h2>
+      <p class="muted">Jump into the prompt area you want to improve first.</p>
+    </div>
+    <div class="category-grid">
+      {categories.slice(0, 3).map((category) => (
+        <a class="category-card" href={`/categories/${category.slug}/`}>
+          <h3>{category.label}</h3>
+          <p>{category.description}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

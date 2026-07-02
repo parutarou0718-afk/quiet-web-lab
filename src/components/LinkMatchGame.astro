@@ -1,0 +1,31 @@
+<section class="game-shell" data-link-match>
+  <div class="game-topbar" aria-label="Game statistics">
+    <div><span>Time</span><strong data-timer>0:00</strong></div>
+    <div><span>Moves</span><strong data-moves>0</strong></div>
+    <div><span>Left</span><strong data-remaining>64</strong></div>
+    <div><span>Shuffles</span><strong data-shuffles>0</strong></div>
+  </div>
+
+  <div class="board-wrap">
+    <div class="game-board" data-board aria-label="Link Match Puzzle board"></div>
+    <svg class="line-layer" data-line-layer aria-hidden="true"></svg>
+  </div>
+
+  <p class="game-message" data-message>Select two matching cultural tiles with a clear path.</p>
+
+  <div class="game-actions">
+    <button type="button" data-restart>Restart</button>
+    <button type="button" data-hint>Hint</button>
+    <button type="button" data-shuffle>Shuffle</button>
+  </div>
+
+  <dialog class="win-dialog" data-win-dialog>
+    <h2>Puzzle Cleared</h2>
+    <p data-win-stats></p>
+    <button type="button" data-play-again>Play again</button>
+  </dialog>
+</section>
+
+<script>
+  import "@/games/link-match/client";
+</script>

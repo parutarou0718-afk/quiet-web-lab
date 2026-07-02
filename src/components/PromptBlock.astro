@@ -1,0 +1,16 @@
+---
+interface Props {
+  title: string;
+  text: string;
+}
+
+const { title, text } = Astro.props;
+---
+
+<section class="prompt-block">
+  <div>
+    <h3>{title}</h3>
+    <button class="copy-inline" type="button" data-copy={text}>Copy</button>
+  </div>
+  <pre>{text}</pre>
+</section>

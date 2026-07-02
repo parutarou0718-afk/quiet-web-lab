@@ -1,0 +1,15 @@
+---
+import { canonicalUrl, siteConfig } from "@/config/site";
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath: string;
+}
+
+const { title, description, canonicalPath } = Astro.props;
+---
+
+<title>{title} | {siteConfig.siteName}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl(canonicalPath)} />

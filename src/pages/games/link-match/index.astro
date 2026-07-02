@@ -1,0 +1,59 @@
+---
+import AdSlot from "@/components/AdSlot.astro";
+import LinkMatchGame from "@/components/LinkMatchGame.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Link Match Puzzle"
+  description="Play Link Match Puzzle, a classic two-turn tile matching game with Eastern cultural motifs."
+  canonicalPath="/games/link-match/"
+  showPromptCart={false}
+>
+  <section class="hero">
+    <div>
+      <p class="eyebrow">Mini Games / Mahjong Connect Style</p>
+      <h1>Link Match Puzzle</h1>
+      <p class="lead">
+        Clear an 8x8 board of paired cultural tiles by drawing legal paths with no more than two turns.
+      </p>
+      <div class="hero-actions">
+        <a class="button secondary" href="/">Back to Main Hub</a>
+        <a class="button secondary" href="/builder/">AI Prompt Builder</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="game-page-grid">
+    <div>
+      <LinkMatchGame />
+      <section class="content-section article-body">
+        <h2>How To Play Link Match Puzzle</h2>
+        <p>
+          Link Match Puzzle is a browser-based tile matching game inspired by classic mahjong connect and two-turn
+          pair-clearing puzzles. The board starts with an 8 by 8 grid. Every symbol appears exactly twice, and your goal
+          is to remove all pairs by selecting two identical tiles that can be connected by a clean route. A valid route
+          can use one, two, or three straight line segments, which means it may turn no more than two times. The route
+          cannot pass through active tiles, but it may travel outside the visible edge of the board, allowing familiar
+          outer-ring solutions.
+        </p>
+        <p>
+          The tile set uses compact references to Chinese and Japanese visual culture, including mahjong marks, tea,
+          fans, seals, scrolls, festival objects, garden architecture, porcelain, paper, and calligraphy tools. Tap one
+          tile, then tap its matching partner. If the connection is legal, both tiles disappear and a short animated line
+          shows the route. If the pair is blocked, the second tile becomes your current selection so you can keep playing
+          without losing rhythm.
+        </p>
+        <p>
+          The game tracks time, moves, remaining tiles, and shuffle count. Hint highlights one removable pair for a
+          moment. Shuffle only rearranges tiles that are still on the board, leaving cleared spaces empty. When no legal
+          pair remains, the game tells you to shuffle. This makes Link Match Puzzle a good fit for players who enjoy
+          calm pattern recognition, short logic sessions, and mobile-friendly puzzles that run entirely in the browser.
+        </p>
+      </section>
+    </div>
+    <aside>
+      <AdSlot format="rectangle" />
+    </aside>
+  </div>
+</BaseLayout>

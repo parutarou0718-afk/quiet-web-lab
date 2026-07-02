@@ -1,0 +1,28 @@
+---
+import RecipeCard from "@/components/RecipeCard.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { categories, getCategory } from "@/data/categories";
+import { getRecipesByCategory } from "@/data/recipes";
+
+export function getStaticPaths() {
+  return categories.map((category) => ({ params: { slug: category.slug } }));
+}
+
+const { slug } = Astro.params;
+const category = getCategory(slug ?? "pose") ?? categories[0];
+const categoryRecipes = getRecipesByCategory(category.slug);
+---
+
+<BaseLayout title={`${category.label} Prompt Recipes`} description={category.description} canonicalPath={`/categories/${category.slug}/`}>
+  <section class="content-section">
+    <div class="section-heading">
+      <p class="eyebrow">Category</p>
+      <h1>{category.label} prompt fragments and recipes.</h1>
+      <p class="lead">{category.description}</p>
+    </div>
+    <div class="recipe-grid">
+      {categoryRecipes.map((recipe) => <RecipeCard recipe={recipe} />)}
+    </div>
+    {!categoryRecipes.length && <p class="muted">No dedicated recipes yet. Use the recipe library to collect fragments for this category.</p>}
+  </section>
+</BaseLayout>

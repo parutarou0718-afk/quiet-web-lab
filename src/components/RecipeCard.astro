@@ -1,0 +1,26 @@
+---
+import type { PromptRecipe } from "@/lib/promptCart";
+import CategoryBadge from "@/components/CategoryBadge.astro";
+
+interface Props {
+  recipe: PromptRecipe;
+}
+
+const { recipe } = Astro.props;
+---
+
+<article class="recipe-card">
+  <a href={`/recipes/${recipe.slug}/`} aria-label={`View ${recipe.title}`}>
+    <div class="recipe-thumb" style={`--recipe-image: url('${recipe.image}')`}>
+      <span>{recipe.title}</span>
+    </div>
+    <div class="recipe-card-body">
+      <CategoryBadge category={recipe.category} />
+      <h3>{recipe.title}</h3>
+      <p>{recipe.shortDescription}</p>
+      <ul class="tag-list">
+        {recipe.tags.map((tag) => <li>{tag}</li>)}
+      </ul>
+    </div>
+  </a>
+</article>

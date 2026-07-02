@@ -1,0 +1,13 @@
+---
+interface Props {
+  label?: string;
+  format?: "banner" | "rectangle";
+}
+
+const { label = "Advertisement", format = "banner" } = Astro.props;
+---
+
+<aside class={`ad-slot ad-slot--${format}`} aria-label={label}>
+  <span>{label}</span>
+  <small>AdSense placeholder</small>
+</aside>

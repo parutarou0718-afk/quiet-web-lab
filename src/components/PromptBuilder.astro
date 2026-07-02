@@ -1,0 +1,89 @@
+---
+import ConflictWarningList from "@/components/ConflictWarningList.astro";
+import CopyButton from "@/components/CopyButton.astro";
+---
+
+<section class="builder-shell">
+  <div class="builder-left">
+    <div class="section-heading">
+      <p class="eyebrow">Prompt Recipe Builder</p>
+      <h1>Assemble a clean prompt from reusable fragments.</h1>
+      <p class="lead">The builder reads your Prompt Cart, groups fragments by category, checks common conflicts, and generates positive prompt, negative prompt, and parameters.</p>
+    </div>
+    <div class="builder-groups" data-builder-groups></div>
+  </div>
+  <aside class="builder-output">
+    <ConflictWarningList />
+    <section class="prompt-output">
+      <h2>Positive Prompt</h2>
+      <textarea id="positivePrompt" data-positive rows="8"></textarea>
+      <CopyButton label="Copy Positive Prompt" target="#positivePrompt" />
+    </section>
+    <section class="prompt-output">
+      <h2>Negative Prompt</h2>
+      <textarea id="negativePrompt" data-negative rows="5"></textarea>
+      <CopyButton label="Copy Negative Prompt" target="#negativePrompt" />
+    </section>
+    <section class="prompt-output">
+      <h2>Parameters</h2>
+      <textarea id="parametersPrompt" data-parameters rows="5"></textarea>
+      <CopyButton label="Copy Parameters" target="#parametersPrompt" />
+      <button class="button secondary copy-all" type="button">Copy All</button>
+      <button class="button secondary" type="button" data-regenerate>Regenerate from cart</button>
+    </section>
+  </aside>
+</section>
+
+<script>
+  const order = ["subject", "pose", "action", "clothing", "scene", "camera", "lighting", "mood", "style", "quality"];
+  const singleFocus = new Set(["pose", "camera", "lighting", "style", "mood"]);
+  const conflicts = [
+    ["standing", "sitting"], ["standing", "kneeling"], ["sitting", "running"], ["walking", "running"],
+    ["close-up", "full body"], ["wide shot", "close-up"], ["low angle", "high angle"], ["night scene", "bright daytime"],
+    ["soft light", "harsh light"], ["minimalist background", "crowded marketplace"], ["realistic photo", "watercolor illustration"],
+    ["front view", "back view"], ["profile view", "front view"], ["calm mood", "intense action"], ["indoor scene", "outdoor landscape"]
+  ];
+  const textOf = (item) => (item.editedText || item.text || "").trim();
+  const cart = () => window.promptAtlasCart?.readCart?.() || [];
+  const positive = (items) => order.flatMap((category) => items.filter((item) => item.category === category)).map(textOf).filter(Boolean).join(", ");
+  const joined = (items, category, separator) => items.filter((item) => item.category === category).map(textOf).filter(Boolean).join(separator);
+  function warnings(items) {
+    const out = [];
+    const pos = positive(items).toLowerCase();
+    for (const category of singleFocus) {
+      const count = items.filter((item) => item.category === category).length;
+      if (count > 1) out.push(`Multiple ${category} fragments selected. Consider keeping only one main ${category}.`);
+    }
+    for (const [a, b] of conflicts) if (pos.includes(a) && pos.includes(b)) out.push(`Conflict detected: ${a} and ${b} may fight each other. Choose one direction.`);
+    if (pos.length > 900) out.push("Your prompt is getting long. Consider removing weaker fragments.");
+    if (items.filter((item) => item.category === "quality").length > 8) out.push("Too many quality tags may reduce prompt clarity.");
+    return out;
+  }
+  function renderBuilder() {
+    const items = cart();
+    const groupRoot = document.querySelector("[data-builder-groups]");
+    if (!groupRoot) return;
+    groupRoot.innerHTML = [...order, "negative", "parameters"].map((category) => {
+      const group = items.filter((item) => item.category === category);
+      return `<section class="builder-group" id="builder-${category}">
+        <h2>${category}</h2>
+        ${group.length ? group.map((item) => `<article class="builder-fragment"><strong>${item.label}</strong><span>${item.sourceRecipeTitle || "Manual fragment"}</span><textarea data-cart-edit="${item.id}" rows="3">${textOf(item)}</textarea><button type="button" data-cart-remove="${item.id}">Remove</button><button type="button" data-cart-reset="${item.id}">Reset</button></article>`).join("") : `<p class="muted">No ${category} fragments yet.</p>`}
+      </section>`;
+    }).join("");
+    document.querySelector("[data-positive]").value = positive(items);
+    document.querySelector("[data-negative]").value = joined(items, "negative", ", ");
+    document.querySelector("[data-parameters]").value = joined(items, "parameters", "\n");
+    const warningList = document.querySelector("[data-warning-list]");
+    const currentWarnings = warnings(items);
+    warningList.innerHTML = currentWarnings.length ? currentWarnings.map((warning) => `<li>${warning}</li>`).join("") : `<li>No major conflicts detected.</li>`;
+  }
+  document.addEventListener("click", (event) => {
+    if (event.target.closest?.("[data-regenerate]")) renderBuilder();
+    if (event.target.closest?.(".copy-all")) {
+      const all = `Positive Prompt:\n${document.querySelector("[data-positive]").value}\n\nNegative Prompt:\n${document.querySelector("[data-negative]").value}\n\nParameters:\n${document.querySelector("[data-parameters]").value}`;
+      navigator.clipboard?.writeText(all);
+    }
+  });
+  window.addEventListener("prompt-cart-change", renderBuilder);
+  setTimeout(renderBuilder, 0);
+</script>

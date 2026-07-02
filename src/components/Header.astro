@@ -1,0 +1,14 @@
+---
+import { siteConfig } from "@/config/site";
+import { mainNav } from "@/data/navigation";
+---
+
+<header class="site-header">
+  <a class="brand" href="/" aria-label={`${siteConfig.siteName} home`}>
+    <span class="brand-mark">QW</span>
+    <span>{siteConfig.siteName}</span>
+  </a>
+  <nav class="site-nav" aria-label="Main navigation">
+    {mainNav.map((item) => <a href={item.href}>{item.label}</a>)}
+  </nav>
+</header>

@@ -1,0 +1,15 @@
+---
+import type { PromptFragment } from "@/lib/promptCart";
+
+interface Props {
+  fragment: PromptFragment;
+  label?: string;
+  small?: boolean;
+}
+
+const { fragment, label = "Add to cart", small = false } = Astro.props;
+---
+
+<button class:list={["button", "cart-add", { "button-small": small }]} type="button" data-fragment={JSON.stringify(fragment)}>
+  {label}
+</button>

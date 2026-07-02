@@ -1,0 +1,23 @@
+---
+import type { PromptFragment } from "@/lib/promptCart";
+import CategoryBadge from "@/components/CategoryBadge.astro";
+import PromptCartButton from "@/components/PromptCartButton.astro";
+
+interface Props {
+  fragment: PromptFragment;
+}
+
+const { fragment } = Astro.props;
+---
+
+<article class="fragment-card" id={fragment.id}>
+  <div class="fragment-card-top">
+    <div>
+      <CategoryBadge category={fragment.category} />
+      <h3>{fragment.label}</h3>
+    </div>
+    <PromptCartButton fragment={fragment} small />
+  </div>
+  <p>{fragment.text}</p>
+  {fragment.sourceRecipeTitle && <small>Source: {fragment.sourceRecipeTitle}</small>}
+</article>

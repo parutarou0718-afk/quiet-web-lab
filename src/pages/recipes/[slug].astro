@@ -1,0 +1,70 @@
+---
+import PromptBlock from "@/components/PromptBlock.astro";
+import PromptCartButton from "@/components/PromptCartButton.astro";
+import PromptFragmentCard from "@/components/PromptFragmentCard.astro";
+import RecipeCard from "@/components/RecipeCard.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getRecipe, recipes } from "@/data/recipes";
+
+export function getStaticPaths() {
+  return recipes.map((recipe) => ({ params: { slug: recipe.slug }, props: { recipe } }));
+}
+
+const { recipe } = Astro.props;
+const related = recipe.relatedRecipes.map((slug) => getRecipe(slug)).filter(Boolean);
+---
+
+<BaseLayout title={recipe.title} description={recipe.shortDescription} canonicalPath={`/recipes/${recipe.slug}/`} image={recipe.image}>
+  <article class="content-section">
+    <div class="section-heading">
+      <p class="eyebrow">{recipe.category} recipe</p>
+      <h1>{recipe.title}</h1>
+      <p class="lead">{recipe.description}</p>
+      <div class="card-actions">
+        <PromptCartButton fragment={{ id: `${recipe.slug}-full-positive`, category: "subject", label: `${recipe.title} full positive prompt`, text: recipe.positivePrompt, sourceRecipeSlug: recipe.slug, sourceRecipeTitle: recipe.title }} label="Add full recipe to cart" />
+      </div>
+    </div>
+    <div class="detail-grid">
+      <div>
+        <PromptBlock title="Positive Prompt" text={recipe.positivePrompt} />
+        <PromptBlock title="Negative Prompt" text={recipe.negativePrompt} />
+        <PromptBlock title="Parameters" text={recipe.parameters} />
+      </div>
+      <aside class="hero-panel">
+        <h2>Model Notes</h2>
+        <p>{recipe.modelNotes}</p>
+        <h3>Suitable Uses</h3>
+        <ul>{recipe.suitableUses.map((item) => <li>{item}</li>)}</ul>
+      </aside>
+    </div>
+  </article>
+
+  <section class="content-section">
+    <div class="section-heading">
+      <h2>Prompt Breakdown</h2>
+      <p class="muted">Add only the fragments you need, then refine them in the Builder.</p>
+    </div>
+    <div class="feature-grid">
+      {recipe.breakdown.map((fragment) => <PromptFragmentCard fragment={fragment} />)}
+    </div>
+  </section>
+
+  <section class="content-section">
+    <h2>Variations</h2>
+    <div class="feature-grid">
+      {recipe.variations.map((fragment) => <PromptFragmentCard fragment={fragment} />)}
+    </div>
+  </section>
+
+  <section class="content-section article-body">
+    <h2>Common Mistakes</h2>
+    <ul>{recipe.commonMistakes.map((mistake) => <li>{mistake}</li>)}</ul>
+  </section>
+
+  <section class="content-section">
+    <h2>Related Recipes</h2>
+    <div class="recipe-grid">
+      {related.map((item) => item && <RecipeCard recipe={item} />)}
+    </div>
+  </section>
+</BaseLayout>

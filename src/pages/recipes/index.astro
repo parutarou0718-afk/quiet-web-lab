@@ -1,0 +1,18 @@
+---
+import RecipeCard from "@/components/RecipeCard.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { recipes } from "@/data/recipes";
+---
+
+<BaseLayout title="Prompt Recipes" description="Browse all-ages AI image prompt recipes with reusable fragments and full prompt breakdowns." canonicalPath="/recipes/">
+  <section class="content-section">
+    <div class="section-heading">
+      <p class="eyebrow">Recipe Library</p>
+      <h1>Prompt recipes for scenes, characters, camera, lighting, and style.</h1>
+      <p class="lead">Every recipe includes a positive prompt, negative prompt, parameters, variation fragments, common mistakes, and cart-ready breakdown cards.</p>
+    </div>
+    <div class="recipe-grid">
+      {recipes.map((recipe) => <RecipeCard recipe={recipe} />)}
+    </div>
+  </section>
+</BaseLayout>

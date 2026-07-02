@@ -1,0 +1,9 @@
+---
+interface Props {
+  category: string;
+}
+
+const { category } = Astro.props;
+---
+
+<span class={`category-badge category-badge--${category}`}>{category}</span>

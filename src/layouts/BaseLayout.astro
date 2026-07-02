@@ -1,0 +1,46 @@
+---
+import Analytics from "@/components/Analytics.astro";
+import Footer from "@/components/Footer.astro";
+import Header from "@/components/Header.astro";
+import PromptCartDrawer from "@/components/PromptCartDrawer.astro";
+import { canonicalUrl, siteConfig } from "@/config/site";
+import "@/styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath: string;
+  image?: string;
+  showPromptCart?: boolean;
+}
+
+const { title, description, canonicalPath, image = "/images/recipes/example-01.webp", showPromptCart = true } = Astro.props;
+const pageTitle = `${title} | ${siteConfig.siteName}`;
+const canonical = canonicalUrl(canonicalPath);
+const imageUrl = canonicalUrl(image);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:type" content="website" />
+    <Analytics />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    {showPromptCart ? <PromptCartDrawer /> : null}
+    <Footer />
+  </body>
+</html>

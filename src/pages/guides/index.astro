@@ -1,0 +1,22 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { guides } from "@/data/articles";
+---
+
+<BaseLayout title="Prompt Writing Guides" description="Practical AI image prompt writing guides for structure, poses, clothing, camera, negative prompts, and iteration." canonicalPath="/guides/">
+  <section class="content-section">
+    <div class="section-heading">
+      <p class="eyebrow">Guides</p>
+      <h1>Learn prompt writing one visual decision at a time.</h1>
+      <p class="lead">These guides explain prompt structure in plain English and connect directly to the recipe builder workflow.</p>
+    </div>
+    <div class="article-grid">
+      {guides.map(([slug, title, summary]) => (
+        <a class="article-card" href={`/guides/${slug}/`}>
+          <h3>{title}</h3>
+          <p>{summary}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

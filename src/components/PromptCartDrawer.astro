@@ -1,0 +1,97 @@
+<button class="cart-fab" type="button" data-cart-open>
+  Cart <span data-cart-count>0</span>
+</button>
+
+<aside class="cart-drawer" aria-label="Prompt cart" data-cart-drawer>
+  <div class="cart-drawer-head">
+    <div>
+      <p class="eyebrow">Prompt Cart</p>
+      <h2>Selected fragments</h2>
+    </div>
+    <button class="icon-button" type="button" data-cart-close aria-label="Close prompt cart">×</button>
+  </div>
+  <div class="cart-items" data-cart-items></div>
+  <div class="cart-actions">
+    <a class="button" href="/builder/">Open Builder</a>
+    <button class="button secondary" type="button" data-cart-clear>Clear Cart</button>
+  </div>
+</aside>
+<div class="cart-scrim" data-cart-close></div>
+
+<script>
+  const CART_KEY = "prompt-atlas-cart";
+  const readCart = () => {
+    try {
+      return JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+    } catch {
+      return [];
+    }
+  };
+  const writeCart = (items) => {
+    localStorage.setItem(CART_KEY, JSON.stringify(items));
+    window.dispatchEvent(new CustomEvent("prompt-cart-change", { detail: items }));
+  };
+  const normalizeItem = (item) => ({ ...item, editedText: item.editedText || item.text });
+  const addFragment = (fragment) => {
+    const items = readCart().map(normalizeItem);
+    if (!items.some((item) => item.id === fragment.id)) {
+      items.push(normalizeItem(fragment));
+      writeCart(items);
+    }
+  };
+  const removeFragment = (id) => writeCart(readCart().filter((item) => item.id !== id));
+  const updateText = (id, text) => writeCart(readCart().map((item) => item.id === id ? { ...item, editedText: text } : item));
+  const resetText = (id) => writeCart(readCart().map((item) => item.id === id ? { ...item, editedText: item.text } : item));
+
+  function renderCart() {
+    const items = readCart().map(normalizeItem);
+    document.querySelectorAll("[data-cart-count]").forEach((node) => (node.textContent = String(items.length)));
+    const list = document.querySelector("[data-cart-items]");
+    if (!list) return;
+    list.innerHTML = items.length
+      ? items.map((item) => `
+        <article class="cart-item">
+          <strong>${item.label}</strong>
+          <span>${item.category}${item.sourceRecipeTitle ? ` · ${item.sourceRecipeTitle}` : ""}</span>
+          <textarea data-cart-edit="${item.id}" rows="3">${item.editedText}</textarea>
+          <div>
+            <button type="button" data-cart-reset="${item.id}">Reset</button>
+            <button type="button" data-cart-remove="${item.id}">Remove</button>
+          </div>
+        </article>
+      `).join("")
+      : `<p class="muted">Your cart is empty. Add fragments from any recipe page.</p>`;
+  }
+
+  document.addEventListener("click", (event) => {
+    const target = event.target;
+    const addButton = target.closest?.("[data-fragment]");
+    if (addButton) {
+      addFragment(JSON.parse(addButton.dataset.fragment));
+      document.body.classList.add("cart-open");
+    }
+    if (target.closest?.("[data-cart-open]")) document.body.classList.add("cart-open");
+    if (target.closest?.("[data-cart-close]")) document.body.classList.remove("cart-open");
+    if (target.closest?.("[data-cart-clear]")) writeCart([]);
+    const removeButton = target.closest?.("[data-cart-remove]");
+    if (removeButton) removeFragment(removeButton.dataset.cartRemove);
+    const resetButton = target.closest?.("[data-cart-reset]");
+    if (resetButton) resetText(resetButton.dataset.cartReset);
+    const copyButton = target.closest?.("[data-copy]");
+    if (copyButton) navigator.clipboard?.writeText(copyButton.dataset.copy);
+    const copyTarget = target.closest?.("[data-copy-target]");
+    if (copyTarget) {
+      const node = document.querySelector(copyTarget.dataset.copyTarget);
+      if (node) navigator.clipboard?.writeText(node.value || node.textContent || "");
+    }
+  });
+
+  document.addEventListener("input", (event) => {
+    const editor = event.target.closest?.("[data-cart-edit]");
+    if (editor) updateText(editor.dataset.cartEdit, editor.value);
+  });
+
+  window.promptAtlasCart = { readCart, writeCart, renderCart };
+  window.addEventListener("prompt-cart-change", renderCart);
+  renderCart();
+</script>

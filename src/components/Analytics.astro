@@ -1,0 +1,17 @@
+---
+import { siteConfig } from "@/config/site";
+---
+
+{
+  siteConfig.analyticsEnabled && siteConfig.analyticsId ? (
+    <>
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${siteConfig.analyticsId}`} />
+      <script define:vars={{ analyticsId: siteConfig.analyticsId }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag("js", new Date());
+        gtag("config", analyticsId);
+      </script>
+    </>
+  ) : null
+}
