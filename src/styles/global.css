@@ -295,6 +295,9 @@ pre, textarea {
   display: grid;
   gap: 12px;
 }
+.model-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+}
 .library-fragment,
 .model-card,
 .shot-card {
@@ -304,6 +307,18 @@ pre, textarea {
   border-radius: 8px;
   padding: 14px;
   background: var(--surface);
+}
+.model-card {
+  min-width: 0;
+  overflow: hidden;
+}
+.model-card h3,
+.model-card p,
+.model-card small,
+.model-card .category-badge {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 .library-fragment.is-selected {
   border-color: var(--accent);
@@ -767,14 +782,12 @@ pre, textarea {
   .admin-two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .library-sidebar { display: grid; overflow: visible; }
   .library-fragment-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .model-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .news-card { grid-template-columns: 260px minmax(0, 1fr); }
   .shot-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .game-shell { padding: 18px; }
 }
 
 @media (min-width: 1060px) {
-  .model-grid,
   .shot-list {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
