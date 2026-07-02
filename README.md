@@ -77,6 +77,7 @@ siteUrl: "https://你的真实域名"
 - `/recipes/`：提示词配方库
 - `/models/`：本地模型对比
 - `/news/`：新闻和每日更新
+- `/admin/news/`：本地新闻编辑后台，不进入 sitemap，默认 noindex
 - `/guides/`：提示词写作指南
 - `/lora/`：LoRA 学习内容
 - `/about/`：关于本站
@@ -121,7 +122,15 @@ siteUrl: "https://你的真实域名"
 
 ## 新增新闻文章
 
-在 `src/data/news.ts` 的 `newsPosts` 数组里新增一条对象。
+推荐先打开本地新闻后台：
+
+```text
+http://127.0.0.1:4321/admin/news/
+```
+
+在后台里填写标题、slug、分类、日期、预约发布日期、摘要、正文、要点和相关链接。后台会把草稿保存在当前浏览器的本地存储里，并生成可以直接放进 `src/data/news.ts` 的新闻对象。
+
+发布时，把后台生成的代码复制到 `src/data/news.ts` 的 `newsPosts` 数组顶部即可。
 
 每篇文章需要：
 

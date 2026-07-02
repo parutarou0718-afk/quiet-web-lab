@@ -1,0 +1,298 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="News Admin"
+  description="Local news editor for drafting Quiet Web Lab updates."
+  canonicalPath="/admin/news/"
+  showPromptCart={false}
+  robots="noindex,nofollow"
+>
+  <section class="hero admin-hero">
+    <div>
+      <p class="eyebrow">Local Admin</p>
+      <h1>News update desk</h1>
+      <p class="lead">
+        Write daily updates, keep local drafts, preview the article shape, and generate the `newsPosts` entry used by the static site.
+      </p>
+      <div class="hero-actions">
+        <a class="button" href="/news/">View News</a>
+        <a class="button secondary" href="/models/">Model Notes</a>
+      </div>
+    </div>
+    <aside class="hero-panel">
+      <p class="eyebrow">Publishing Flow</p>
+      <p class="muted">
+        Draft here, copy the generated entry into `src/data/news.ts`, build, then push to GitHub. Future `publishDate` values stay hidden until the site rebuilds on that date.
+      </p>
+    </aside>
+  </section>
+
+  <section class="admin-shell" data-news-admin>
+    <form class="admin-panel admin-form" data-news-form>
+      <div class="section-heading">
+        <p class="eyebrow">Editor</p>
+        <h2>Article Fields</h2>
+      </div>
+
+      <label>
+        <span>Title</span>
+        <input name="title" type="text" value="Rainy Lantern Street Prompt Test" required />
+      </label>
+
+      <div class="admin-two">
+        <label>
+          <span>Slug</span>
+          <input name="slug" type="text" value="rainy-lantern-street-prompt-test" required />
+        </label>
+        <label>
+          <span>Category</span>
+          <select name="category">
+            <option>Generation Notes</option>
+            <option>Model Test</option>
+            <option>Prompt Update</option>
+            <option>Workflow</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="admin-two">
+        <label>
+          <span>Date</span>
+          <input name="date" type="date" required />
+        </label>
+        <label>
+          <span>Publish Date</span>
+          <input name="publishDate" type="date" />
+        </label>
+      </div>
+
+      <label>
+        <span>Description</span>
+        <textarea name="description" rows="3">A short production note about a rainy lantern street prompt test, including what worked, what failed, and what should be improved next.</textarea>
+      </label>
+
+      <label>
+        <span>Hero Image Path</span>
+        <input name="heroImage" type="text" value="/images/model-comparison/b04-meinahentai.png" />
+      </label>
+
+      <label>
+        <span>Takeaways</span>
+        <textarea name="takeaways" rows="5">Lantern reflections helped the scene read clearly.
+Rain and pavement detail improved atmosphere without changing the subject.
+Hands and distant signage still need manual selection.</textarea>
+      </label>
+
+      <label>
+        <span>Body</span>
+        <textarea name="body" rows="9">Today I tested a rainy lantern street prompt for the prompt library. The most useful images kept the street readable, with warm lanterns, wet pavement, and a clear figure silhouette.
+
+The best outputs used simple camera language and avoided too many decorative objects. When the scene became too crowded, the model started to invent unreadable signs and confusing background details.
+
+This prompt group is useful for future atmosphere examples because it explains lighting, weather, and street composition in one compact sample.</textarea>
+      </label>
+
+      <label>
+        <span>Related Links</span>
+        <textarea name="relatedLinks" rows="4">Open Prompt Builder | /builder/
+View Model Comparison | /models/</textarea>
+      </label>
+
+      <div class="admin-actions">
+        <button class="button" type="button" data-copy-entry>Copy Entry</button>
+        <button class="button secondary" type="button" data-save-draft>Save Draft</button>
+        <button class="button secondary" type="button" data-reset-form>Reset</button>
+      </div>
+    </form>
+
+    <aside class="admin-side">
+      <section class="admin-panel">
+        <div class="section-heading">
+          <p class="eyebrow">Drafts</p>
+          <h2>Local Queue</h2>
+        </div>
+        <div class="draft-list" data-draft-list></div>
+      </section>
+
+      <section class="admin-panel">
+        <div class="section-heading">
+          <p class="eyebrow">Preview</p>
+          <h2 data-preview-title>Rainy Lantern Street Prompt Test</h2>
+        </div>
+        <p class="muted" data-preview-meta></p>
+        <p data-preview-description></p>
+        <ul class="admin-preview-list" data-preview-takeaways></ul>
+      </section>
+    </aside>
+
+    <section class="admin-panel admin-output">
+      <div class="prompt-output-head">
+        <div>
+          <p class="eyebrow">Generated Code</p>
+          <h2>Paste into `newsPosts`</h2>
+        </div>
+        <button type="button" data-copy-entry>Copy</button>
+      </div>
+      <pre data-output-code></pre>
+    </section>
+  </section>
+</BaseLayout>
+
+<script>
+  const root = document.querySelector("[data-news-admin]");
+  const form = root?.querySelector("[data-news-form]");
+  const output = root?.querySelector("[data-output-code]");
+  const draftList = root?.querySelector("[data-draft-list]");
+  const storageKey = "quiet-web-lab-news-drafts";
+
+  const today = new Date().toISOString().slice(0, 10);
+  const dateInput = form?.querySelector('[name="date"]');
+  const publishInput = form?.querySelector('[name="publishDate"]');
+  if (dateInput && "value" in dateInput && !dateInput.value) dateInput.value = today;
+  if (publishInput && "value" in publishInput && !publishInput.value) publishInput.value = today;
+
+  function lines(value) {
+    return value
+      .split("\n")
+      .map((item) => item.trim())
+      .filter(Boolean);
+  }
+
+  function paragraphs(value) {
+    return value
+      .split(/\n\s*\n/g)
+      .map((item) => item.replace(/\s+/g, " ").trim())
+      .filter(Boolean);
+  }
+
+  function relatedLinks(value) {
+    return lines(value).map((item) => {
+      const [label = "", href = ""] = item.split("|").map((part) => part.trim());
+      return { label, href };
+    }).filter((item) => item.label && item.href);
+  }
+
+  function readForm() {
+    const data = new FormData(form);
+    const post = {
+      slug: String(data.get("slug") ?? "").trim(),
+      title: String(data.get("title") ?? "").trim(),
+      date: String(data.get("date") ?? today),
+      publishDate: String(data.get("publishDate") ?? "").trim(),
+      category: String(data.get("category") ?? "Generation Notes"),
+      description: String(data.get("description") ?? "").trim(),
+      heroImage: String(data.get("heroImage") ?? "").trim(),
+      takeaways: lines(String(data.get("takeaways") ?? "")),
+      body: paragraphs(String(data.get("body") ?? "")),
+      relatedLinks: relatedLinks(String(data.get("relatedLinks") ?? ""))
+    };
+
+    if (!post.publishDate || post.publishDate === post.date) delete post.publishDate;
+    if (!post.heroImage) delete post.heroImage;
+    return post;
+  }
+
+  function writeForm(post) {
+    form.elements.title.value = post.title ?? "";
+    form.elements.slug.value = post.slug ?? "";
+    form.elements.category.value = post.category ?? "Generation Notes";
+    form.elements.date.value = post.date ?? today;
+    form.elements.publishDate.value = post.publishDate ?? post.date ?? today;
+    form.elements.description.value = post.description ?? "";
+    form.elements.heroImage.value = post.heroImage ?? "";
+    form.elements.takeaways.value = (post.takeaways ?? []).join("\n");
+    form.elements.body.value = (post.body ?? []).join("\n\n");
+    form.elements.relatedLinks.value = (post.relatedLinks ?? []).map((item) => `${item.label} | ${item.href}`).join("\n");
+    render();
+  }
+
+  function formatEntry(post) {
+    const json = JSON.stringify(post, null, 2)
+      .replace(/"([^"]+)":/g, "$1:")
+      .replace(/"Generation Notes"|"Model Test"|"Prompt Update"|"Workflow"/g, (match) => match);
+    return `${json},`;
+  }
+
+  function renderPreview(post) {
+    root.querySelector("[data-preview-title]").textContent = post.title || "Untitled update";
+    root.querySelector("[data-preview-meta]").textContent = `${post.category} · ${post.publishDate ?? post.date}`;
+    root.querySelector("[data-preview-description]").textContent = post.description;
+    const list = root.querySelector("[data-preview-takeaways]");
+    list.innerHTML = "";
+    post.takeaways.forEach((item) => {
+      const li = document.createElement("li");
+      li.textContent = item;
+      list.append(li);
+    });
+  }
+
+  function render() {
+    const post = readForm();
+    output.textContent = formatEntry(post);
+    renderPreview(post);
+  }
+
+  function getDrafts() {
+    try {
+      return JSON.parse(localStorage.getItem(storageKey) || "[]");
+    } catch {
+      return [];
+    }
+  }
+
+  function setDrafts(drafts) {
+    localStorage.setItem(storageKey, JSON.stringify(drafts));
+    renderDrafts();
+  }
+
+  function renderDrafts() {
+    const drafts = getDrafts();
+    draftList.innerHTML = "";
+    if (!drafts.length) {
+      const empty = document.createElement("p");
+      empty.className = "muted";
+      empty.textContent = "No local drafts yet.";
+      draftList.append(empty);
+      return;
+    }
+
+    drafts.forEach((draft, index) => {
+      const row = document.createElement("div");
+      row.className = "draft-item";
+
+      const info = document.createElement("button");
+      info.type = "button";
+      info.textContent = `${draft.title || "Untitled"} · ${draft.publishDate ?? draft.date}`;
+      info.addEventListener("click", () => writeForm(draft));
+
+      const remove = document.createElement("button");
+      remove.type = "button";
+      remove.textContent = "Delete";
+      remove.addEventListener("click", () => {
+        const next = getDrafts().filter((_, itemIndex) => itemIndex !== index);
+        setDrafts(next);
+      });
+
+      row.append(info, remove);
+      draftList.append(row);
+    });
+  }
+
+  async function copyEntry() {
+    await navigator.clipboard.writeText(output.textContent);
+  }
+
+  form?.addEventListener("input", render);
+  root?.querySelectorAll("[data-copy-entry]").forEach((button) => button.addEventListener("click", copyEntry));
+  root?.querySelector("[data-save-draft]")?.addEventListener("click", () => {
+    const post = readForm();
+    const drafts = getDrafts().filter((draft) => draft.slug !== post.slug);
+    setDrafts([post, ...drafts].slice(0, 30));
+  });
+  root?.querySelector("[data-reset-form]")?.addEventListener("click", () => form.reset());
+
+  render();
+  renderDrafts();
+</script>

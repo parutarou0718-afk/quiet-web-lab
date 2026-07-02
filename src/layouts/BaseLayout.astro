@@ -12,9 +12,17 @@ interface Props {
   canonicalPath: string;
   image?: string;
   showPromptCart?: boolean;
+  robots?: string;
 }
 
-const { title, description, canonicalPath, image = "/images/recipes/example-01.webp", showPromptCart = true } = Astro.props;
+const {
+  title,
+  description,
+  canonicalPath,
+  image = "/images/recipes/example-01.webp",
+  showPromptCart = true,
+  robots
+} = Astro.props;
 const pageTitle = `${title} | ${siteConfig.siteName}`;
 const canonical = canonicalUrl(canonicalPath);
 const imageUrl = canonicalUrl(image);
@@ -27,6 +35,7 @@ const imageUrl = canonicalUrl(image);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
+    {robots ? <meta name="robots" content={robots} /> : null}
     <link rel="canonical" href={canonical} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />

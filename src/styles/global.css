@@ -523,6 +523,99 @@ pre, textarea {
   padding: 8px 10px;
 }
 
+.admin-hero {
+  align-items: stretch;
+}
+.admin-shell {
+  display: grid;
+  gap: 18px;
+  align-items: start;
+}
+.admin-panel {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px;
+  background: var(--surface);
+}
+.admin-form {
+  display: grid;
+  gap: 14px;
+}
+.admin-form label {
+  display: grid;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 800;
+}
+.admin-form input,
+.admin-form select,
+.admin-form textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 11px 12px;
+  background: #fbfcfb;
+  color: var(--ink);
+  font-weight: 500;
+}
+.admin-form textarea {
+  resize: vertical;
+}
+.admin-two {
+  display: grid;
+  gap: 12px;
+}
+.admin-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.admin-side {
+  display: grid;
+  gap: 18px;
+}
+.draft-list,
+.draft-item {
+  display: grid;
+  gap: 10px;
+}
+.draft-item {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+}
+.draft-item:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+.draft-item button,
+.admin-output button {
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  padding: 8px 10px;
+  background: var(--surface-soft);
+  color: var(--ink);
+  text-align: left;
+}
+.draft-item button:last-child {
+  color: var(--red);
+}
+.admin-preview-list {
+  margin: 12px 0 0;
+  padding-left: 18px;
+  color: var(--muted);
+}
+.admin-output {
+  min-width: 0;
+}
+.admin-output pre {
+  max-height: 620px;
+  overflow: auto;
+  font-size: 0.88rem;
+}
+
 .game-page-grid {
   display: grid;
   gap: 18px;
@@ -669,6 +762,9 @@ pre, textarea {
   .content-grid, .detail-grid, .game-page-grid { grid-template-columns: minmax(0, 1fr) 300px; }
   .builder-shell { grid-template-columns: minmax(0, 1fr) 420px; }
   .builder-generator { grid-template-columns: 180px minmax(0, 1fr) 360px; }
+  .admin-shell { grid-template-columns: minmax(0, 1.1fr) 360px; }
+  .admin-output { grid-column: 1 / -1; }
+  .admin-two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .library-sidebar { display: grid; overflow: visible; }
   .library-fragment-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .model-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
