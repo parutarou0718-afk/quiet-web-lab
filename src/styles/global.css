@@ -386,12 +386,13 @@ pre, textarea {
 .check-warning { color: var(--orange) !important; }
 .check-ok { color: var(--accent-strong) !important; }
 .model-thumb {
-  min-height: 150px;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
   border-radius: 8px;
-  background:
-    linear-gradient(145deg, rgba(34, 107, 92, 0.72), rgba(181, 92, 40, 0.38)),
-    repeating-linear-gradient(135deg, rgba(255,255,255,0.22) 0 12px, rgba(255,255,255,0.05) 12px 24px),
-    #dce8e1;
+  object-fit: cover;
+  object-position: center 28%;
+  background: var(--surface-soft);
 }
 .shot-card small {
   color: var(--muted);

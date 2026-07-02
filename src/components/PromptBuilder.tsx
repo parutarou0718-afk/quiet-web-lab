@@ -738,7 +738,7 @@ export default function PromptBuilder({ locale = "en" }: PromptBuilderProps) {
         <div className="model-grid">
           {modelRecommendations.map((model) => (
             <article className="model-card" key={model.id}>
-              <div className="model-thumb" />
+              <img className="model-thumb" src={model.sampleImage} alt={`${model.name} sample cover`} loading="lazy" />
               <span className="category-badge">{model.type}</span>
               <h3>{model.name}</h3>
               <p>{model.bestFor.join(" / ")}</p>

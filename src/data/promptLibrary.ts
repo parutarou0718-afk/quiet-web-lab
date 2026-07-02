@@ -182,7 +182,7 @@ export const modelRecommendations: ModelRecommendation[] = [
     type: "checkpoint",
     bestFor: ["main anime sample library", "pose cards", "outfit examples", "clean character prompts"],
     promptStyle: "Use Danbooru-style short tags plus plain English structure. Good first choice for standing/walking/sitting pose cards.",
-    sampleImage: "/images/models/meinamix-v5.webp",
+    sampleImage: "/images/model-comparison/b01-meinahentai.png",
     comfyNotes: "Recommended for RTX 3080 first pass: 512x768 or 640x960, 20-28 steps, CFG 6-7, optional hires fix 1.4x after the base image looks stable."
   },
   {
@@ -191,7 +191,7 @@ export const modelRecommendations: ModelRecommendation[] = [
     type: "checkpoint",
     bestFor: ["2.5D anime look", "lighting comparison", "stylized portraits", "model comparison cards"],
     promptStyle: "Works well with anime character tags, lighting words, and camera framing. Keep realism tags moderate.",
-    sampleImage: "/images/models/dark-sushi-mix.webp",
+    sampleImage: "/images/model-comparison/b04-darksushi.png",
     comfyNotes: "Good second comparison model on 3080. Use same prompt and seed as meinamix to show users the style difference."
   },
   {
@@ -200,7 +200,7 @@ export const modelRecommendations: ModelRecommendation[] = [
     type: "checkpoint",
     bestFor: ["realistic portrait comparison", "camera tests", "lighting tests", "semi-photo examples"],
     promptStyle: "Use natural language prompts, explicit camera/lens/lighting, and fewer anime tags.",
-    sampleImage: "/images/models/majicmix-realistic-v7.webp",
+    sampleImage: "/images/model-comparison/b05-majicmixrealistic.png",
     comfyNotes: "Use for model recommendation samples rather than the main anime prompt library. Watch hands and face consistency at full body distance."
   },
   {
@@ -209,7 +209,7 @@ export const modelRecommendations: ModelRecommendation[] = [
     type: "checkpoint",
     bestFor: ["Japanese realistic style", "soft portrait samples", "realistic clothing materials", "model comparison cards"],
     promptStyle: "Use natural language with Japanese street/interior styling notes. Avoid piling anime-only tags.",
-    sampleImage: "/images/models/japanese-style-realistic-v20.webp",
+    sampleImage: "/images/model-comparison/b02-japaneseStyleRealistic-v20.png",
     comfyNotes: "Use as a realism-side comparison model. Keep resolution moderate on 3080 and compare against majicmixRealistic."
   },
   {
@@ -218,7 +218,7 @@ export const modelRecommendations: ModelRecommendation[] = [
     type: "checkpoint",
     bestFor: ["optional XL quality tests", "high detail anime examples", "later premium sample cards"],
     promptStyle: "Use XL-friendly prompts with clear subject, pose, style, and quality. Avoid using it for every first-pass sample.",
-    sampleImage: "/images/models/illustrious-xl-v1.webp",
+    sampleImage: "/images/model-comparison/b02-meinahentai.png",
     comfyNotes: "RTX 3080 can try it, but it is heavier. Start around 832x1216 or 768x1024, fp16, no heavy hires fix. Use only after the SD1.5 library direction is settled."
   },
   {
@@ -227,7 +227,7 @@ export const modelRecommendations: ModelRecommendation[] = [
     type: "checkpoint",
     bestFor: ["image editing", "variation cleanup", "turning approved samples into refined variants"],
     promptStyle: "Treat as an edit/refine tool rather than the main prompt library generator.",
-    sampleImage: "/images/models/qwen-image-edit.webp",
+    sampleImage: "/images/model-comparison/b03-majicmixrealistic.png",
     comfyNotes: "Use after you already have a base image. It is useful for edit workflows, not for the first pose/camera/style comparison grid."
   },
   {
@@ -236,7 +236,7 @@ export const modelRecommendations: ModelRecommendation[] = [
     type: "lora",
     bestFor: ["pose control", "whole-body reference guidance", "standing/walking/sitting consistency"],
     promptStyle: "Use alongside OpenPose / pose reference workflows when you want the exact body pose to stay stable.",
-    sampleImage: "/images/models/sdpose-wholebody.webp",
+    sampleImage: "/images/model-comparison/b01-meinahentai.png",
     comfyNotes: "Do not treat this as the main checkpoint. Use it as a pose-control helper after choosing a checkpoint such as meinamix_v5Final."
   }
 ];
