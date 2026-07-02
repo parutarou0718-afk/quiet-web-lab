@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
+import type { Locale } from "@/data/i18n";
+import { builderCopy } from "@/data/i18n";
 import { libraryGroups, modelRecommendations } from "@/data/promptLibrary";
 import type { PromptFragment } from "@/lib/promptCart";
 
@@ -89,9 +91,14 @@ function highlightConflicts(text: string, hits: ConflictHit[]) {
   );
 }
 
-export default function PromptBuilder() {
+type PromptBuilderProps = {
+  locale?: Locale;
+};
+
+export default function PromptBuilder({ locale = "en" }: PromptBuilderProps) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [activeCategory, setActiveCategory] = useState<string>("pose");
+  const copyText = builderCopy[locale];
 
   useEffect(() => {
     const sync = () => setItems(readCart());
@@ -141,10 +148,8 @@ export default function PromptBuilder() {
     <section className="builder-workspace">
       <div className="section-heading">
         <p className="eyebrow">AI Image Prompt Generator</p>
-        <h1>从样图库选择姿势、场景、镜头和模型方向。</h1>
-        <p className="lead">
-          先从左侧库里选片段，右侧会生成 Positive / Negative / Parameters。冲突会标红提醒，但不会阻止复制，方便你带到 ComfyUI 里继续试。
-        </p>
+        <h1>{copyText.heading}</h1>
+        <p className="lead">{copyText.lead}</p>
       </div>
 
       <div className="builder-generator">
@@ -217,7 +222,7 @@ export default function PromptBuilder() {
 
       <section className="content-section">
         <div className="section-heading">
-          <h2>Model Recommendation Slots</h2>
+              <h2>Model Recommendation Slots</h2>
           <p className="muted">这些先作为模型统合推荐页的入口。你把样图给我后，我会替换占位图并补真实说明。</p>
         </div>
         <div className="model-grid">

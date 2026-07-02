@@ -1,0 +1,28 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="ニュース管理"
+  description="Quiet Web Lab のニュース更新を下書きするためのローカル編集画面です。"
+  canonicalPath="/ja/admin/news/"
+  showPromptCart={false}
+  robots="noindex,nofollow"
+  locale="ja"
+  routeKey="/admin/news/"
+>
+  <section class="hero admin-hero">
+    <div>
+      <p class="eyebrow">Local Admin</p>
+      <h1>ニュース更新デスク</h1>
+      <p class="lead">日々の更新を書き、ローカル下書きを保存し、記事構造を確認して `src/data/news.ts` 用のデータを生成します。</p>
+      <div class="hero-actions">
+        <a class="button" href="/ja/news/">ニュースを見る</a>
+        <a class="button secondary" href="/admin/news/">完全な編集画面を開く</a>
+      </div>
+    </div>
+  </section>
+  <section class="content-section">
+    <iframe class="admin-embed" src="/admin/news/" title="News admin editor"></iframe>
+  </section>
+</BaseLayout>

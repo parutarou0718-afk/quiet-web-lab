@@ -3,17 +3,11 @@ import PromptBuilder from "@/components/PromptBuilder.tsx";
 import { builderCopy } from "@/data/i18n";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
-const copy = builderCopy.en;
+const copy = builderCopy.zh;
 ---
 
-<BaseLayout
-  title={copy.title}
-  description={copy.description}
-  canonicalPath="/builder/"
-  locale="en"
-  routeKey="/builder/"
->
-  <PromptBuilder client:load locale="en" />
+<BaseLayout title={copy.title} description={copy.description} canonicalPath="/zh/builder/" locale="zh" routeKey="/builder/">
+  <PromptBuilder client:load locale="zh" />
   <section class="content-section article-body">
     <h2>{copy.howTitle}</h2>
     <p>{copy.p1}</p>

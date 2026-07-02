@@ -4,24 +4,18 @@ import { modelPageCopy } from "@/data/i18n";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { comparisonImage, comparisonModels, comparisonPrompts } from "@/data/modelComparison";
 
-const copy = modelPageCopy.en;
+const copy = modelPageCopy.ja;
 ---
 
-<BaseLayout
-  title={copy.title}
-  description={copy.description}
-  canonicalPath="/models/"
-  locale="en"
-  routeKey="/models/"
->
+<BaseLayout title={copy.title} description={copy.description} canonicalPath="/ja/models/" locale="ja" routeKey="/models/">
   <section class="hero">
     <div>
       <p class="eyebrow">Model Guide</p>
       <h1>{copy.h1}</h1>
       <p class="lead">{copy.lead}</p>
       <div class="hero-actions">
-        <a class="button" href="/builder/">Open Builder</a>
-        <a class="button secondary" href="/recipes/">Browse Recipes</a>
+        <a class="button" href="/ja/builder/">ビルダーを開く</a>
+        <a class="button secondary" href="/recipes/">レシピを見る</a>
       </div>
     </div>
   </section>
@@ -37,7 +31,7 @@ const copy = modelPageCopy.en;
           <span class="category-badge">{model.label}</span>
           <h2>{model.name}</h2>
           <p>{model.tone}</p>
-          <h3>Best For</h3>
+          <h3>向いている用途</h3>
           <p>{model.bestFor}</p>
         </article>
       ))}
@@ -51,16 +45,11 @@ const copy = modelPageCopy.en;
       <h2>{copy.results}</h2>
       <p class="muted">{copy.resultsLead}</p>
     </div>
-
     <div class="comparison-table" aria-label="Local checkpoint comparison grid">
       <div class="comparison-corner">Prompt</div>
       {comparisonModels.map((model) => (
-        <div class="comparison-model-head">
-          <strong>{model.name}</strong>
-          <span>{model.label}</span>
-        </div>
+        <div class="comparison-model-head"><strong>{model.name}</strong><span>{model.label}</span></div>
       ))}
-
       {comparisonPrompts.map((prompt) => (
         <>
           <article class="comparison-prompt">
@@ -76,26 +65,6 @@ const copy = modelPageCopy.en;
           ))}
         </>
       ))}
-    </div>
-  </section>
-
-  <section class="content-section">
-    <div class="section-heading">
-      <h2>{copy.quick}</h2>
-    </div>
-    <div class="category-grid">
-      <article class="category-card">
-        <h3>Main Library</h3>
-        <p>Use meinamix_v5Final when the site needs consistent anime sample cards for prompt fragments.</p>
-      </article>
-      <article class="category-card">
-        <h3>Stylized Variant</h3>
-        <p>Use DarkSushiMix-2.25D when you want a slightly richer illustrated look without going fully realistic.</p>
-      </article>
-      <article class="category-card">
-        <h3>Realism Tests</h3>
-        <p>Use majicmixRealistic_v7 and japaneseStyleRealistic_v20 for portrait and camera-language comparison pages.</p>
-      </article>
     </div>
   </section>
 </BaseLayout>

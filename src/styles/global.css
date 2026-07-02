@@ -56,6 +56,22 @@ main { padding: 18px 0 58px; }
   font-size: 0.95rem;
 }
 .site-nav a:hover, .site-footer a:hover { background: var(--surface-soft); color: var(--accent-strong); }
+.language-switcher {
+  display: inline-flex;
+  gap: 4px;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+}
+.language-switcher a {
+  padding: 5px 7px;
+  font-size: 0.82rem;
+}
+.language-switcher a.is-active {
+  background: var(--accent);
+  color: #fff;
+}
 .site-footer {
   display: flex;
   justify-content: space-between;
@@ -629,6 +645,14 @@ pre, textarea {
   max-height: 620px;
   overflow: auto;
   font-size: 0.88rem;
+}
+.admin-embed {
+  display: block;
+  width: 100%;
+  min-height: 900px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
 }
 
 .game-page-grid {

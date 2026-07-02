@@ -6,9 +6,17 @@ import { canonicalUrl } from "@/config/site";
 
 const pages = [
   "/",
+  "/zh/",
+  "/ja/",
   "/models/",
+  "/zh/models/",
+  "/ja/models/",
   "/builder/",
+  "/zh/builder/",
+  "/ja/builder/",
   "/news/",
+  "/zh/news/",
+  "/ja/news/",
   "/recipes/",
   "/guides/",
   "/lora/",

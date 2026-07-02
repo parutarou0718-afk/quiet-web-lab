@@ -8,18 +8,18 @@ import { latestNews } from "@/data/news";
 import { recipes } from "@/data/recipes";
 import { siteConfig } from "@/config/site";
 
-const copy = homeCopy.en;
+const copy = homeCopy.ja;
 ---
 
-<BaseLayout title={copy.title} description={siteConfig.description} canonicalPath="/" showPromptCart={false} locale="en" routeKey="/">
+<BaseLayout title={copy.title} description={siteConfig.description} canonicalPath="/ja/" showPromptCart={false} locale="ja" routeKey="/">
   <section class="hero hub-hero">
     <div>
       <p class="eyebrow">Quiet Web Lab</p>
       <h1>{copy.h1}</h1>
       <p class="lead">{copy.lead}</p>
       <div class="hero-actions">
-        <a class="button" href="/builder/">{copy.builderCta}</a>
-        <a class="button secondary" href="/models/">{copy.modelCta}</a>
+        <a class="button" href="/ja/builder/">{copy.builderCta}</a>
+        <a class="button secondary" href="/ja/models/">{copy.modelCta}</a>
       </div>
     </div>
     <aside class="hero-panel hub-panel">
@@ -33,14 +33,13 @@ const copy = homeCopy.en;
   </section>
 
   <section class="content-section product-grid">
-    <a class="product-card product-card--ai" href="/builder/">
+    <a class="product-card product-card--ai" href="/ja/builder/">
       <span class="eyebrow">{copy.promptBuilder}</span>
       <h2>{copy.promptBuilderTitle}</h2>
       <p>{copy.promptBuilderBody}</p>
       <span class="button">{copy.promptBuilderButton}</span>
     </a>
-
-    <a class="product-card product-card--models" href="/models/">
+    <a class="product-card product-card--models" href="/ja/models/">
       <span class="eyebrow">{copy.modelGuide}</span>
       <h2>{copy.modelGuideTitle}</h2>
       <p>{copy.modelGuideBody}</p>
@@ -56,18 +55,9 @@ const copy = homeCopy.en;
       <p class="muted">{copy.startLead}</p>
     </div>
     <div class="category-grid">
-      <a class="category-card" href="/recipes/">
-        <h3>Prompt Recipes</h3>
-        <p>Browse complete prompt examples that can be broken down into reusable fragments.</p>
-      </a>
-      <a class="category-card" href="/guides/">
-        <h3>Prompt Guides</h3>
-        <p>Learn structure, camera angles, negative prompts, clothing terms, poses, and iteration habits.</p>
-      </a>
-      <a class="category-card" href="/lora/">
-        <h3>LoRA Notes</h3>
-        <p>Plan datasets, captions, training settings, testing, and common cleanup decisions.</p>
-      </a>
+      <a class="category-card" href="/recipes/"><h3>プロンプトレシピ</h3><p>再利用できる断片に分けられる完成例を確認します。</p></a>
+      <a class="category-card" href="/guides/"><h3>プロンプトガイド</h3><p>構造、カメラ、ネガティブ、服装、ポーズ、反復方法を学びます。</p></a>
+      <a class="category-card" href="/lora/"><h3>LoRA メモ</h3><p>データセット、キャプション、学習設定、テスト、整理方法をまとめます。</p></a>
     </div>
   </section>
 

@@ -73,11 +73,21 @@ siteUrl: "https://你的真实域名"
 ## 主要路由
 
 - `/`：首页
+- `/zh/`：中文首页
+- `/ja/`：日文首页
 - `/builder/`：提示词构建器
+- `/zh/builder/`：中文提示词构建器
+- `/ja/builder/`：日文提示词构建器
 - `/recipes/`：提示词配方库
 - `/models/`：本地模型对比
+- `/zh/models/`：中文模型对比
+- `/ja/models/`：日文模型对比
 - `/news/`：新闻和每日更新
+- `/zh/news/`：中文新闻列表
+- `/ja/news/`：日文新闻列表
 - `/admin/news/`：本地新闻编辑后台，不进入 sitemap，默认 noindex
+- `/zh/admin/news/`：中文新闻后台入口，不进入 sitemap，默认 noindex
+- `/ja/admin/news/`：日文新闻后台入口，不进入 sitemap，默认 noindex
 - `/guides/`：提示词写作指南
 - `/lora/`：LoRA 学习内容
 - `/about/`：关于本站
@@ -131,6 +141,24 @@ http://127.0.0.1:4321/admin/news/
 在后台里填写标题、slug、分类、日期、预约发布日期、摘要、正文、要点和相关链接。后台会把草稿保存在当前浏览器的本地存储里，并生成可以直接放进 `src/data/news.ts` 的新闻对象。
 
 发布时，把后台生成的代码复制到 `src/data/news.ts` 的 `newsPosts` 数组顶部即可。
+
+## 多语言基础页
+
+站点保留英文主路径，同时提供中文和日文基础功能页：
+
+- 英文：`/`、`/builder/`、`/models/`、`/news/`
+- 中文：`/zh/`、`/zh/builder/`、`/zh/models/`、`/zh/news/`
+- 日文：`/ja/`、`/ja/builder/`、`/ja/models/`、`/ja/news/`
+
+基础导航、首页、构建器说明、模型页标题、新闻列表标题和页脚已经三语化。文章正文暂时不强制三语同步，你可以自己用 AI 翻译后，再逐篇扩展新闻数据。
+
+多语言配置集中在：
+
+```text
+src/data/i18n.ts
+```
+
+`BaseLayout` 会输出对应的 `lang` 和 `hreflang` alternate 链接。公开的中日基础页已经加入 sitemap，后台页面仍然 `noindex`，并被 `robots.txt` 的 `/admin/` 规则屏蔽。
 
 每篇文章需要：
 

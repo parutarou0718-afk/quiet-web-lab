@@ -1,6 +1,15 @@
 ---
 import { siteConfig } from "@/config/site";
-import { mainNav } from "@/data/navigation";
+import type { Locale, RouteKey } from "@/data/i18n";
+import { localeNames, localizedPath, navLabels, navRoutes, routeFromPath } from "@/data/i18n";
+
+interface Props {
+  locale?: Locale;
+  routeKey?: RouteKey;
+}
+
+const { locale = "en", routeKey = routeFromPath(Astro.url.pathname) } = Astro.props;
+const labels = navLabels[locale];
 ---
 
 <header class="site-header">
@@ -9,6 +18,11 @@ import { mainNav } from "@/data/navigation";
     <span>{siteConfig.siteName}</span>
   </a>
   <nav class="site-nav" aria-label="Main navigation">
-    {mainNav.map((item) => <a href={item.href}>{item.label}</a>)}
+    {navRoutes.map((item) => <a href={localizedPath(item.route, locale)}>{labels[item.key]}</a>)}
+    <span class="language-switcher" aria-label="Language switcher">
+      {(["en", "zh", "ja"] as Locale[]).map((targetLocale) => (
+        <a class={targetLocale === locale ? "is-active" : ""} href={localizedPath(routeKey, targetLocale)}>{localeNames[targetLocale]}</a>
+      ))}
+    </span>
   </nav>
 </header>

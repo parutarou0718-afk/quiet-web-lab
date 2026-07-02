@@ -1,18 +1,12 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
 import { newsPageCopy } from "@/data/i18n";
 import { latestNews } from "@/data/news";
+import BaseLayout from "@/layouts/BaseLayout.astro";
 
-const copy = newsPageCopy.en;
+const copy = newsPageCopy.zh;
 ---
 
-<BaseLayout
-  title={copy.title}
-  description={copy.description}
-  canonicalPath="/news/"
-  locale="en"
-  routeKey="/news/"
->
+<BaseLayout title={copy.title} description={copy.description} canonicalPath="/zh/news/" locale="zh" routeKey="/news/">
   <section class="content-section">
     <div class="section-heading">
       <p class="eyebrow">{copy.eyebrow}</p>
