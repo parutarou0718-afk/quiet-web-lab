@@ -1,23 +1,28 @@
 ---
 import type { PromptRecipe } from "@/lib/promptCart";
 import CategoryBadge from "@/components/CategoryBadge.astro";
+import type { Locale } from "@/data/i18n";
+import { categoryLabel, recipePath, recipeShortDescription, recipeTitle } from "@/data/recipePages";
 
 interface Props {
   recipe: PromptRecipe;
+  locale?: Locale;
 }
 
-const { recipe } = Astro.props;
+const { recipe, locale = "en" } = Astro.props;
+const title = recipeTitle(recipe, locale);
+const shortDescription = recipeShortDescription(recipe, locale);
 ---
 
 <article class="recipe-card">
-  <a href={`/recipes/${recipe.slug}/`} aria-label={`View ${recipe.title}`}>
+  <a href={recipePath(recipe, locale)} aria-label={`View ${title}`}>
     <div class="recipe-thumb" style={`--recipe-image: url('${recipe.image}')`}>
-      <span>{recipe.title}</span>
+      <span>{title}</span>
     </div>
     <div class="recipe-card-body">
-      <CategoryBadge category={recipe.category} />
-      <h3>{recipe.title}</h3>
-      <p>{recipe.shortDescription}</p>
+      <CategoryBadge category={recipe.category} label={categoryLabel(recipe.category, locale)} />
+      <h3>{title}</h3>
+      <p>{shortDescription}</p>
       <ul class="tag-list">
         {recipe.tags.map((tag) => <li>{tag}</li>)}
       </ul>

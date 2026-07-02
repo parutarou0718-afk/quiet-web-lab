@@ -2,22 +2,27 @@
 import type { PromptFragment } from "@/lib/promptCart";
 import CategoryBadge from "@/components/CategoryBadge.astro";
 import PromptCartButton from "@/components/PromptCartButton.astro";
+import type { Locale } from "@/data/i18n";
+import { categoryLabel, fragmentLabel } from "@/data/recipePages";
 
 interface Props {
   fragment: PromptFragment;
+  locale?: Locale;
+  addLabel?: string;
+  sourceLabel?: string;
 }
 
-const { fragment } = Astro.props;
+const { fragment, locale = "en", addLabel = "Add to cart", sourceLabel = "Source" } = Astro.props;
 ---
 
 <article class="fragment-card" id={fragment.id}>
   <div class="fragment-card-top">
     <div>
-      <CategoryBadge category={fragment.category} />
-      <h3>{fragment.label}</h3>
+      <CategoryBadge category={fragment.category} label={categoryLabel(fragment.category, locale)} />
+      <h3>{fragmentLabel(fragment, locale)}</h3>
     </div>
-    <PromptCartButton fragment={fragment} small />
+    <PromptCartButton fragment={fragment} label={addLabel} small />
   </div>
   <p>{fragment.text}</p>
-  {fragment.sourceRecipeTitle && <small>Source: {fragment.sourceRecipeTitle}</small>}
+  {fragment.sourceRecipeTitle && <small>{sourceLabel}: {fragment.sourceRecipeTitle}</small>}
 </article>

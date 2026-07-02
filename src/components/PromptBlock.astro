@@ -2,15 +2,16 @@
 interface Props {
   title: string;
   text: string;
+  copyLabel?: string;
 }
 
-const { title, text } = Astro.props;
+const { title, text, copyLabel = "Copy" } = Astro.props;
 ---
 
 <section class="prompt-block">
   <div>
     <h3>{title}</h3>
-    <button class="copy-inline" type="button" data-copy={text}>Copy</button>
+    <button class="copy-inline" type="button" data-copy={text}>{copyLabel}</button>
   </div>
   <pre>{text}</pre>
 </section>

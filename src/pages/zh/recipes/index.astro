@@ -4,10 +4,10 @@ import { recipePageCopy } from "@/data/recipePages";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { recipes } from "@/data/recipes";
 
-const copy = recipePageCopy.en;
+const copy = recipePageCopy.zh;
 ---
 
-<BaseLayout title={copy.title} description={copy.description} canonicalPath="/recipes/" locale="en" routeKey="/recipes/">
+<BaseLayout title={copy.title} description={copy.description} canonicalPath="/zh/recipes/" locale="zh" routeKey="/recipes/">
   <section class="content-section">
     <div class="section-heading">
       <p class="eyebrow">{copy.eyebrow}</p>
@@ -15,7 +15,7 @@ const copy = recipePageCopy.en;
       <p class="lead">{copy.lead}</p>
     </div>
     <div class="recipe-grid">
-      {recipes.map((recipe) => <RecipeCard recipe={recipe} locale="en" />)}
+      {recipes.map((recipe) => <RecipeCard recipe={recipe} locale="zh" />)}
     </div>
   </section>
 </BaseLayout>

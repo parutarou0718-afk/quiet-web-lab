@@ -13,14 +13,14 @@ export function getStaticPaths() {
 
 const { recipe } = Astro.props;
 const related = recipe.relatedRecipes.map((slug) => getRecipe(slug)).filter(Boolean);
-const copy = recipePageCopy.en;
-const pageRecipe = localizedRecipe(recipe, "en");
+const copy = recipePageCopy.zh;
+const pageRecipe = localizedRecipe(recipe, "zh");
 ---
 
-<BaseLayout title={pageRecipe.title} description={pageRecipe.shortDescription} canonicalPath={`/recipes/${recipe.slug}/`} image={recipe.image} locale="en" routeKey="/recipes/">
+<BaseLayout title={pageRecipe.title} description={pageRecipe.shortDescription} canonicalPath={`/zh/recipes/${recipe.slug}/`} image={recipe.image} locale="zh" routeKey="/recipes/">
   <article class="content-section">
     <div class="section-heading">
-      <p class="eyebrow">{categoryLabel(recipe.category, "en")} recipe</p>
+      <p class="eyebrow">{categoryLabel(recipe.category, "zh")}配方</p>
       <h1>{pageRecipe.title}</h1>
       <p class="lead">{pageRecipe.description}</p>
       <div class="card-actions">
@@ -48,14 +48,14 @@ const pageRecipe = localizedRecipe(recipe, "en");
       <p class="muted">{copy.breakdownLead}</p>
     </div>
     <div class="feature-grid">
-      {recipe.breakdown.map((fragment) => <PromptFragmentCard fragment={fragment} locale="en" addLabel={copy.addToCart} sourceLabel={copy.source} />)}
+      {recipe.breakdown.map((fragment) => <PromptFragmentCard fragment={fragment} locale="zh" addLabel={copy.addToCart} sourceLabel={copy.source} />)}
     </div>
   </section>
 
   <section class="content-section">
     <h2>{copy.variations}</h2>
     <div class="feature-grid">
-      {recipe.variations.map((fragment) => <PromptFragmentCard fragment={fragment} locale="en" addLabel={copy.addToCart} sourceLabel={copy.source} />)}
+      {recipe.variations.map((fragment) => <PromptFragmentCard fragment={fragment} locale="zh" addLabel={copy.addToCart} sourceLabel={copy.source} />)}
     </div>
   </section>
 
@@ -67,7 +67,7 @@ const pageRecipe = localizedRecipe(recipe, "en");
   <section class="content-section">
     <h2>{copy.related}</h2>
     <div class="recipe-grid">
-      {related.map((item) => item && <RecipeCard recipe={item} locale="en" />)}
+      {related.map((item) => item && <RecipeCard recipe={item} locale="zh" />)}
     </div>
   </section>
 </BaseLayout>

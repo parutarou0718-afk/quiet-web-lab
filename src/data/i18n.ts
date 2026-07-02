@@ -16,7 +16,7 @@ export const localeLabels: Record<Locale, string> = {
 const pathMap = {
   "/": { en: "/", zh: "/zh/", ja: "/ja/" },
   "/builder/": { en: "/builder/", zh: "/zh/builder/", ja: "/ja/builder/" },
-  "/recipes/": { en: "/recipes/", zh: "/recipes/", ja: "/recipes/" },
+  "/recipes/": { en: "/recipes/", zh: "/zh/recipes/", ja: "/ja/recipes/" },
   "/models/": { en: "/models/", zh: "/zh/models/", ja: "/ja/models/" },
   "/news/": { en: "/news/", zh: "/zh/news/", ja: "/ja/news/" },
   "/guides/": { en: "/guides/", zh: "/guides/", ja: "/guides/" },
