@@ -1,0 +1,238 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Prompt Sample Admin"
+  description="Add visual sample cards for the prompt builder."
+  canonicalPath="/admin/prompts/"
+  showPromptCart={false}
+  robots="noindex,nofollow"
+  locale="en"
+  routeKey="/admin/prompts/"
+>
+  <section class="hero admin-hero">
+    <div>
+      <p class="eyebrow">Admin</p>
+      <h1>Prompt sample card desk</h1>
+      <p class="lead">Upload the sample cards used by the visual Prompt Builder. Card names can be English, Chinese, and Japanese, while the copyable model prompt stays in English.</p>
+      <div class="hero-actions">
+        <a class="button" href="/builder/">Open Builder</a>
+        <a class="button secondary" href="/admin/news/">News Admin</a>
+      </div>
+    </div>
+    <aside class="hero-panel">
+      <p class="eyebrow">Image rule</p>
+      <p class="muted">Use small web images when possible. A 600-900px tall JPG or WebP is enough for these cards.</p>
+    </aside>
+  </section>
+
+  <section class="admin-shell" data-prompt-admin>
+    <form class="admin-panel admin-form" data-prompt-form>
+      <div class="section-heading">
+        <p class="eyebrow">Card Editor</p>
+        <h2>Sample card content</h2>
+      </div>
+
+      <div class="admin-two">
+        <label>
+          <span>Category</span>
+          <select name="category">
+            <option value="pose">Pose / 姿势 / ポーズ</option>
+            <option value="scene">Scene / 场景 / 場面</option>
+            <option value="lighting">Lighting / 光照 / ライティング</option>
+            <option value="subject">Character / 人物 / 人物</option>
+            <option value="camera">Camera / 镜头 / カメラ</option>
+            <option value="clothing">Outfit / 服装 / 衣装</option>
+            <option value="action">Action / 动作 / 動作</option>
+            <option value="style">Style / 风格 / スタイル</option>
+            <option value="quality">Quality / 质量 / 品質</option>
+            <option value="negative">Negative / 负向 / ネガティブ</option>
+            <option value="parameters">Parameters / 参数 / パラメータ</option>
+          </select>
+        </label>
+        <label>
+          <span>ID / slug</span>
+          <input name="id" type="text" value="front-standing-pose" />
+        </label>
+      </div>
+
+      <div class="admin-two">
+        <label>
+          <span>English name</span>
+          <input name="labelEn" type="text" value="Front standing pose" />
+        </label>
+        <label>
+          <span>中文名</span>
+          <input name="labelZh" type="text" value="正面站姿" />
+        </label>
+      </div>
+
+      <label>
+        <span>日本語名</span>
+        <input name="labelJa" type="text" value="正面立ち姿" />
+      </label>
+
+      <label>
+        <span>English prompt fragment</span>
+        <textarea name="prompt" rows="5">front view, standing pose, relaxed shoulders, full body visible, balanced silhouette, readable hands</textarea>
+      </label>
+
+      <label>
+        <span>Image file</span>
+        <input name="imageFile" type="file" accept="image/png,image/jpeg,image/webp" />
+      </label>
+
+      <label>
+        <span>Or existing image path</span>
+        <input name="imagePath" type="text" placeholder="/images/prompt-samples/front-standing-pose.webp" />
+      </label>
+
+      <label>
+        <span>Admin password</span>
+        <input name="adminPassword" type="password" autocomplete="current-password" />
+      </label>
+
+      <div class="admin-actions">
+        <button class="button" type="button" data-publish-sample>Publish Card</button>
+        <button class="button secondary" type="button" data-copy-sample>Copy JSON</button>
+        <button class="button secondary" type="button" data-reset-sample>Reset</button>
+      </div>
+      <p class="admin-status muted" data-prompt-status></p>
+    </form>
+
+    <aside class="admin-side">
+      <section class="admin-panel">
+        <div class="section-heading">
+          <p class="eyebrow">Preview</p>
+          <h2 data-preview-label>Front standing pose</h2>
+        </div>
+        <div class="sample-choice admin-sample-preview">
+          <img data-preview-image src="/images/model-comparison/b01-meinahentai.png" alt="" />
+          <span data-preview-label-zh>正面站姿</span>
+          <small data-preview-category>pose</small>
+        </div>
+      </section>
+    </aside>
+
+    <section class="admin-panel admin-output">
+      <div class="prompt-output-head">
+        <div>
+          <p class="eyebrow">Fallback</p>
+          <h2>Generated JSON</h2>
+        </div>
+        <button type="button" data-copy-sample>Copy</button>
+      </div>
+      <pre data-sample-output></pre>
+    </section>
+  </section>
+</BaseLayout>
+
+<script>
+  const root = document.querySelector("[data-prompt-admin]");
+  const form = root?.querySelector("[data-prompt-form]");
+  const output = root?.querySelector("[data-sample-output]");
+  const status = root?.querySelector("[data-prompt-status]");
+
+  function setStatus(message, type = "info") {
+    if (!status) return;
+    status.textContent = message;
+    status.dataset.status = type;
+  }
+
+  function slugify(value) {
+    return String(value || "")
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  }
+
+  function readSample() {
+    const data = new FormData(form);
+    const id = slugify(data.get("id") || data.get("labelEn") || data.get("labelZh"));
+    return {
+      id,
+      category: String(data.get("category") || "pose"),
+      labelEn: String(data.get("labelEn") || "").trim(),
+      labelZh: String(data.get("labelZh") || "").trim(),
+      labelJa: String(data.get("labelJa") || "").trim(),
+      prompt: String(data.get("prompt") || "").trim(),
+      imagePath: String(data.get("imagePath") || "").trim()
+    };
+  }
+
+  function render() {
+    const sample = readSample();
+    output.textContent = JSON.stringify(sample, null, 2);
+    root.querySelector("[data-preview-label]").textContent = sample.labelEn || sample.labelZh || sample.id || "Untitled card";
+    root.querySelector("[data-preview-label-zh]").textContent = sample.labelZh || sample.labelEn || sample.id || "未命名";
+    root.querySelector("[data-preview-category]").textContent = sample.category;
+    if (sample.imagePath) root.querySelector("[data-preview-image]").src = sample.imagePath;
+  }
+
+  function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(String(reader.result || "").split(",")[1] || "");
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  async function publish() {
+    const data = new FormData(form);
+    const adminPassword = String(data.get("adminPassword") || "");
+    if (!adminPassword) {
+      setStatus("Please enter the admin password.", "error");
+      return;
+    }
+
+    const imageFile = form.elements.imageFile.files?.[0];
+    const payload = {
+      adminPassword,
+      sample: readSample()
+    };
+
+    if (imageFile) {
+      payload.imageName = imageFile.name;
+      payload.imageBase64 = await fileToBase64(imageFile);
+    }
+
+    setStatus("Submitting prompt sample to GitHub...", "info");
+    try {
+      const response = await fetch("/api/prompt-sample-submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      const result = await response.json().catch(() => ({ ok: false, message: "No response body." }));
+      if (!response.ok || !result.ok) {
+        setStatus(result.message || "Publish failed.", "error");
+        return;
+      }
+      setStatus("Sample submitted. Cloudflare will rebuild the site shortly.", "ok");
+    } catch {
+      setStatus("Publish failed. Check Cloudflare environment variables and GitHub token.", "error");
+    }
+  }
+
+  async function copyJson() {
+    await navigator.clipboard.writeText(output.textContent);
+    setStatus("JSON copied.", "ok");
+  }
+
+  form?.addEventListener("input", render);
+  form?.elements.imageFile?.addEventListener("change", () => {
+    const file = form.elements.imageFile.files?.[0];
+    if (file) root.querySelector("[data-preview-image]").src = URL.createObjectURL(file);
+  });
+  root?.querySelectorAll("[data-copy-sample]").forEach((button) => button.addEventListener("click", copyJson));
+  root?.querySelector("[data-publish-sample]")?.addEventListener("click", publish);
+  root?.querySelector("[data-reset-sample]")?.addEventListener("click", () => {
+    form.reset();
+    render();
+  });
+
+  render();
+</script>

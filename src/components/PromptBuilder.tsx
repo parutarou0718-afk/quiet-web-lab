@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import type { Locale } from "@/data/i18n";
 import { builderCopy } from "@/data/i18n";
+import { customPromptSamples } from "@/data/promptSamples";
 import { libraryGroups } from "@/data/promptLibrary";
 import type { PromptCategory, PromptFragment } from "@/lib/promptCart";
 
@@ -252,6 +253,7 @@ function categoryText(category: PromptCategory, locale: Locale) {
 }
 
 function fragmentText(fragment: PromptFragment, locale: Locale) {
+  if (fragment.labelI18n?.[locale]) return fragment.labelI18n[locale];
   return fragmentNames[fragment.id]?.[locale] ?? (locale === "en" ? fragment.label : `${categoryText(fragment.category, locale)}: ${fragment.label}`);
 }
 
@@ -315,7 +317,12 @@ type PromptBuilderProps = {
 export default function PromptBuilder({ locale = "en" }: PromptBuilderProps) {
   const pageCopy = builderCopy[locale];
   const t = ui[locale];
-  const visibleGroups = libraryGroups.filter((group) => group.fragments.length > 0);
+  const visibleGroups = libraryGroups
+    .map((group) => ({
+      ...group,
+      fragments: [...customPromptSamples.filter((sample) => sample.category === group.category), ...group.fragments]
+    }))
+    .filter((group) => group.fragments.length > 0);
   const [items, setItems] = useState<CartItem[]>([]);
   const [activeCategory, setActiveCategory] = useState<PromptCategory>("pose");
   const [activeFragmentId, setActiveFragmentId] = useState<string>("all");
@@ -411,7 +418,7 @@ export default function PromptBuilder({ locale = "en" }: PromptBuilderProps) {
           <div className="builder-sample-grid">
             {visibleFragments.map((fragment, index) => {
               const selected = items.some((item) => item.id === fragment.id);
-              const image = galleryImages[(index + visibleGroups.findIndex((group) => group.category === activeCategory) * 2) % galleryImages.length];
+              const image = fragment.image || galleryImages[(index + visibleGroups.findIndex((group) => group.category === activeCategory) * 2) % galleryImages.length];
               return (
                 <button
                   className={selected ? "sample-choice is-selected" : "sample-choice"}

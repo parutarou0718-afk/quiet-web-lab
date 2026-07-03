@@ -1,0 +1,28 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="プロンプトサンプル管理"
+  description="Smart Prompt App のプロンプトサンプルカード編集ページ。"
+  canonicalPath="/ja/admin/prompts/"
+  showPromptCart={false}
+  robots="noindex,nofollow"
+  locale="ja"
+  routeKey="/admin/prompts/"
+>
+  <section class="hero admin-hero">
+    <div>
+      <p class="eyebrow">Local Admin</p>
+      <h1>プロンプトサンプルカード管理</h1>
+      <p class="lead">ビルダーで使うサンプル画像カードを追加できます。カード名は日本語、中国語、英語で保存し、コピー用のモデルプロンプトは英語のままにします。</p>
+      <div class="hero-actions">
+        <a class="button" href="/ja/builder/">ビルダーを見る</a>
+        <a class="button secondary" href="/admin/prompts/">編集画面を開く</a>
+      </div>
+    </div>
+  </section>
+  <section class="content-section">
+    <iframe class="admin-embed" src="/admin/prompts/" title="Prompt sample admin editor"></iframe>
+  </section>
+</BaseLayout>

@@ -1,19 +1,19 @@
 # Smart Prompt App
 
-这是一个基于 Astro + TypeScript + 原生 CSS 的静态 AI 生图提示词网站。当前包含提示词构建器、配方库、模型对比、新闻栏目、LoRA 指南和一个轻量新闻后台。
+这是一个基于 Astro + TypeScript + 原生 CSS 的静态 AI 生图提示词网站。当前包含提示词构建器、提示词配方、模型对比、新闻栏目、LoRA 指南、新闻后台和提示词样图后台。
 
-网站可以部署到 Cloudflare Pages。构建命令是 `npm run build`，输出目录是 `dist`。
+项目可以部署到 Cloudflare Pages。构建命令是 `npm run build`，输出目录是 `dist`。
 
 ## 本地运行
 
-如果使用项目自带的 Node：
+如果项目自带 Node 工具包，优先使用：
 
 ```powershell
 .tools\node-v20.19.4-win-x64\npm.cmd install
 .tools\node-v20.19.4-win-x64\npm.cmd run dev
 ```
 
-如果电脑已经装好 Node：
+如果电脑已经安装 Node：
 
 ```powershell
 npm install
@@ -47,46 +47,43 @@ dist
 - Build output directory: `dist`
 - Node version: `20.19`
 
-正式域名在这里配置：
+站点名称、域名、Analytics、AdSense 配置在：
 
 ```text
 src/config/site.ts
 ```
 
-## 新闻后台
+## 后台入口
 
-后台地址：
+新闻后台：
 
 ```text
 /admin/news/
 ```
 
-后台能做的事情：
-
-- 写新闻标题、摘要、正文和要点
-- 设置发布日期
-- 填封面图片路径
-- 保存本机草稿
-- 发布到 GitHub
-- 触发 Cloudflare Pages 自动重新部署
-
-新闻文件会保存到：
+提示词样图后台：
 
 ```text
-src/data/newsPosts/
+/admin/prompts/
 ```
 
-每篇新闻是一个独立 JSON 文件，比较容易维护。
+提示词样图后台可以上传样图、选择分类、填写中日英卡片名，并保存英文提示词片段。保存后会写入 GitHub，Cloudflare Pages 自动重新构建，构建器会读取这些新增卡片。
 
-### 开启后台发布
+## 开启后台发布
 
-后台发布需要在 Cloudflare Pages 里配置环境变量：
+在 Cloudflare Pages 项目里配置环境变量：
 
 - `ADMIN_PASSWORD`: 你自己设置的后台发布密码
-- `GITHUB_TOKEN`: GitHub fine-grained token，需要允许写入这个仓库内容
+- `GITHUB_TOKEN`: GitHub fine-grained token
 - `GITHUB_OWNER`: `parutarou0718-afk`
 - `GITHUB_REPO`: `quiet-web-lab`
 - `GITHUB_BRANCH`: `main`
+
+GitHub token 建议权限：
+
+- Repository access: 只选择 `quiet-web-lab`
+- Contents: Read and write
+- Metadata: Read-only
 
 配置位置：
 
@@ -94,27 +91,17 @@ src/data/newsPosts/
 Cloudflare Pages 项目 > Settings > Environment variables
 ```
 
-`GITHUB_TOKEN` 建议使用 fine-grained token，只给当前仓库权限：
+## 新闻定时发布
 
-- Repository access: 只选择 `quiet-web-lab`
-- Contents: Read and write
-- Metadata: Read-only
+新闻文章支持 `publishDate`。如果发布日期是未来日期，构建时会自动隐藏，日期到了以后重新构建就会显示。
 
-配置完成并重新部署后，在 `/admin/news/` 填好文章和后台密码，点击“发布到网站”即可。
-
-## 定时发布
-
-新闻支持 `publishDate`。
-
-如果文章发布日期是未来日期，构建时会先隐藏。到了发布日期之后，只要 Cloudflare 再构建一次，文章就会显示。
-
-仓库里已经预留 GitHub Actions：
+每天自动触发构建的 GitHub Actions 文件在：
 
 ```text
 .github/workflows/daily-pages-build.yml
 ```
 
-如果想每天自动刷新一次，需要在 GitHub Actions secret 里配置：
+如果要启用自动刷新，需要在 GitHub Actions Secret 里配置：
 
 ```text
 CF_PAGES_DEPLOY_HOOK
@@ -122,53 +109,76 @@ CF_PAGES_DEPLOY_HOOK
 
 这个值来自 Cloudflare Pages 的 Deploy Hook。
 
-## 新增图片素材
+## 新增提示词样图
 
-推荐把公开图片放在：
+最简单的方法：
+
+1. 打开 `/admin/prompts/`
+2. 选择分类，例如 Pose、Scene、Lighting、Character、Camera、Outfit
+3. 填写英文名、中文名、日文名
+4. 填写英文提示词片段
+5. 上传样图
+6. 输入后台密码并发布
+
+发布后数据会保存到：
 
 ```text
+src/data/promptSamples/custom.json
+```
+
+图片会保存到：
+
+```text
+public/images/prompt-samples/
+```
+
+## 新增新闻
+
+最简单的方法：
+
+1. 打开 `/admin/news/`
+2. 填写标题、摘要、正文、发布日期和封面图路径
+3. 输入后台密码并发布
+
+新闻数据会保存到：
+
+```text
+src/data/newsPosts/
+```
+
+## 新增页面或栏目
+
+推荐结构：
+
+```text
+src/pages/
+src/components/
+src/data/
 public/images/
 ```
 
-文章封面路径示例：
+如果新增公开页面，记得补充：
 
-```text
-/images/model-comparison/b04-meinahentai.png
-```
-
-注意：`public` 目录里的文件，网站引用时不需要写 `public`。
-
-## 主要页面
-
-- `/`: 首页
-- `/builder/`: 提示词构建器
-- `/recipes/`: 提示词配方库
-- `/models/`: 本地模型对比
-- `/news/`: 新闻列表
-- `/admin/news/`: 新闻后台，默认 noindex
-- `/guides/`: 提示词指南
-- `/lora/`: LoRA 指南
-- `/about/`: 关于本站
-- `/privacy/`: 隐私政策
-- `/contact/`: 联系方式
-- `/sitemap.xml`: 站点地图
-- `/robots.txt`: 搜索引擎规则
+- 页面 `title`
+- 页面 `description`
+- canonical 路径
+- 三语路径映射，位置在 `src/data/i18n.ts`
 
 ## 多语言
 
-目前基础功能页已逐步支持：
+当前基础页面支持：
 
 - English: `/`
 - 中文: `/zh/`
 - 日本語: `/ja/`
 
-翻译配置主要在：
+界面语言和路径映射主要在：
 
 ```text
 src/data/i18n.ts
 ```
 
-新闻内容可以自行用 AI 翻译后再添加，后台目前以英文新闻内容为主。
+提示词构建器里，页面按钮和卡片名会跟随语言切换，但最终复制给模型的提示词保持英文。
 
 ## AdSense 和 Google Analytics
 
@@ -185,21 +195,9 @@ src/config/site.ts
 - `analyticsId`
 - `analyticsEnabled`
 
-默认都是关闭或空值，不会加载真实广告代码。
+默认不会填真实广告代码，也默认关闭 Analytics。
 
-## 新增小游戏或工具页
-
-建议结构：
-
-```text
-src/pages/your-page/
-src/components/YourComponent.astro
-src/data/yourData.ts
-```
-
-如果以后要把小游戏拆成单独网站，可以继续复用当前页面结构、SEO 配置和广告位组件。
-
-## 常用 Git 更新流程
+## Git 更新流程
 
 ```powershell
 git status
@@ -207,3 +205,13 @@ git add .
 git commit -m "Update site"
 git push origin main
 ```
+
+## 新目录
+
+为了节省 C 盘空间，项目将复制到：
+
+```text
+E:\website\quiet-web-lab
+```
+
+确认 E 盘版本可以正常运行以后，再手动清理 C 盘旧目录会更稳。

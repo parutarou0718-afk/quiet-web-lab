@@ -17,6 +17,8 @@ export type PromptFragment = {
   category: PromptCategory;
   label: string;
   text: string;
+  image?: string;
+  labelI18n?: Partial<Record<"en" | "zh" | "ja", string>>;
   sourceRecipeSlug?: string;
   sourceRecipeTitle?: string;
   weight?: number;

@@ -1,0 +1,28 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="提示词样图后台"
+  description="Smart Prompt App 的提示词样图卡片编辑入口。"
+  canonicalPath="/zh/admin/prompts/"
+  showPromptCart={false}
+  robots="noindex,nofollow"
+  locale="zh"
+  routeKey="/admin/prompts/"
+>
+  <section class="hero admin-hero">
+    <div>
+      <p class="eyebrow">本地后台</p>
+      <h1>提示词样图卡片后台</h1>
+      <p class="lead">这里用来上传构建器里的样图卡片。卡片标题可以写中文、日文和英文，但真正复制给模型的提示词会继续保持英文。</p>
+      <div class="hero-actions">
+        <a class="button" href="/zh/builder/">查看构建器</a>
+        <a class="button secondary" href="/admin/prompts/">打开完整编辑器</a>
+      </div>
+    </div>
+  </section>
+  <section class="content-section">
+    <iframe class="admin-embed" src="/admin/prompts/" title="Prompt sample admin editor"></iframe>
+  </section>
+</BaseLayout>

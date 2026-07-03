@@ -22,6 +22,7 @@ const pathMap = {
   "/guides/": { en: "/guides/", zh: "/zh/guides/", ja: "/ja/guides/" },
   "/lora/": { en: "/lora/", zh: "/zh/lora/", ja: "/ja/lora/" },
   "/admin/news/": { en: "/admin/news/", zh: "/zh/admin/news/", ja: "/ja/admin/news/" },
+  "/admin/prompts/": { en: "/admin/prompts/", zh: "/zh/admin/prompts/", ja: "/ja/admin/prompts/" },
   "/about/": { en: "/about/", zh: "/zh/about/", ja: "/ja/about/" },
   "/privacy/": { en: "/privacy/", zh: "/zh/privacy/", ja: "/ja/privacy/" },
   "/terms/": { en: "/terms/", zh: "/zh/terms/", ja: "/ja/terms/" },
