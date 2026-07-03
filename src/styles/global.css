@@ -403,6 +403,179 @@ pre, textarea {
   padding-left: 18px;
 }
 
+.visual-builder {
+  display: grid;
+  gap: 12px;
+}
+.builder-category-tabs,
+.builder-sub-tabs {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 8px 0;
+  scrollbar-width: thin;
+}
+.builder-category-tabs button,
+.builder-sub-tabs button {
+  flex: 0 0 auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--ink);
+}
+.builder-category-tabs button {
+  display: grid;
+  min-width: 120px;
+  min-height: 74px;
+  place-items: center;
+  gap: 2px;
+  padding: 12px;
+  font-weight: 850;
+}
+.builder-category-tabs small {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+.builder-sub-tabs {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px;
+  background: var(--surface);
+}
+.builder-sub-tabs button {
+  min-height: 34px;
+  padding: 7px 12px;
+  font-weight: 750;
+}
+.builder-category-tabs button.is-active,
+.builder-sub-tabs button.is-active {
+  border-color: var(--accent);
+  background: var(--surface-soft);
+  color: var(--accent-strong);
+}
+.builder-sample-stage {
+  min-height: 360px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.94), rgba(238,243,239,0.72)),
+    var(--surface);
+}
+.builder-stage-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.builder-stage-head span {
+  flex: 0 0 auto;
+  border-radius: 999px;
+  padding: 5px 10px;
+  background: #e8f1ee;
+  color: var(--accent-strong);
+  font-size: 0.82rem;
+  font-weight: 850;
+}
+.builder-sample-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+.sample-choice {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px;
+  background: var(--surface);
+  color: var(--ink);
+  text-align: left;
+}
+.sample-choice img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: 7px;
+  object-fit: cover;
+  object-position: center 24%;
+  background: var(--surface-soft);
+}
+.sample-choice span {
+  min-height: 2.7em;
+  font-weight: 850;
+  overflow-wrap: anywhere;
+}
+.sample-choice small {
+  width: fit-content;
+  border-radius: 999px;
+  padding: 4px 9px;
+  background: var(--surface-soft);
+  color: var(--muted);
+  font-weight: 800;
+}
+.sample-choice.is-selected {
+  border-color: var(--accent);
+  background: #edf6f2;
+  box-shadow: 0 0 0 3px rgba(34, 107, 92, 0.12);
+}
+.sample-choice.is-selected small {
+  background: var(--accent);
+  color: #fff;
+}
+.prompt-frame {
+  position: sticky;
+  bottom: 8px;
+  z-index: 15;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px;
+  background: rgba(255,255,255,0.96);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+}
+.prompt-frame-head {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.prompt-frame-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.prompt-frame-actions button {
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  padding: 8px 10px;
+  background: var(--surface-soft);
+  color: var(--ink);
+  font-weight: 800;
+}
+.prompt-frame-grid {
+  display: grid;
+  gap: 10px;
+}
+.prompt-window {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: #fbfcfb;
+}
+.prompt-window h3 {
+  margin-bottom: 8px;
+}
+.prompt-window textarea {
+  min-height: 92px;
+  background: var(--surface);
+}
+.prompt-window--checks ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
 .cart-fab {
   position: fixed;
   right: 18px;
@@ -825,6 +998,22 @@ pre, textarea {
   .admin-two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .library-sidebar { display: grid; overflow: visible; }
   .library-fragment-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .builder-category-tabs {
+    justify-content: center;
+  }
+  .builder-category-tabs button {
+    min-width: 140px;
+  }
+  .builder-sample-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .prompt-frame-head {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+  }
+  .prompt-frame-grid {
+    grid-template-columns: minmax(0, 1.5fr) minmax(180px, 0.75fr) minmax(180px, 0.75fr) minmax(220px, 0.9fr);
+  }
   .news-card { grid-template-columns: 260px minmax(0, 1fr); }
   .shot-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .game-shell { padding: 18px; }
