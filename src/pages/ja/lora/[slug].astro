@@ -1,0 +1,25 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { loraGuides } from "@/data/articles";
+import { localizeArticle, loraPageCopy } from "@/data/articlePages";
+import { localizedPath } from "@/data/i18n";
+
+export function getStaticPaths() {
+  return loraGuides.map((article) => ({ params: { slug: article[0] }, props: { article } }));
+}
+
+const locale = "ja";
+const copy = loraPageCopy[locale];
+const item = localizeArticle(Astro.props.article, locale, "lora");
+---
+
+<BaseLayout title={item.title} description={item.summary} canonicalPath={`/ja/lora/${item.slug}/`} locale={locale} routeKey="/lora/">
+  <article class="content-section article-body">
+    <p class="eyebrow">{copy.eyebrow}</p>
+    <h1>{item.title}</h1>
+    <p class="lead">{item.summary}</p>
+    <p>{copy.bodyLead}</p>
+    <p>{Astro.props.article[2]}</p>
+    <p><a href={localizedPath("/lora/", locale)}>{copy.back}</a></p>
+  </article>
+</BaseLayout>

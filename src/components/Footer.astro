@@ -1,6 +1,7 @@
 ---
 import { siteConfig } from "@/config/site";
 import type { Locale } from "@/data/i18n";
+import { localizedPath } from "@/data/i18n";
 
 interface Props {
   locale?: Locale;
@@ -19,7 +20,7 @@ const footerCopy = {
     sitemap: "Sitemap"
   },
   zh: {
-    text: "提示词工具、模型笔记、指南和创作用小工具。",
+    text: "提示词工具、模型笔记、指南和创意实用工具。",
     about: "关于",
     privacy: "隐私",
     terms: "条款",
@@ -28,10 +29,10 @@ const footerCopy = {
     sitemap: "网站地图"
   },
   ja: {
-    text: "プロンプトツール、モデルメモ、ガイド、制作ユーティリティ。",
+    text: "プロンプトツール、モデルメモ、ガイド、制作向けユーティリティ。",
     about: "概要",
     privacy: "プライバシー",
-    terms: "利用規約",
+    terms: "規約",
     disclaimer: "免責事項",
     contact: "連絡先",
     sitemap: "サイトマップ"
@@ -44,11 +45,11 @@ const copy = footerCopy[locale];
 <footer class="site-footer">
   <p>© {new Date().getFullYear()} {siteConfig.siteName}. {copy.text}</p>
   <nav aria-label="Footer navigation">
-    <a href="/about/">{copy.about}</a>
-    <a href="/privacy/">{copy.privacy}</a>
-    <a href="/terms/">{copy.terms}</a>
-    <a href="/disclaimer/">{copy.disclaimer}</a>
-    <a href="/contact/">{copy.contact}</a>
+    <a href={localizedPath("/about/", locale)}>{copy.about}</a>
+    <a href={localizedPath("/privacy/", locale)}>{copy.privacy}</a>
+    <a href={localizedPath("/terms/", locale)}>{copy.terms}</a>
+    <a href={localizedPath("/disclaimer/", locale)}>{copy.disclaimer}</a>
+    <a href={localizedPath("/contact/", locale)}>{copy.contact}</a>
     <a href="/sitemap.xml">{copy.sitemap}</a>
   </nav>
 </footer>

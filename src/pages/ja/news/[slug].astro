@@ -11,10 +11,10 @@ export function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const copy = newsPageCopy.en;
+const copy = newsPageCopy.ja;
 ---
 
-<BaseLayout title={post.title} description={post.description} canonicalPath={`/news/${post.slug}/`} image={post.heroImage} locale="en" routeKey="/news/">
+<BaseLayout title={post.title} description={post.description} canonicalPath={`/ja/news/${post.slug}/`} image={post.heroImage} locale="ja" routeKey="/news/">
   <article class="content-section news-detail">
     <div class="section-heading">
       <p class="eyebrow">{post.category}</p>
@@ -27,9 +27,7 @@ const copy = newsPageCopy.en;
 
     <section class="prompt-block">
       <h2>{copy.takeaways}</h2>
-      <ul>
-        {post.takeaways.map((takeaway) => <li>{takeaway}</li>)}
-      </ul>
+      <ul>{post.takeaways.map((takeaway) => <li>{takeaway}</li>)}</ul>
     </section>
 
     <div class="article-body">
@@ -37,12 +35,10 @@ const copy = newsPageCopy.en;
     </div>
 
     <section class="content-section">
-      <div class="section-heading">
-        <h2>{copy.related}</h2>
-      </div>
+      <div class="section-heading"><h2>{copy.related}</h2></div>
       <div class="category-grid">
         {post.relatedLinks.map((link) => (
-          <a class="category-card" href={localizeInternalHref(link.href, "en")}>
+          <a class="category-card" href={localizeInternalHref(link.href, "ja")}>
             <h3>{link.label}</h3>
             <p>{copy.continue}</p>
           </a>

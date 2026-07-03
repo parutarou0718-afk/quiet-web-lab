@@ -1,5 +1,5 @@
 ---
-import { newsPageCopy } from "@/data/i18n";
+import { localizedSlugPath, newsPageCopy } from "@/data/i18n";
 import { latestNews } from "@/data/news";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
@@ -15,7 +15,7 @@ const copy = newsPageCopy.ja;
     </div>
     <div class="news-list">
       {latestNews.map((post) => (
-        <a class="news-card" href={`/news/${post.slug}/`}>
+        <a class="news-card" href={localizedSlugPath("/news/", post.slug, "ja")}>
           {post.heroImage ? <img src={post.heroImage} alt="" loading="lazy" /> : null}
           <div>
             <span class="category-badge">{post.category}</span>

@@ -33,8 +33,8 @@ export const libraryGroups: LibraryGroup[] = [
   {
     category: "subject",
     title: "Subject / Character Base",
-    description: "角色或画面主体，先决定画面里是谁或是什么。",
-    sampleBrief: "同一角色基底做 3 张：少女冒险者、现代日常角色、无人场景静物。",
+    description: "Choose who or what the image is mainly about before adding pose, scene, and style.",
+    sampleBrief: "Character bases, object scenes, and no-person interiors that anchor the rest of the prompt.",
     fragments: [
       item("subject", "original-girl", "Original anime girl", "original anime girl, youthful character, friendly expression, all-ages design", ["character"]),
       item("subject", "traveler", "Traveler character", "original traveler character, small shoulder bag, curious expression, all-ages design", ["character"]),
@@ -45,8 +45,8 @@ export const libraryGroups: LibraryGroup[] = [
   {
     category: "pose",
     title: "Pose Library",
-    description: "你说的站、走、坐、跪、回头等核心姿势。每个都适合做一张样图。",
-    sampleBrief: "同一角色、同一服装、同一背景，分别出站立/行走/坐姿/跪姿/回头/动态训练。",
+    description: "Core body poses such as standing, walking, sitting, kneeling, looking back, and dynamic stance.",
+    sampleBrief: "Body-position prompts that control how the character is placed in the image.",
     fragments: [
       item("pose", "standing", "Standing", "standing pose, relaxed shoulders, full body visible, balanced silhouette", ["standing"]),
       item("pose", "walking", "Walking", "walking forward, natural stride, arms relaxed, readable full body pose", ["walking"]),
@@ -59,8 +59,8 @@ export const libraryGroups: LibraryGroup[] = [
   {
     category: "action",
     title: "Action Library",
-    description: "动作片段，比姿势更强调正在发生什么。",
-    sampleBrief: "用同一角色分别生成：挥手、拿伞、翻书、整理背包、练习木刀、端茶。",
+    description: "Actions describe what the subject is doing, not only how the body is posed.",
+    sampleBrief: "Gesture and activity prompts such as waving, holding an umbrella, reading, packing, serving tea, and practice sword.",
     fragments: [
       item("action", "waving", "Waving", "waving gently toward the viewer, friendly gesture, relaxed body language"),
       item("action", "umbrella", "Holding umbrella", "holding an umbrella after rain, looking down the street"),
@@ -73,8 +73,8 @@ export const libraryGroups: LibraryGroup[] = [
   {
     category: "clothing",
     title: "Clothing / Outfit",
-    description: "服装和材质。后面可以做专门的服装样图库。",
-    sampleBrief: "同一站姿角色分别出：校服风、和风练习服、旅行斗篷、草药师围裙、赛博长外套、毛衣日常。",
+    description: "Outfit fragments define clothing shape, material, and cultural direction.",
+    sampleBrief: "Casual, training, traveler, herbalist, long coat, and festival outfit directions.",
     fragments: [
       item("clothing", "casual-cardigan", "Casual cardigan", "soft cardigan, casual shirt, simple trousers, neat hairstyle"),
       item("clothing", "keikogi", "Training outfit", "simple dark keikogi, hakama pants, tied waist belt"),
@@ -87,8 +87,8 @@ export const libraryGroups: LibraryGroup[] = [
   {
     category: "scene",
     title: "Scene / Background",
-    description: "场景库。你可以先做室内、街道、自然、工作室、茶室、市集这些基础图。",
-    sampleBrief: "无人场景各一张：茶室、雨街、书房、森林、工坊、市集。",
+    description: "Scene fragments set the environment around the subject.",
+    sampleBrief: "Tea houses, rainy streets, study rooms, forest paths, fantasy workshops, and marketplaces.",
     fragments: [
       item("scene", "tea-house", "Traditional tea house", "traditional tea house interior, wood beams, paper screens, ceramic teapot"),
       item("scene", "rainy-street", "Rainy old street", "old stone street, lanterns, puddles, cozy shop windows, after rain"),
@@ -101,8 +101,8 @@ export const libraryGroups: LibraryGroup[] = [
   {
     category: "camera",
     title: "Camera / Composition",
-    description: "镜头和构图，经常和姿势冲突，所以需要红色提示。",
-    sampleBrief: "同一主体分别出：全身、半身、近景、俯视、仰视、等距。",
+    description: "Camera fragments control framing, distance, and viewing angle.",
+    sampleBrief: "Full body, medium shot, close-up, low angle, high angle, and isometric views.",
     fragments: [
       item("camera", "full-body", "Full body", "full body view, head to toe visible, readable silhouette", ["full body"]),
       item("camera", "medium-shot", "Medium shot", "medium shot, character from waist up, clear facial expression"),
@@ -115,8 +115,8 @@ export const libraryGroups: LibraryGroup[] = [
   {
     category: "lighting",
     title: "Lighting",
-    description: "光线库，决定质感和氛围。先做几个通用样图就很有价值。",
-    sampleBrief: "同一构图分别出：窗光、金色时刻、霓虹、桌灯、阴天、棚拍柔光。",
+    description: "Lighting fragments shape the mood, contrast, and material readability.",
+    sampleBrief: "Window light, golden hour, neon reflections, desk lamp, overcast, and studio light.",
     fragments: [
       item("lighting", "window", "Soft window light", "soft natural window lighting, gentle catchlights, soft shadows"),
       item("lighting", "golden-hour", "Golden hour", "golden hour rim light, warm edge highlights, long soft shadows"),
@@ -129,8 +129,8 @@ export const libraryGroups: LibraryGroup[] = [
   {
     category: "style",
     title: "Style Direction",
-    description: "风格库。这里可以和模型推荐页联动。",
-    sampleBrief: "同一提示词分别用：动漫插画、半写实、故事书、水彩、概念设计、等距游戏资产。",
+    description: "Style fragments decide the illustration language and finish.",
+    sampleBrief: "Clean anime, semi-realistic, storybook, watercolor, concept art, and isometric game asset styles.",
     fragments: [
       item("style", "anime-clean", "Clean anime", "anime-inspired clean illustration, crisp linework, polished color"),
       item("style", "semi-real", "Semi realistic", "semi-realistic illustration, subtle skin shading, natural materials"),
@@ -143,8 +143,8 @@ export const libraryGroups: LibraryGroup[] = [
   {
     category: "quality",
     title: "Quality Tags",
-    description: "质量词不要无限堆，保留 1-2 组就好。",
-    sampleBrief: "不用单独出图，作为所有工作流默认质量词。",
+    description: "Quality tags should support clarity without becoming a long pile of weak words.",
+    sampleBrief: "Clean composition, polished illustration, and readable design helpers.",
     fragments: [
       item("quality", "clean", "Clean composition", "clean composition, coherent anatomy, detailed materials, balanced colors"),
       item("quality", "polished", "Polished illustration", "polished illustration, sharp focus, refined edges, clear visual hierarchy"),
@@ -154,8 +154,8 @@ export const libraryGroups: LibraryGroup[] = [
   {
     category: "negative",
     title: "Negative Prompt",
-    description: "负面词按模型调整，这里先放通用版本。",
-    sampleBrief: "不用单独出图，作为 ComfyUI 工作流默认 negative。",
+    description: "Negative fragments reduce common model problems.",
+    sampleBrief: "General negative prompts for a ComfyUI workflow.",
     fragments: [
       item("negative", "general", "General negative", "low quality, blurry, extra fingers, deformed hands, unreadable details, watermark, text overlay"),
       item("negative", "composition", "Composition negative", "cropped head, cut off feet, messy composition, duplicated limbs, bad perspective"),
@@ -165,8 +165,8 @@ export const libraryGroups: LibraryGroup[] = [
   {
     category: "parameters",
     title: "ComfyUI Parameters",
-    description: "基础参数，可以直接复制到工作流备注里。",
-    sampleBrief: "作为工作流默认参数。",
+    description: "Base parameters that can be copied into workflow notes.",
+    sampleBrief: "Practical default parameters for image generation tests.",
     fragments: [
       item("parameters", "sdxl-default", "SDXL default", "aspect ratio: 4:5\nsteps: 28\nCFG scale: 6.5\nsampler: DPM++ 2M Karras\nseed: random"),
       item("parameters", "landscape", "Landscape", "aspect ratio: 16:9\nsteps: 30\nCFG scale: 6\nsampler: DPM++ 2M Karras\nseed: random"),

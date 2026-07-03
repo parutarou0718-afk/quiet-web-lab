@@ -1,4 +1,13 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { staticPageCopy } from "@/data/staticPages";
+
+const copy = staticPageCopy.about.en;
 ---
-<BaseLayout title="About" description="About AI Image Prompt Atlas and the Prompt Recipe Builder." canonicalPath="/about/"><article class="content-section article-body"><h1>About AI Image Prompt Atlas</h1><p>AI Image Prompt Atlas is a practical tutorial site for building cleaner AI image prompts from reusable recipe fragments. It focuses on all-ages examples, original concepts, and transparent prompt structure.</p><p>The Prompt Builder stores selected fragments in your browser with localStorage, then helps you compose positive prompts, negative prompts, and parameters.</p></article></BaseLayout>
+
+<BaseLayout title={copy.title} description={copy.description} canonicalPath="/about/" locale="en" routeKey="/about/">
+  <article class="content-section article-body">
+    <h1>{copy.h1}</h1>
+    {copy.body.map((paragraph) => <p>{paragraph}</p>)}
+  </article>
+</BaseLayout>

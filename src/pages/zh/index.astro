@@ -2,24 +2,24 @@
 import AdSlot from "@/components/AdSlot.astro";
 import RecipeCard from "@/components/RecipeCard.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { categories } from "@/data/categories";
-import { homeCopy } from "@/data/i18n";
+import { homeCopy, localizedPath, localizedSlugPath } from "@/data/i18n";
 import { latestNews } from "@/data/news";
 import { recipes } from "@/data/recipes";
 import { siteConfig } from "@/config/site";
 
-const copy = homeCopy.zh;
+const locale = "zh";
+const copy = homeCopy[locale];
 ---
 
-<BaseLayout title={copy.title} description={siteConfig.description} canonicalPath="/zh/" showPromptCart={false} locale="zh" routeKey="/">
+<BaseLayout title={copy.title} description={siteConfig.description} canonicalPath="/zh/" showPromptCart={false} locale={locale} routeKey="/">
   <section class="hero hub-hero">
     <div>
-      <p class="eyebrow">Quiet Web Lab</p>
+      <p class="eyebrow">Smart Prompt App</p>
       <h1>{copy.h1}</h1>
       <p class="lead">{copy.lead}</p>
       <div class="hero-actions">
-        <a class="button" href="/zh/builder/">{copy.builderCta}</a>
-        <a class="button secondary" href="/zh/models/">{copy.modelCta}</a>
+        <a class="button" href={localizedPath("/builder/", locale)}>{copy.builderCta}</a>
+        <a class="button secondary" href={localizedPath("/models/", locale)}>{copy.modelCta}</a>
       </div>
     </div>
     <aside class="hero-panel hub-panel">
@@ -33,13 +33,13 @@ const copy = homeCopy.zh;
   </section>
 
   <section class="content-section product-grid">
-    <a class="product-card product-card--ai" href="/zh/builder/">
+    <a class="product-card product-card--ai" href={localizedPath("/builder/", locale)}>
       <span class="eyebrow">{copy.promptBuilder}</span>
       <h2>{copy.promptBuilderTitle}</h2>
       <p>{copy.promptBuilderBody}</p>
       <span class="button">{copy.promptBuilderButton}</span>
     </a>
-    <a class="product-card product-card--models" href="/zh/models/">
+    <a class="product-card product-card--models" href={localizedPath("/models/", locale)}>
       <span class="eyebrow">{copy.modelGuide}</span>
       <h2>{copy.modelGuideTitle}</h2>
       <p>{copy.modelGuideBody}</p>
@@ -55,9 +55,9 @@ const copy = homeCopy.zh;
       <p class="muted">{copy.startLead}</p>
     </div>
     <div class="category-grid">
-      <a class="category-card" href="/recipes/"><h3>提示词配方</h3><p>浏览可以拆成片段复用的完整提示词示例。</p></a>
-      <a class="category-card" href="/guides/"><h3>提示词指南</h3><p>学习结构、镜头、负向词、服装、姿势和迭代方法。</p></a>
-      <a class="category-card" href="/lora/"><h3>LoRA 笔记</h3><p>整理数据集、打标、训练参数、测试和清理决策。</p></a>
+      <a class="category-card" href={localizedPath("/recipes/", locale)}><h3>提示词配方</h3><p>浏览可以拆成可复用片段的完整提示词示例。</p></a>
+      <a class="category-card" href={localizedPath("/guides/", locale)}><h3>提示词指南</h3><p>学习结构、镜头、负向词、服装、姿势和迭代方法。</p></a>
+      <a class="category-card" href={localizedPath("/lora/", locale)}><h3>LoRA 笔记</h3><p>整理数据集、打标、训练参数、测试和清理决策。</p></a>
     </div>
   </section>
 
@@ -67,7 +67,7 @@ const copy = homeCopy.zh;
       <p class="muted">{copy.latestRecipesLead}</p>
     </div>
     <div class="recipe-grid">
-      {recipes.slice(0, 3).map((recipe) => <RecipeCard recipe={recipe} />)}
+      {recipes.slice(0, 3).map((recipe) => <RecipeCard recipe={recipe} locale={locale} />)}
     </div>
   </section>
 
@@ -78,26 +78,11 @@ const copy = homeCopy.zh;
     </div>
     <div class="article-grid">
       {latestNews.slice(0, 3).map((post) => (
-        <a class="article-card" href={`/news/${post.slug}/`}>
+        <a class="article-card" href={localizedSlugPath("/news/", post.slug, locale)}>
           <span class="category-badge">{post.category}</span>
           <time datetime={post.date}>{post.date}</time>
           <h3>{post.title}</h3>
           <p>{post.description}</p>
-        </a>
-      ))}
-    </div>
-  </section>
-
-  <section class="content-section">
-    <div class="section-heading">
-      <h2>{copy.categories}</h2>
-      <p class="muted">{copy.categoriesLead}</p>
-    </div>
-    <div class="category-grid">
-      {categories.slice(0, 3).map((category) => (
-        <a class="category-card" href={`/categories/${category.slug}/`}>
-          <h3>{category.label}</h3>
-          <p>{category.description}</p>
         </a>
       ))}
     </div>

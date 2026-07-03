@@ -1,4 +1,13 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { staticPageCopy } from "@/data/staticPages";
+
+const copy = staticPageCopy.privacy.en;
 ---
-<BaseLayout title="Privacy" description="Privacy policy for AI Image Prompt Atlas." canonicalPath="/privacy/"><article class="content-section article-body"><h1>Privacy</h1><p>The Prompt Cart uses localStorage in your browser. Fragment selections are not sent to a server by this static site.</p><p>AdSense and analytics IDs are empty by default. If enabled later, update this page with the relevant provider disclosures and consent requirements.</p></article></BaseLayout>
+
+<BaseLayout title={copy.title} description={copy.description} canonicalPath="/privacy/" locale="en" routeKey="/privacy/">
+  <article class="content-section article-body">
+    <h1>{copy.h1}</h1>
+    {copy.body.map((paragraph) => <p>{paragraph}</p>)}
+  </article>
+</BaseLayout>

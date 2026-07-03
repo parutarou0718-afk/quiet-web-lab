@@ -13,7 +13,7 @@ const labels = navLabels[locale];
 ---
 
 <header class="site-header">
-  <a class="brand" href="/" aria-label={`${siteConfig.siteName} home`}>
+  <a class="brand" href={localizedPath("/", locale)} aria-label={`${siteConfig.siteName} home`}>
     <span class="brand-mark">QW</span>
     <span>{siteConfig.siteName}</span>
   </a>

@@ -1,6 +1,6 @@
 ---
 import AdSlot from "@/components/AdSlot.astro";
-import { modelPageCopy } from "@/data/i18n";
+import { localizedPath, modelPageCopy } from "@/data/i18n";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { comparisonImage, comparisonModels, comparisonPrompts } from "@/data/modelComparison";
 
@@ -16,12 +16,12 @@ const copy = modelPageCopy.en;
 >
   <section class="hero">
     <div>
-      <p class="eyebrow">Model Guide</p>
+      <p class="eyebrow">{copy.eyebrow}</p>
       <h1>{copy.h1}</h1>
       <p class="lead">{copy.lead}</p>
       <div class="hero-actions">
-        <a class="button" href="/builder/">Open Builder</a>
-        <a class="button secondary" href="/recipes/">Browse Recipes</a>
+        <a class="button" href={localizedPath("/builder/", "en")}>{copy.builder}</a>
+        <a class="button secondary" href={localizedPath("/recipes/", "en")}>{copy.recipes}</a>
       </div>
     </div>
   </section>
@@ -37,7 +37,7 @@ const copy = modelPageCopy.en;
           <span class="category-badge">{model.label}</span>
           <h2>{model.name}</h2>
           <p>{model.tone}</p>
-          <h3>Best For</h3>
+          <h3>{copy.bestFor}</h3>
           <p>{model.bestFor}</p>
         </article>
       ))}
@@ -53,7 +53,7 @@ const copy = modelPageCopy.en;
     </div>
 
     <div class="comparison-table" aria-label="Local checkpoint comparison grid">
-      <div class="comparison-corner">Prompt</div>
+      <div class="comparison-corner">{copy.prompt}</div>
       {comparisonModels.map((model) => (
         <div class="comparison-model-head">
           <strong>{model.name}</strong>

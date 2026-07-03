@@ -1,4 +1,13 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { staticPageCopy } from "@/data/staticPages";
+
+const copy = staticPageCopy.terms.en;
 ---
-<BaseLayout title="Terms" description="Terms for using AI Image Prompt Atlas." canonicalPath="/terms/"><article class="content-section article-body"><h1>Terms</h1><p>AI Image Prompt Atlas is an educational prompt-writing resource. Use the examples responsibly and adapt them for lawful, all-ages projects.</p><p>The site provides no warranty that a prompt will produce a specific result in any image model. You are responsible for reviewing generated outputs and following the policies of the tools you use.</p></article></BaseLayout>
+
+<BaseLayout title={copy.title} description={copy.description} canonicalPath="/terms/" locale="en" routeKey="/terms/">
+  <article class="content-section article-body">
+    <h1>{copy.h1}</h1>
+    {copy.body.map((paragraph) => <p>{paragraph}</p>)}
+  </article>
+</BaseLayout>

@@ -1,0 +1,25 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { guides } from "@/data/articles";
+import { guidePageCopy, localizeArticle } from "@/data/articlePages";
+import { localizedSlugPath } from "@/data/i18n";
+
+const locale = "zh";
+const copy = guidePageCopy[locale];
+---
+
+<BaseLayout title={copy.title} description={copy.description} canonicalPath="/zh/guides/" locale={locale} routeKey="/guides/">
+  <section class="content-section">
+    <div class="section-heading">
+      <p class="eyebrow">{copy.eyebrow}</p>
+      <h1>{copy.h1}</h1>
+      <p class="lead">{copy.lead}</p>
+    </div>
+    <div class="article-grid">
+      {guides.map((article) => {
+        const item = localizeArticle(article, locale, "guide");
+        return <a class="article-card" href={localizedSlugPath("/guides/", item.slug, locale)}><h3>{item.title}</h3><p>{item.summary}</p></a>;
+      })}
+    </div>
+  </section>
+</BaseLayout>

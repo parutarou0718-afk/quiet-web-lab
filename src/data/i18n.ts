@@ -19,9 +19,14 @@ const pathMap = {
   "/recipes/": { en: "/recipes/", zh: "/zh/recipes/", ja: "/ja/recipes/" },
   "/models/": { en: "/models/", zh: "/zh/models/", ja: "/ja/models/" },
   "/news/": { en: "/news/", zh: "/zh/news/", ja: "/ja/news/" },
-  "/guides/": { en: "/guides/", zh: "/guides/", ja: "/guides/" },
-  "/lora/": { en: "/lora/", zh: "/lora/", ja: "/lora/" },
-  "/admin/news/": { en: "/admin/news/", zh: "/zh/admin/news/", ja: "/ja/admin/news/" }
+  "/guides/": { en: "/guides/", zh: "/zh/guides/", ja: "/ja/guides/" },
+  "/lora/": { en: "/lora/", zh: "/zh/lora/", ja: "/ja/lora/" },
+  "/admin/news/": { en: "/admin/news/", zh: "/zh/admin/news/", ja: "/ja/admin/news/" },
+  "/about/": { en: "/about/", zh: "/zh/about/", ja: "/ja/about/" },
+  "/privacy/": { en: "/privacy/", zh: "/zh/privacy/", ja: "/ja/privacy/" },
+  "/terms/": { en: "/terms/", zh: "/zh/terms/", ja: "/ja/terms/" },
+  "/disclaimer/": { en: "/disclaimer/", zh: "/zh/disclaimer/", ja: "/ja/disclaimer/" },
+  "/contact/": { en: "/contact/", zh: "/zh/contact/", ja: "/ja/contact/" }
 } as const;
 
 export type RouteKey = keyof typeof pathMap;
@@ -32,6 +37,26 @@ export function localizedPath(route: RouteKey, locale: Locale): string {
 
 export function routeAlternates(route: RouteKey): Record<Locale, string> {
   return pathMap[route];
+}
+
+export function localizedSlugPath(baseRoute: "/news/" | "/guides/" | "/lora/" | "/recipes/", slug: string, locale: Locale): string {
+  const base = localizedPath(baseRoute, locale);
+  return `${base}${slug}/`;
+}
+
+export function localizeInternalHref(href: string, locale: Locale): string {
+  if (!href.startsWith("/")) return href;
+  const normalized = href.endsWith("/") ? href : `${href}/`;
+  if (normalized in pathMap) return localizedPath(normalized as RouteKey, locale);
+
+  for (const baseRoute of ["/news/", "/guides/", "/lora/", "/recipes/"] as const) {
+    if (normalized.startsWith(baseRoute) && normalized.length > baseRoute.length) {
+      const slug = normalized.slice(baseRoute.length).replace(/\/$/, "");
+      return localizedSlugPath(baseRoute, slug, locale);
+    }
+  }
+
+  return href;
 }
 
 export function detectLocale(pathname: string): Locale {
@@ -93,17 +118,17 @@ export const homeCopy = {
     title: "AI Image Prompt Library and Builder",
     h1: "Build cleaner AI image prompts from reusable fragments, examples, and model notes.",
     lead:
-      "Quiet Web Lab is focused on AI image prompt workflows: a local prompt builder, reusable prompt recipes, model comparison notes, LoRA learning pages, and production checklists for ComfyUI sample images.",
+      "Smart Prompt App is a practical prompt workspace for AI image generation: a reusable prompt builder, recipe library, model comparison notes, LoRA learning pages, and production checklists for ComfyUI samples.",
     builderCta: "Open Prompt Builder",
     modelCta: "View Model Comparisons",
     recipes: "prompt recipes",
     models: "local models compared",
     static: "Cloudflare ready",
-    local: "no login or backend",
+    local: "no login for readers",
     promptBuilder: "Prompt Builder",
     promptBuilderTitle: "Assemble prompts without losing the pieces.",
     promptBuilderBody:
-      "Pick subject, pose, camera, lighting, style, quality, negative prompts, and parameters. The basket highlights likely conflicts while still letting users copy the final text.",
+      "Pick subject, pose, camera, lighting, style, quality, negative prompts, and parameters. The basket highlights likely conflicts while still letting users copy the final English prompt.",
     promptBuilderButton: "Build a prompt",
     modelGuide: "Model Guide",
     modelGuideTitle: "Compare local checkpoints with the same prompts.",
@@ -113,65 +138,67 @@ export const homeCopy = {
     startHere: "Start Here",
     startLead: "Fast entry points for prompt writing, generation planning, and model choice.",
     latestRecipes: "Latest Prompt Recipes",
-    latestRecipesLead: "A sample of the current AI Image Prompt Atlas content.",
+    latestRecipesLead: "A sample of the current prompt atlas content.",
     latestUpdates: "Latest Updates",
     latestUpdatesLead: "Short notes from prompt tests, model comparisons, and image generation batches.",
     categories: "Popular Categories",
     categoriesLead: "Jump into the prompt area you want to improve first."
   },
   zh: {
-    title: "AI 生图提示词库和构建器",
-    h1: "用可复用片段、样图和模型笔记，组合更干净的 AI 生图提示词。",
+    title: "AI 图片提示词库与构建器",
+    h1: "用可复用片段、样图和模型笔记，组合更清晰的 AI 图片提示词。",
     lead:
-      "Quiet Web Lab 专注于 AI 生图工作流：本地提示词构建器、可复用提示词配方、模型对比、LoRA 学习页，以及 ComfyUI 样图生产清单。",
+      "Smart Prompt App 是一个面向 AI 生图工作流的实用站点：包含提示词构建器、提示词配方库、模型对比记录、LoRA 学习页，以及为 ComfyUI 样图准备的制作清单。",
     builderCta: "打开提示词构建器",
     modelCta: "查看模型对比",
     recipes: "提示词配方",
     models: "本地模型对比",
-    static: "可部署 Cloudflare",
-    local: "无需登录或后端",
+    static: "可部署到 Cloudflare",
+    local: "浏览无需登录",
     promptBuilder: "提示词构建器",
-    promptBuilderTitle: "把提示词拆成片段，再稳稳组合起来。",
-    promptBuilderBody: "选择主体、姿势、镜头、光线、风格、质量词、负向词和参数。提示词篮子会标出可能冲突，但仍然允许复制。",
-    promptBuilderButton: "开始组合",
+    promptBuilderTitle: "把提示词拆成片段，再稳定组合起来。",
+    promptBuilderBody:
+      "选择主体、姿势、镜头、光线、风格、质量词、负向词和参数。提示词篮子会标出可能冲突的片段，但最终仍允许复制英文提示词。",
+    promptBuilderButton: "开始构建",
     modelGuide: "模型指南",
-    modelGuideTitle: "用同一组提示词对比本地模型。",
-    modelGuideBody: "并排查看动漫、2.5D、写实模型在角色、东方服饰、室内、雨夜街道和肖像提示词上的差异。",
+    modelGuideTitle: "用同一套提示词对比本地 checkpoint。",
+    modelGuideBody: "并排查看动漫、2.5D 和写实模型在角色、东方服装、室内、夜街和肖像提示词上的区别。",
     modelGuideButton: "对比模型",
     startHere: "从这里开始",
-    startLead: "提示词写作、出图计划和模型选择的快速入口。",
+    startLead: "快速进入提示词写作、生图规划和模型选择。",
     latestRecipes: "最新提示词配方",
-    latestRecipesLead: "当前 AI Image Prompt Atlas 的部分内容样例。",
+    latestRecipesLead: "当前提示词图谱中的一部分实用内容。",
     latestUpdates: "最新更新",
-    latestUpdatesLead: "提示词测试、模型对比和生图批次的简短记录。",
+    latestUpdatesLead: "记录提示词测试、模型对比和生图批次的短文章。",
     categories: "热门分类",
-    categoriesLead: "先进入你最想改进的提示词区域。"
+    categoriesLead: "先进入你最想改善的提示词领域。"
   },
   ja: {
-    title: "AI画像プロンプト集とビルダー",
-    h1: "再利用できる断片、作例、モデルメモから、扱いやすいAI画像プロンプトを組み立てます。",
+    title: "AI画像プロンプトライブラリとビルダー",
+    h1: "再利用できる断片、サンプル、モデルメモから、より整理された AI 画像プロンプトを作れます。",
     lead:
-      "Quiet Web Lab はAI画像生成ワークフローのための静的サイトです。プロンプトビルダー、レシピ、モデル比較、LoRAメモ、ComfyUI用の作例チェックリストをまとめます。",
+      "Smart Prompt App は AI 画像生成向けの実用ワークスペースです。プロンプトビルダー、レシピ集、モデル比較メモ、LoRA 学習ページ、ComfyUI サンプル制作チェックリストをまとめています。",
     builderCta: "プロンプトビルダーを開く",
     modelCta: "モデル比較を見る",
     recipes: "プロンプトレシピ",
     models: "ローカルモデル比較",
     static: "Cloudflare 対応",
-    local: "ログイン・バックエンド不要",
+    local: "閲覧はログイン不要",
     promptBuilder: "プロンプトビルダー",
-    promptBuilderTitle: "プロンプトを部品ごとに選び、迷子にせず組み立てます。",
-    promptBuilderBody: "主体、ポーズ、カメラ、光、スタイル、品質タグ、ネガティブ、パラメータを選択できます。衝突候補は表示しますが、コピーは止めません。",
-    promptBuilderButton: "組み立てる",
+    promptBuilderTitle: "断片を選び、迷わず組み立てる。",
+    promptBuilderBody:
+      "主体、ポーズ、カメラ、光、スタイル、品質タグ、ネガティブ、パラメータを選べます。矛盾しそうな要素は表示しつつ、最終的な英語プロンプトはコピーできます。",
+    promptBuilderButton: "作成する",
     modelGuide: "モデルガイド",
-    modelGuideTitle: "同じプロンプトでローカルモデルを比較します。",
-    modelGuideBody: "アニメ、2.5D、写実系モデルを、人物、東洋風衣装、室内、雨の夜道、ポートレートで並べて確認できます。",
+    modelGuideTitle: "同じプロンプトでローカル checkpoint を比較します。",
+    modelGuideBody: "アニメ、2.5D、写実系モデルを、人物、東アジア風衣装、室内、夜の街、ポートレートで比較します。",
     modelGuideButton: "モデルを比較",
     startHere: "はじめに",
-    startLead: "プロンプト作成、生成計画、モデル選びの入口です。",
+    startLead: "プロンプト作成、生成計画、モデル選びへの入口です。",
     latestRecipes: "新着プロンプトレシピ",
-    latestRecipesLead: "現在の AI Image Prompt Atlas のサンプルです。",
+    latestRecipesLead: "現在のプロンプト集から一部を紹介します。",
     latestUpdates: "最新更新",
-    latestUpdatesLead: "プロンプト実験、モデル比較、生成バッチの短い記録です。",
+    latestUpdatesLead: "プロンプトテスト、モデル比較、画像生成バッチの短い記録です。",
     categories: "人気カテゴリ",
     categoriesLead: "まず改善したいプロンプト領域へ移動します。"
   }
@@ -181,32 +208,25 @@ export const builderCopy = {
   en: {
     title: "Prompt Builder",
     description: "Combine saved fragments, detect prompt conflicts, and copy positive prompts, negative prompts, and parameters.",
-    heading: "Choose pose, scene, camera, and model direction from a reusable prompt library.",
-    lead:
-      "Pick fragments from the library. The output panel builds Positive / Negative / Parameters and marks possible conflicts while still allowing copy.",
     howTitle: "How to use the Builder",
     p1:
       "Add fragments from the library, then review the generated prompt. A strong prompt usually follows this order: subject, pose or action, clothing, scene, camera angle, lighting, mood, style direction, and quality tags.",
     p2:
-      "The cart is saved in localStorage, so your fragments remain available after refreshing the page. Conflict checks are suggestions, not rules."
+      "The visible interface follows your selected language, but the final copyable prompt stays in English because most image models respond better to English prompt fragments."
   },
   zh: {
     title: "提示词构建器",
-    description: "组合提示词片段，检查冲突，并复制正向提示词、负向提示词和参数。",
-    heading: "从可复用提示词库里选择姿势、场景、镜头和模型方向。",
-    lead: "从片段库中选择内容，右侧会生成 Positive / Negative / Parameters。冲突会被标红提醒，但不会阻止复制。",
+    description: "组合保存的提示词片段，检查可能冲突，并复制正向、负向和参数。",
     howTitle: "如何使用构建器",
-    p1: "从片段库添加内容，然后检查生成结果。一个稳定的提示词通常按主体、姿势或动作、服装、场景、镜头、光线、氛围、风格和质量词来组织。",
-    p2: "提示词篮子保存在浏览器本地存储中，刷新后仍会保留。冲突检查只是建议，不是规则。"
+    p1: "从片段库中添加内容，然后检查生成的提示词。稳定的提示词通常按照主体、姿势或动作、服装、场景、镜头、光线、氛围、风格方向和质量标签的顺序组织。",
+    p2: "页面界面会跟随你选择的语言，但最终可复制的提示词保持英文，因为大多数生图模型对英文提示词更稳定。"
   },
   ja: {
     title: "プロンプトビルダー",
-    description: "プロンプト断片を組み合わせ、衝突候補を確認し、Positive / Negative / Parameters をコピーできます。",
-    heading: "再利用できるライブラリから、ポーズ、場面、カメラ、モデル方向を選びます。",
-    lead: "ライブラリから断片を選ぶと、Positive / Negative / Parameters が生成されます。衝突候補は表示しますが、コピーは止めません。",
+    description: "保存した断片を組み合わせ、衝突を確認し、ポジティブ、ネガティブ、パラメータをコピーできます。",
     howTitle: "ビルダーの使い方",
-    p1: "ライブラリから断片を追加し、生成されたプロンプトを確認します。安定したプロンプトは、主体、ポーズまたは動作、服装、場面、カメラ、光、雰囲気、スタイル、品質タグの順に整理すると扱いやすくなります。",
-    p2: "カートはブラウザの localStorage に保存されるため、更新後も残ります。衝突チェックはルールではなく、確認用のヒントです。"
+    p1: "ライブラリから断片を追加し、生成されたプロンプトを確認します。安定したプロンプトは、主体、ポーズや動作、服装、場面、カメラ、光、雰囲気、スタイル、品質タグの順に整理すると扱いやすくなります。",
+    p2: "画面表示は選択した言語に合わせますが、コピーする最終プロンプトは、多くの画像モデルで扱いやすい英語のままにしています。"
   }
 } as const;
 
@@ -214,36 +234,51 @@ export const modelPageCopy = {
   en: {
     title: "Local Model Comparison Guide",
     description: "Side-by-side AI image model comparisons using the same ComfyUI prompts and seeds.",
+    eyebrow: "Model Guide",
     h1: "Four local checkpoints compared with the same five prompts.",
     lead:
       "These samples compare an anime baseline, a 2.5D anime model, and two realism-oriented checkpoints. Each row uses the same prompt group and the same picked image number.",
+    builder: "Open Builder",
+    recipes: "Browse Recipes",
     notes: "Model Notes",
     notesLead: "Use these as practical recommendations for your RTX 3080 ComfyUI workflow.",
+    bestFor: "Best For",
     results: "Side-by-Side Results",
     resultsLead: "Rows are prompt groups. Columns are models. Images are copied from the local ComfyUI comparison run.",
+    prompt: "Prompt",
     quick: "Quick Recommendation"
   },
   zh: {
     title: "本地模型对比指南",
-    description: "使用同一组 ComfyUI 提示词和种子，对比本地 AI 生图模型。",
+    description: "使用同一套 ComfyUI 提示词和 seed，并排对比 AI 生图模型效果。",
+    eyebrow: "模型指南",
     h1: "用同五组提示词对比四个本地 checkpoint。",
-    lead: "这些样图对比动漫基准、2.5D 动漫模型和两个偏写实模型。每一行都使用同一组提示词和同一张挑选图，方便看模型本身的差异。",
+    lead: "这些样图对比了一个动漫基线模型、一个 2.5D 动漫模型，以及两个偏写实的 checkpoint。每一行都使用同一组提示词和同一个筛选编号。",
+    builder: "打开构建器",
+    recipes: "浏览配方",
     notes: "模型笔记",
-    notesLead: "这些是给 RTX 3080 ComfyUI 工作流的实用建议。",
+    notesLead: "这些建议适合你的 RTX 3080 ComfyUI 工作流。",
+    bestFor: "最适合",
     results: "并排结果",
-    resultsLead: "行是提示词组，列是模型。图片来自本地 ComfyUI 模型对比批次。",
-    quick: "快速推荐"
+    resultsLead: "每一行是提示词组，每一列是模型。图片来自本地 ComfyUI 对比批次。",
+    prompt: "提示词",
+    quick: "快速建议"
   },
   ja: {
     title: "ローカルモデル比較ガイド",
-    description: "同じ ComfyUI プロンプトとシードで、AI画像モデルを横並び比較します。",
-    h1: "4つのローカル checkpoint を同じ5種類のプロンプトで比較します。",
-    lead: "アニメ基準、2.5Dアニメ、写実寄りモデルを並べて確認します。各行は同じプロンプトグループと同じ採用番号を使います。",
+    description: "同じ ComfyUI プロンプトと seed を使って、AI 画像モデルを横並びで比較します。",
+    eyebrow: "モデルガイド",
+    h1: "4 つのローカル checkpoint を同じ 5 種類のプロンプトで比較します。",
+    lead: "アニメ基準、2.5D アニメ、写実寄りの checkpoint を比較しています。各行は同じプロンプト群と同じ採用番号を使っています。",
+    builder: "ビルダーを開く",
+    recipes: "レシピを見る",
     notes: "モデルメモ",
     notesLead: "RTX 3080 の ComfyUI ワークフロー向けの実用メモです。",
+    bestFor: "おすすめ用途",
     results: "横並び結果",
-    resultsLead: "行はプロンプト、列はモデルです。画像はローカル ComfyUI の比較出力から選んでいます。",
-    quick: "クイック推薦"
+    resultsLead: "行はプロンプト群、列はモデルです。画像はローカル ComfyUI の比較出力から選んでいます。",
+    prompt: "プロンプト",
+    quick: "クイック推奨"
   }
 } as const;
 
@@ -253,20 +288,29 @@ export const newsPageCopy = {
     description: "Daily notes about AI image generation prompts, model tests, ComfyUI workflows, and prompt library updates.",
     eyebrow: "News",
     h1: "Daily AI image generation notes, tests, and prompt updates.",
-    lead: "Short practical updates about prompt experiments, model comparisons, ComfyUI sample batches, and changes to the prompt library."
+    lead: "Short practical updates about prompt experiments, model comparisons, ComfyUI sample batches, and changes to the prompt library.",
+    takeaways: "Key Takeaways",
+    related: "Related",
+    continue: "Continue exploring this workflow area."
   },
   zh: {
-    title: "AI 生图新闻和更新",
-    description: "关于 AI 生图提示词、模型测试、ComfyUI 工作流和提示词库更新的日常记录。",
+    title: "AI 生图新闻与更新",
+    description: "记录 AI 生图提示词、模型测试、ComfyUI 工作流和提示词库更新。",
     eyebrow: "新闻",
     h1: "AI 生图测试、模型对比和提示词更新记录。",
-    lead: "这里放提示词实验、模型对比、ComfyUI 样图批次和提示词库更新的简短记录。"
+    lead: "这里发布提示词实验、模型对比、ComfyUI 样图批次和提示词库变化的短文章。",
+    takeaways: "要点",
+    related: "相关链接",
+    continue: "继续查看这个工作流领域。"
   },
   ja: {
-    title: "AI画像生成ニュースと更新",
-    description: "AI画像プロンプト、モデルテスト、ComfyUI ワークフロー、プロンプト集の更新メモです。",
+    title: "AI 画像生成ニュースと更新",
+    description: "AI 画像生成プロンプト、モデルテスト、ComfyUI ワークフロー、プロンプトライブラリ更新の記録です。",
     eyebrow: "ニュース",
-    h1: "AI画像生成のテスト、モデル比較、プロンプト更新メモ。",
-    lead: "プロンプト実験、モデル比較、ComfyUI作例バッチ、プロンプトライブラリ更新の短い記録です。"
+    h1: "AI 画像生成テスト、モデル比較、プロンプト更新の記録。",
+    lead: "プロンプト実験、モデル比較、ComfyUI サンプル、プロンプトライブラリ変更の短い記事を掲載します。",
+    takeaways: "要点",
+    related: "関連リンク",
+    continue: "このワークフロー領域をさらに見る。"
   }
 } as const;

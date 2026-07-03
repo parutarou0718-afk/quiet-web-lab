@@ -1,0 +1,25 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { loraGuides } from "@/data/articles";
+import { localizeArticle, loraPageCopy } from "@/data/articlePages";
+import { localizedSlugPath } from "@/data/i18n";
+
+const locale = "zh";
+const copy = loraPageCopy[locale];
+---
+
+<BaseLayout title={copy.title} description={copy.description} canonicalPath="/zh/lora/" locale={locale} routeKey="/lora/">
+  <section class="content-section">
+    <div class="section-heading">
+      <p class="eyebrow">{copy.eyebrow}</p>
+      <h1>{copy.h1}</h1>
+      <p class="lead">{copy.lead}</p>
+    </div>
+    <div class="lora-grid">
+      {loraGuides.map((article) => {
+        const item = localizeArticle(article, locale, "lora");
+        return <a class="article-card" href={localizedSlugPath("/lora/", item.slug, locale)}><h3>{item.title}</h3><p>{item.summary}</p></a>;
+      })}
+    </div>
+  </section>
+</BaseLayout>

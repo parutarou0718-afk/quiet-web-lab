@@ -3,7 +3,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 ---
 
 <BaseLayout
-  title="新闻后台"
+  title="News Admin"
   description="Smart Prompt App news editor."
   canonicalPath="/admin/news/"
   showPromptCart={false}
@@ -14,19 +14,19 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
   <section class="hero admin-hero">
     <div>
       <p class="eyebrow">Admin</p>
-      <h1>新闻发布后台</h1>
+      <h1>News publishing desk</h1>
       <p class="lead">
-        写标题、摘要、正文、发布日期和封面路径，然后点发布。系统会把新闻提交到 GitHub，Cloudflare 会自动重新部署网站。
+        Write a news draft, preview the structure, copy the generated JSON, or publish it to GitHub when Cloudflare environment variables are configured.
       </p>
       <div class="hero-actions">
-        <a class="button" href="/news/">查看新闻页</a>
-        <a class="button secondary" href="/models/">查看模型页</a>
+        <a class="button" href="/news/">View News</a>
+        <a class="button secondary" href="/models/">View Models</a>
       </div>
     </div>
     <aside class="hero-panel">
-      <p class="eyebrow">使用方式</p>
+      <p class="eyebrow">Reminder</p>
       <p class="muted">
-        先在这里保存草稿，确认预览没问题后再发布。未来日期的文章会先进入仓库，等到发布日期之后重新构建时才会显示。
+        News articles are static JSON files. A publish date in the future keeps the article hidden until that date.
       </p>
     </aside>
   </section>
@@ -35,21 +35,21 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
     <form class="admin-panel admin-form" data-news-form>
       <div class="section-heading">
         <p class="eyebrow">Editor</p>
-        <h2>文章内容</h2>
+        <h2>Article content</h2>
       </div>
 
       <label>
-        <span>标题</span>
+        <span>Title</span>
         <input name="title" type="text" value="Rainy Lantern Street Prompt Test" required />
       </label>
 
       <div class="admin-two">
         <label>
-          <span>网址短名</span>
+          <span>Slug</span>
           <input name="slug" type="text" value="rainy-lantern-street-prompt-test" required />
         </label>
         <label>
-          <span>分类</span>
+          <span>Category</span>
           <select name="category">
             <option>Generation Notes</option>
             <option>Model Test</option>
@@ -61,34 +61,34 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 
       <div class="admin-two">
         <label>
-          <span>写作日期</span>
+          <span>Written date</span>
           <input name="date" type="date" required />
         </label>
         <label>
-          <span>发布日期</span>
+          <span>Publish date</span>
           <input name="publishDate" type="date" />
         </label>
       </div>
 
       <label>
-        <span>摘要</span>
+        <span>Description</span>
         <textarea name="description" rows="3">A short production note about a rainy lantern street prompt test, including what worked, what failed, and what should be improved next.</textarea>
       </label>
 
       <label>
-        <span>封面图片路径</span>
+        <span>Hero image path</span>
         <input name="heroImage" type="text" value="/images/model-comparison/b04-meinahentai.png" />
       </label>
 
       <label>
-        <span>要点，每行一条</span>
+        <span>Takeaways, one per line</span>
         <textarea name="takeaways" rows="5">Lantern reflections helped the scene read clearly.
 Rain and pavement detail improved atmosphere without changing the subject.
 Hands and distant signage still need manual selection.</textarea>
       </label>
 
       <label>
-        <span>正文，空一行分段</span>
+        <span>Body, separate paragraphs with a blank line</span>
         <textarea name="body" rows="9">Today I tested a rainy lantern street prompt for the prompt library. The most useful images kept the street readable, with warm lanterns, wet pavement, and a clear figure silhouette.
 
 The best outputs used simple camera language and avoided too many decorative objects. When the scene became too crowded, the model started to invent unreadable signs and confusing background details.
@@ -97,21 +97,21 @@ This prompt group is useful for future atmosphere examples because it explains l
       </label>
 
       <label>
-        <span>相关链接，每行：标题 | 链接</span>
+        <span>Related links, one per line: Label | URL</span>
         <textarea name="relatedLinks" rows="4">Open Prompt Builder | /builder/
 View Model Comparison | /models/</textarea>
       </label>
 
       <label>
-        <span>后台密码</span>
-        <input name="adminPassword" type="password" autocomplete="current-password" placeholder="只在发布时需要" />
+        <span>Admin password</span>
+        <input name="adminPassword" type="password" autocomplete="current-password" placeholder="Only needed when publishing" />
       </label>
 
       <div class="admin-actions">
-        <button class="button" type="button" data-publish-news>发布到网站</button>
-        <button class="button secondary" type="button" data-save-draft>保存草稿</button>
-        <button class="button secondary" type="button" data-copy-entry>复制 JSON</button>
-        <button class="button secondary" type="button" data-reset-form>清空</button>
+        <button class="button" type="button" data-publish-news>Publish to GitHub</button>
+        <button class="button secondary" type="button" data-save-draft>Save local draft</button>
+        <button class="button secondary" type="button" data-copy-entry>Copy JSON</button>
+        <button class="button secondary" type="button" data-reset-form>Reset</button>
       </div>
       <p class="admin-status muted" data-admin-status></p>
     </form>
@@ -120,7 +120,7 @@ View Model Comparison | /models/</textarea>
       <section class="admin-panel">
         <div class="section-heading">
           <p class="eyebrow">Drafts</p>
-          <h2>本机草稿</h2>
+          <h2>Local drafts</h2>
         </div>
         <div class="draft-list" data-draft-list></div>
       </section>
@@ -140,9 +140,9 @@ View Model Comparison | /models/</textarea>
       <div class="prompt-output-head">
         <div>
           <p class="eyebrow">Fallback</p>
-          <h2>生成的新闻 JSON</h2>
+          <h2>Generated JSON</h2>
         </div>
-        <button type="button" data-copy-entry>复制</button>
+        <button type="button" data-copy-entry>Copy</button>
       </div>
       <pre data-output-code></pre>
     </section>
@@ -154,36 +154,34 @@ View Model Comparison | /models/</textarea>
   const form = root?.querySelector("[data-news-form]");
   const output = root?.querySelector("[data-output-code]");
   const draftList = root?.querySelector("[data-draft-list]");
-  const storageKey = "quiet-web-lab-news-drafts";
-
+  const status = root?.querySelector("[data-admin-status]");
+  const storageKey = "smart-prompt-app-news-drafts";
   const today = new Date().toISOString().slice(0, 10);
-  const dateInput = form?.querySelector('[name="date"]');
-  const publishInput = form?.querySelector('[name="publishDate"]');
-  if (dateInput && "value" in dateInput && !dateInput.value) dateInput.value = today;
-  if (publishInput && "value" in publishInput && !publishInput.value) publishInput.value = today;
+
+  function setStatus(message, type = "info") {
+    if (!status) return;
+    status.textContent = message;
+    status.dataset.status = type;
+  }
 
   function lines(value) {
-    return value
-      .split("\n")
-      .map((item) => item.trim())
-      .filter(Boolean);
+    return value.split("\n").map((item) => item.trim()).filter(Boolean);
   }
 
   function paragraphs(value) {
-    return value
-      .split(/\n\s*\n/g)
-      .map((item) => item.replace(/\s+/g, " ").trim())
-      .filter(Boolean);
+    return value.split(/\n\s*\n/g).map((item) => item.replace(/\s+/g, " ").trim()).filter(Boolean);
   }
 
   function relatedLinks(value) {
-    return lines(value).map((item) => {
-      const [label = "", href = ""] = item.split("|").map((part) => part.trim());
-      return { label, href };
-    }).filter((item) => item.label && item.href);
+    return lines(value)
+      .map((item) => {
+        const [label = "", href = ""] = item.split("|").map((part) => part.trim());
+        return { label, href };
+      })
+      .filter((item) => item.label && item.href);
   }
 
-  function readForm() {
+  function readPost() {
     const data = new FormData(form);
     const post = {
       slug: String(data.get("slug") ?? "").trim(),
@@ -203,7 +201,7 @@ View Model Comparison | /models/</textarea>
     return post;
   }
 
-  function writeForm(post) {
+  function writePost(post) {
     form.elements.title.value = post.title ?? "";
     form.elements.slug.value = post.slug ?? "";
     form.elements.category.value = post.category ?? "Generation Notes";
@@ -217,32 +215,6 @@ View Model Comparison | /models/</textarea>
     render();
   }
 
-  function formatEntry(post) {
-    const json = JSON.stringify(post, null, 2)
-      .replace(/"([^"]+)":/g, "$1:")
-      .replace(/"Generation Notes"|"Model Test"|"Prompt Update"|"Workflow"/g, (match) => match);
-    return `${json},`;
-  }
-
-  function renderPreview(post) {
-    root.querySelector("[data-preview-title]").textContent = post.title || "Untitled update";
-    root.querySelector("[data-preview-meta]").textContent = `${post.category} · ${post.publishDate ?? post.date}`;
-    root.querySelector("[data-preview-description]").textContent = post.description;
-    const list = root.querySelector("[data-preview-takeaways]");
-    list.innerHTML = "";
-    post.takeaways.forEach((item) => {
-      const li = document.createElement("li");
-      li.textContent = item;
-      list.append(li);
-    });
-  }
-
-  function render() {
-    const post = readForm();
-    output.textContent = formatEntry(post);
-    renderPreview(post);
-  }
-
   function getDrafts() {
     try {
       return JSON.parse(localStorage.getItem(storageKey) || "[]");
@@ -254,6 +226,19 @@ View Model Comparison | /models/</textarea>
   function setDrafts(drafts) {
     localStorage.setItem(storageKey, JSON.stringify(drafts));
     renderDrafts();
+  }
+
+  function renderPreview(post) {
+    root.querySelector("[data-preview-title]").textContent = post.title || "Untitled update";
+    root.querySelector("[data-preview-meta]").textContent = `${post.category} / ${post.publishDate ?? post.date}`;
+    root.querySelector("[data-preview-description]").textContent = post.description;
+    const list = root.querySelector("[data-preview-takeaways]");
+    list.innerHTML = "";
+    post.takeaways.forEach((item) => {
+      const li = document.createElement("li");
+      li.textContent = item;
+      list.append(li);
+    });
   }
 
   function renderDrafts() {
@@ -271,133 +256,80 @@ View Model Comparison | /models/</textarea>
       const row = document.createElement("div");
       row.className = "draft-item";
 
-      const info = document.createElement("button");
-      info.type = "button";
-      info.textContent = `${draft.title || "Untitled"} · ${draft.publishDate ?? draft.date}`;
-      info.addEventListener("click", () => writeForm(draft));
+      const open = document.createElement("button");
+      open.type = "button";
+      open.textContent = `${draft.title || "Untitled"} / ${draft.publishDate ?? draft.date}`;
+      open.addEventListener("click", () => writePost(draft));
 
       const remove = document.createElement("button");
       remove.type = "button";
       remove.textContent = "Delete";
       remove.addEventListener("click", () => {
-        const next = getDrafts().filter((_, itemIndex) => itemIndex !== index);
-        setDrafts(next);
+        setDrafts(getDrafts().filter((_, itemIndex) => itemIndex !== index));
       });
 
-      row.append(info, remove);
+      row.append(open, remove);
       draftList.append(row);
     });
   }
 
-  async function copyEntry() {
-    await navigator.clipboard.writeText(output.textContent);
+  function render() {
+    const post = readPost();
+    output.textContent = JSON.stringify(post, null, 2);
+    renderPreview(post);
   }
 
-  form?.addEventListener("input", render);
+  async function copyEntry() {
+    await navigator.clipboard.writeText(output.textContent);
+    setStatus("JSON copied.", "ok");
+  }
+
+  async function publish() {
+    const data = new FormData(form);
+    const adminPassword = String(data.get("adminPassword") ?? "");
+    if (!adminPassword) {
+      setStatus("Please enter the admin password before publishing.", "error");
+      return;
+    }
+
+    setStatus("Submitting to GitHub...", "info");
+    try {
+      const response = await fetch("/api/news-submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ adminPassword, post: readPost() })
+      });
+      const result = await response.json().catch(() => ({ ok: false, message: "No response body." }));
+      if (!response.ok || !result.ok) {
+        setStatus(result.message || "Publish failed.", "error");
+        return;
+      }
+      setStatus(`${result.message} Cloudflare will rebuild the site shortly.`, "ok");
+    } catch {
+      setStatus("Publish failed. Check Cloudflare environment variables and the Pages Function.", "error");
+    }
+  }
+
+  if (form) {
+    form.elements.date.value ||= today;
+    form.elements.publishDate.value ||= today;
+    form.addEventListener("input", render);
+  }
   root?.querySelectorAll("[data-copy-entry]").forEach((button) => button.addEventListener("click", copyEntry));
   root?.querySelector("[data-save-draft]")?.addEventListener("click", () => {
-    const post = readForm();
+    const post = readPost();
     const drafts = getDrafts().filter((draft) => draft.slug !== post.slug);
     setDrafts([post, ...drafts].slice(0, 30));
+    setStatus("Draft saved in this browser.", "ok");
   });
-  root?.querySelector("[data-reset-form]")?.addEventListener("click", () => form.reset());
+  root?.querySelector("[data-reset-form]")?.addEventListener("click", () => {
+    form.reset();
+    form.elements.date.value = today;
+    form.elements.publishDate.value = today;
+    render();
+  });
+  root?.querySelector("[data-publish-news]")?.addEventListener("click", publish);
 
   render();
   renderDrafts();
-</script>
-
-<script>
-  (() => {
-    const root = document.querySelector("[data-news-admin]");
-    const form = root?.querySelector("[data-news-form]");
-    const status = root?.querySelector("[data-admin-status]");
-    const publishButton = root?.querySelector("[data-publish-news]");
-    if (!root || !form || !publishButton) return;
-
-    function setStatus(message, type = "info") {
-      if (!status) return;
-      status.textContent = message;
-      status.dataset.status = type;
-    }
-
-    function lines(value) {
-      return value
-        .split("\n")
-        .map((item) => item.trim())
-        .filter(Boolean);
-    }
-
-    function paragraphs(value) {
-      return value
-        .split(/\n\s*\n/g)
-        .map((item) => item.replace(/\s+/g, " ").trim())
-        .filter(Boolean);
-    }
-
-    function relatedLinks(value) {
-      return lines(value)
-        .map((item) => {
-          const [label = "", href = ""] = item.split("|").map((part) => part.trim());
-          return { label, href };
-        })
-        .filter((item) => item.label && item.href);
-    }
-
-    function readPost() {
-      const data = new FormData(form);
-      const post = {
-        slug: String(data.get("slug") ?? "").trim(),
-        title: String(data.get("title") ?? "").trim(),
-        date: String(data.get("date") ?? ""),
-        publishDate: String(data.get("publishDate") ?? "").trim(),
-        category: String(data.get("category") ?? "Generation Notes"),
-        description: String(data.get("description") ?? "").trim(),
-        heroImage: String(data.get("heroImage") ?? "").trim(),
-        takeaways: lines(String(data.get("takeaways") ?? "")),
-        body: paragraphs(String(data.get("body") ?? "")),
-        relatedLinks: relatedLinks(String(data.get("relatedLinks") ?? ""))
-      };
-
-      if (!post.publishDate || post.publishDate === post.date) delete post.publishDate;
-      if (!post.heroImage) delete post.heroImage;
-      return post;
-    }
-
-    publishButton.addEventListener("click", async () => {
-      const data = new FormData(form);
-      const adminPassword = String(data.get("adminPassword") ?? "");
-      if (!adminPassword) {
-        setStatus("请先输入后台密码。", "error");
-        return;
-      }
-
-      publishButton.setAttribute("disabled", "true");
-      setStatus("正在提交到 GitHub，请稍等。", "info");
-
-      try {
-        const response = await fetch("/api/news-submit", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            adminPassword,
-            post: readPost()
-          })
-        });
-        const result = await response.json().catch(() => ({ ok: false, message: "发布接口没有返回有效结果。" }));
-
-        if (!response.ok || !result.ok) {
-          setStatus(result.message || "发布失败。", "error");
-          return;
-        }
-
-        setStatus(`${result.message} 线上更新通常需要等 Cloudflare 构建完成。`, "ok");
-      } catch (error) {
-        setStatus("发布失败，请检查网络或 Cloudflare 环境变量。", "error");
-      } finally {
-        publishButton.removeAttribute("disabled");
-      }
-    });
-  })();
 </script>

@@ -2,10 +2,10 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { staticPageCopy } from "@/data/staticPages";
 
-const copy = staticPageCopy.contact.en;
+const copy = staticPageCopy.terms.ja;
 ---
 
-<BaseLayout title={copy.title} description={copy.description} canonicalPath="/contact/" locale="en" routeKey="/contact/">
+<BaseLayout title={copy.title} description={copy.description} canonicalPath="/ja/terms/" locale="ja" routeKey="/terms/">
   <article class="content-section article-body">
     <h1>{copy.h1}</h1>
     {copy.body.map((paragraph) => <p>{paragraph}</p>)}

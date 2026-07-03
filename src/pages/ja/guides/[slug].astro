@@ -1,0 +1,25 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { guides } from "@/data/articles";
+import { guidePageCopy, localizeArticle } from "@/data/articlePages";
+import { localizedPath } from "@/data/i18n";
+
+export function getStaticPaths() {
+  return guides.map((article) => ({ params: { slug: article[0] }, props: { article } }));
+}
+
+const locale = "ja";
+const copy = guidePageCopy[locale];
+const item = localizeArticle(Astro.props.article, locale, "guide");
+---
+
+<BaseLayout title={item.title} description={item.summary} canonicalPath={`/ja/guides/${item.slug}/`} locale={locale} routeKey="/guides/">
+  <article class="content-section article-body">
+    <p class="eyebrow">{copy.eyebrow}</p>
+    <h1>{item.title}</h1>
+    <p class="lead">{item.summary}</p>
+    <p>{copy.bodyLead}</p>
+    <p>{Astro.props.article[2]}</p>
+    <p><a href={localizedPath("/guides/", locale)}>{copy.back}</a></p>
+  </article>
+</BaseLayout>
