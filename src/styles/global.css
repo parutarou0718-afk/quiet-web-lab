@@ -266,6 +266,17 @@ pre, textarea {
 .builder-output { display: grid; gap: 14px; }
 .warning-panel li { margin-bottom: 8px; color: var(--orange); }
 .builder-workspace { display: grid; gap: 22px; }
+.builder-workspace--visual > .section-heading {
+  gap: 6px;
+  margin-bottom: 6px;
+}
+.builder-workspace--visual > .section-heading h1 {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+}
+.builder-workspace--visual > .section-heading .lead {
+  max-width: 760px;
+  font-size: 1rem;
+}
 .library-sidebar {
   display: flex;
   gap: 8px;
@@ -530,50 +541,76 @@ pre, textarea {
   z-index: 15;
   border: 1px solid var(--line);
   border-radius: 8px;
-  padding: 14px;
+  max-height: min(42vh, 280px);
+  overflow: auto;
+  padding: 10px;
   background: rgba(255,255,255,0.96);
   box-shadow: var(--shadow);
   backdrop-filter: blur(10px);
 }
 .prompt-frame-head {
   display: grid;
-  gap: 12px;
-  margin-bottom: 12px;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.prompt-frame-head .eyebrow {
+  margin-bottom: 4px;
+  font-size: 0.68rem;
+}
+.prompt-frame-head h2 {
+  font-size: 1.2rem;
 }
 .prompt-frame-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
 }
 .prompt-frame-actions button {
   border: 1px solid var(--line);
   border-radius: 7px;
-  padding: 8px 10px;
+  padding: 6px 9px;
   background: var(--surface-soft);
   color: var(--ink);
+  font-size: 0.9rem;
   font-weight: 800;
 }
 .prompt-frame-grid {
   display: grid;
-  gap: 10px;
+  align-items: start;
+  gap: 8px;
 }
 .prompt-window {
   min-width: 0;
   border: 1px solid var(--line);
   border-radius: 8px;
-  padding: 12px;
+  padding: 8px;
   background: #fbfcfb;
 }
 .prompt-window h3 {
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+  font-size: 0.95rem;
 }
 .prompt-window textarea {
-  min-height: 92px;
+  min-height: 54px;
+  max-height: 76px;
   background: var(--surface);
 }
+.prompt-window .prompt-preview {
+  min-height: 54px;
+  max-height: 86px;
+  overflow: auto;
+  padding: 9px;
+}
 .prompt-window--checks ul {
+  max-height: 114px;
+  overflow: auto;
   margin: 0;
   padding-left: 18px;
+  font-size: 0.88rem;
+}
+.prompt-window--checks li {
+  line-height: 1.45;
+  margin-bottom: 5px;
 }
 
 .cart-fab {
@@ -1012,7 +1049,7 @@ pre, textarea {
     align-items: start;
   }
   .prompt-frame-grid {
-    grid-template-columns: minmax(0, 1.5fr) minmax(180px, 0.75fr) minmax(180px, 0.75fr) minmax(220px, 0.9fr);
+    grid-template-columns: minmax(0, 1.35fr) minmax(160px, 0.65fr) minmax(160px, 0.65fr) minmax(210px, 0.8fr);
   }
   .news-card { grid-template-columns: 260px minmax(0, 1fr); }
   .shot-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
