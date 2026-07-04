@@ -1,0 +1,54 @@
+﻿---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ResearchPromptAssistant from "@/components/ResearchPromptAssistant";
+---
+
+<BaseLayout
+  title="Research Prompt Assistant"
+  description="Generate structured AI prompts for thesis planning, research questions, methodology suggestions, and academic proposal refinement."
+  canonicalPath="/tools/research-prompt-assistant/"
+  locale="en"
+  routeKey="/tools/"
+>
+  <section class="content-section research-hero">
+    <div class="section-heading">
+      <p class="eyebrow">Free AI Prompt Tool</p>
+      <h1>Research Prompt Assistant</h1>
+      <p class="lead">Turn a rough research idea into a structured AI prompt for thesis planning, research questions, methodology, and proposal refinement.</p>
+      <p class="notice">This tool helps structure research thinking and AI prompts. It does not write a final thesis for submission.</p>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="content-grid">
+      <article class="prompt-block">
+        <h2>Why this tool helps</h2>
+        <p>Many people ask AI vague questions and get vague answers. This tool helps you give AI a clear role, context, task, and output format, so the answer becomes more useful for academic planning.</p>
+      </article>
+      <article class="prompt-block">
+        <h2>Academic integrity note</h2>
+        <p>Use the generated prompt to plan, clarify, and review your own research thinking. Do not use AI to fabricate citations, invent data, or bypass your school rules. Always verify sources and follow your institution's academic integrity policy.</p>
+      </article>
+    </div>
+  </section>
+
+  <ResearchPromptAssistant client:load />
+
+  <section class="content-section">
+    <div class="section-heading">
+      <p class="eyebrow">Before / After</p>
+      <h2>A vague request becomes a structured prompt.</h2>
+    </div>
+    <div class="content-grid">
+      <article class="prompt-block">
+        <h3>Before</h3>
+        <p>"Give me a thesis topic about AI and investment."</p>
+      </article>
+      <article class="prompt-block">
+        <h3>After</h3>
+        <p>"You are an academic research advisor specializing in economics. I am an undergraduate student writing a thesis about AI investment advice and university students..."</p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
+

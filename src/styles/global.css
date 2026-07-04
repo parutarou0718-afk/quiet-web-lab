@@ -1229,3 +1229,128 @@ pre, textarea {
   .capability-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .service-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+.research-hero .notice {
+  max-width: 760px;
+  margin-top: 14px;
+}
+
+.research-tool-shell {
+  display: grid;
+  gap: 18px;
+  margin: 22px auto 0;
+  max-width: 1180px;
+}
+
+.research-tool-form,
+.research-tool-output {
+  display: grid;
+  gap: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.research-tool-form label {
+  display: grid;
+  gap: 7px;
+  color: var(--ink);
+  font-weight: 800;
+}
+
+.research-tool-form label span,
+.research-tool-output label span {
+  font-size: 0.95rem;
+}
+
+.research-tool-form input,
+.research-tool-form select,
+.research-tool-form textarea,
+.research-tool-output textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: #fbfcfb;
+  color: var(--ink);
+  font: inherit;
+}
+
+.research-tool-form textarea,
+.research-tool-output textarea {
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.research-tool-form__wide {
+  grid-column: 1 / -1;
+}
+
+.research-tool-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  grid-column: 1 / -1;
+}
+
+.research-tool-actions button,
+.small-button {
+  width: fit-content;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  padding: 9px 12px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 850;
+  text-decoration: none;
+}
+
+.research-tool-actions button:nth-child(3),
+.research-tool-actions button:nth-child(4) {
+  background: var(--surface-soft);
+  color: var(--accent-strong);
+}
+
+.research-tool-actions button[disabled] {
+  opacity: 0.52;
+  cursor: not-allowed;
+}
+
+.form-error {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: #a33b20;
+  font-weight: 850;
+}
+
+.research-tool-output__head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.research-tool-output__head span {
+  border-radius: 999px;
+  padding: 5px 10px;
+  background: #e8f1ee;
+  color: var(--accent-strong);
+  font-weight: 850;
+}
+
+.research-tool-output textarea {
+  min-height: 420px;
+}
+
+@media (min-width: 760px) {
+  .research-tool-shell {
+    grid-template-columns: minmax(0, 0.95fr) minmax(320px, 1.05fr);
+  }
+
+  .research-tool-form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

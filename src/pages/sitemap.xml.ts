@@ -9,6 +9,7 @@ const staticPages = [
   "/zh/",
   "/ja/",
   "/tools/",
+  "/tools/research-prompt-assistant/",
   "/services/",
   "/workflows/",
   "/products/",
@@ -109,6 +110,8 @@ export async function GET(): Promise<Response> {
     }
   });
 }
+
+
 
 
 

@@ -1,6 +1,7 @@
 ﻿---
 import { siteTools } from "@/data/tools";
 const display = [
+  siteTools.find((tool) => tool.slug === "research-prompt-assistant"),
   siteTools.find((tool) => tool.slug === "prompt-builder"),
   siteTools.find((tool) => tool.slug === "prompt-recipe-library"),
   { title: "LoRA Captioning Guide", slug: "lora-captioning-guide", description: "Learn how to prepare safe, original, and structured datasets for LoRA training.", category: "Image Tools", status: "Available", url: "/lora/", tags: ["LoRA", "captioning"], useCases: ["Dataset planning", "Caption structure"] },
@@ -14,7 +15,7 @@ const display = [
       <p class="eyebrow">Tools</p>
       <h2>Practical AI Tools</h2>
     </div>
-    <p class="muted">The image builder remains available, but it now sits inside a broader AI workflow toolkit.</p>
+    <p class="muted">The toolkit now starts with research planning, then expands into image prompts, LoRA notes, and workflow templates.</p>
   </div>
   <div class="article-grid">
     {display.map((tool) => tool && (

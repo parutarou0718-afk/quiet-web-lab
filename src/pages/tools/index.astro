@@ -22,10 +22,11 @@ const groups = ["Text Tools", "Image Tools", "Document Tools", "Automation Tools
       <div class="article-grid">
         {siteTools.filter((tool) => tool.category === group).map((tool) => (
           <a class="article-card article-card--action" href={tool.url}>
-            <span class={tool.status === "Available" ? "category-badge" : "category-badge category-badge--soon"}>{tool.status}</span>
+            <span class={tool.status === "Coming Soon" ? "category-badge category-badge--soon" : "category-badge"}>{tool.status}</span>
             <h3>{tool.title}</h3>
             <p>{tool.description}</p>
             <p><strong>Use cases:</strong> {tool.useCases.join(", ")}</p>
+            <span class="button small-button">{tool.status === "Coming Soon" ? "Coming Soon" : "Open Tool"}</span>
           </a>
         ))}
       </div>

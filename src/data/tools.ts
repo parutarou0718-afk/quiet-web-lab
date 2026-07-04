@@ -3,7 +3,7 @@
   slug: string;
   description: string;
   category: 'Text Tools' | 'Image Tools' | 'Document Tools' | 'Automation Tools';
-  status: 'Available' | 'Coming Soon';
+  status: 'Active' | 'Available' | 'Coming Soon';
   url: string;
   tags: string[];
   useCases: string[];
@@ -13,12 +13,12 @@ export const siteTools: SiteTool[] = [
   {
     title: 'Research Prompt Assistant',
     slug: 'research-prompt-assistant',
-    description: 'A planned helper for turning rough research questions into structured AI prompts and outline tasks.',
+    description: 'Turn rough research ideas into structured AI prompts for thesis planning, research questions, methodology, and proposal refinement.',
     category: 'Text Tools',
-    status: 'Coming Soon',
-    url: '/contact/',
+    status: 'Active',
+    url: '/tools/research-prompt-assistant/',
     tags: ['research', 'planning', 'text'],
-    useCases: ['Research planning', 'Outline generation', 'Question refinement']
+    useCases: ['Thesis planning', 'Research questions', 'Methodology suggestions']
   },
   {
     title: 'Email Prompt Builder',
@@ -112,4 +112,7 @@ export const siteTools: SiteTool[] = [
   }
 ];
 
-export const featuredTools = siteTools.filter((tool) => ['prompt-builder', 'prompt-recipe-library', 'image-prompt-fragment-library', 'n8n-workflow-templates'].includes(tool.slug));
+export const featuredTools = siteTools.filter((tool) => ['research-prompt-assistant', 'prompt-builder', 'prompt-recipe-library', 'image-prompt-fragment-library', 'n8n-workflow-templates'].includes(tool.slug));
+
+
+
