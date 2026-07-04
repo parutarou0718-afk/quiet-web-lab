@@ -422,9 +422,7 @@ pre, textarea {
 .builder-sub-tabs {
   display: flex;
   gap: 10px;
-  overflow-x: auto;
   padding: 8px 0;
-  scrollbar-width: thin;
 }
 .builder-category-tabs button,
 .builder-sub-tabs button {
@@ -436,11 +434,11 @@ pre, textarea {
 }
 .builder-category-tabs button {
   display: grid;
-  min-width: 120px;
+  min-width: 0;
   min-height: 74px;
   place-items: center;
   gap: 2px;
-  padding: 12px;
+  padding: 10px 12px;
   font-weight: 850;
 }
 .builder-category-tabs small {
@@ -448,6 +446,7 @@ pre, textarea {
   font-size: 0.78rem;
 }
 .builder-sub-tabs {
+  flex-wrap: wrap;
   border: 1px solid var(--line);
   border-radius: 8px;
   padding: 10px;
@@ -1022,6 +1021,18 @@ pre, textarea {
 }
 .win-dialog::backdrop { background: rgba(23, 32, 27, 0.42); }
 
+@media (max-width: 759px) {
+  .builder-category-tabs {
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scrollbar-width: thin;
+  }
+  .builder-category-tabs button {
+    flex: 0 0 104px;
+    min-height: 62px;
+  }
+}
+
 @media (min-width: 760px) {
   .hero { grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.75fr); align-items: center; }
   .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1036,10 +1047,8 @@ pre, textarea {
   .library-sidebar { display: grid; overflow: visible; }
   .library-fragment-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .builder-category-tabs {
-    justify-content: center;
-  }
-  .builder-category-tabs button {
-    min-width: 140px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(104px, 1fr));
   }
   .builder-sample-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
