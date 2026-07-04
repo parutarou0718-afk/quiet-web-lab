@@ -406,9 +406,7 @@ export default function ResearchPromptAssistant({ locale = "en" }: { locale?: Lo
 
         <div className="research-tool-actions">
           <button type="button" onClick={generatePrompt}>{ui.generate}</button>
-          <button type="button" onClick={() => canCopy && copyText(prompt, ui.copied)} disabled={!canCopy}>{ui.copy}</button>
           <button type="button" onClick={clearForm}>{ui.clear}</button>
-          <button type="button" onClick={() => copyText(normalizedLocale === "ja" ? examplePromptJa : examplePromptEn, ui.exampleCopied)}>{ui.copyExample}</button>
         </div>
       </section>
 
@@ -420,16 +418,18 @@ export default function ResearchPromptAssistant({ locale = "en" }: { locale?: Lo
           </div>
           {copyStatus && <span role="status">{copyStatus}</span>}
         </div>
-        <div className="template-switch-actions" aria-label={ui.templateTools}>
-          <button type="button" onClick={() => generateTemplate("ja", "Japanese")}>{ui.japaneseTemplate}</button>
-          <button type="button" onClick={() => generateTemplate("en", "English")}>{ui.englishTemplate}</button>
-        </div>
         <textarea
           value={prompt}
           onChange={(event) => setPrompt(event.target.value)}
           placeholder={ui.outputPlaceholder}
           rows={20}
         />
+        <div className='result-tool-actions' aria-label={ui.templateTools}>
+          <button type='button' onClick={() => canCopy && copyText(prompt, ui.copied)} disabled={!canCopy}>{ui.copy}</button>
+          <button type='button' onClick={() => copyText(normalizedLocale === 'ja' ? examplePromptJa : examplePromptEn, ui.exampleCopied)}>{ui.copyExample}</button>
+          <button type='button' onClick={() => generateTemplate('ja', 'Japanese')}>{ui.japaneseTemplate}</button>
+          <button type='button' onClick={() => generateTemplate('en', 'English')}>{ui.englishTemplate}</button>
+        </div>
       </section>
     </div>
   );

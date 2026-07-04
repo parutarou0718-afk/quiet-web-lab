@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   color-scheme: light;
   --bg: #f6f7f5;
   --surface: #ffffff;
@@ -1382,13 +1382,15 @@ pre, textarea {
   color: var(--muted);
 }
 
-.template-switch-actions {
+.template-switch-actions,
+.result-tool-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
 
-.template-switch-actions button {
+.template-switch-actions button,
+.result-tool-actions button {
   border: 1px solid var(--line);
   border-radius: 8px;
   padding: 8px 11px;
@@ -1417,3 +1419,4 @@ pre, textarea {
   max-height: 520px;
   object-fit: cover;
 }
+
