@@ -1,0 +1,28 @@
+﻿---
+import { siteTools } from "@/data/tools";
+const display = [
+  siteTools.find((tool) => tool.slug === "prompt-builder"),
+  siteTools.find((tool) => tool.slug === "prompt-recipe-library"),
+  { title: "LoRA Captioning Guide", slug: "lora-captioning-guide", description: "Learn how to prepare safe, original, and structured datasets for LoRA training.", category: "Image Tools", status: "Available", url: "/lora/", tags: ["LoRA", "captioning"], useCases: ["Dataset planning", "Caption structure"] },
+  { title: "AI Workflow Templates", slug: "ai-workflow-templates", description: "Explore practical workflows for documents, research, content, and automation.", category: "Automation Tools", status: "Available", url: "/workflows/", tags: ["workflow", "templates"], useCases: ["Documents", "Research", "Automation"] }
+].filter(Boolean);
+---
+
+<section class="content-section">
+  <div class="section-heading section-heading--split">
+    <div>
+      <p class="eyebrow">Tools</p>
+      <h2>Practical AI Tools</h2>
+    </div>
+    <p class="muted">The image builder remains available, but it now sits inside a broader AI workflow toolkit.</p>
+  </div>
+  <div class="article-grid">
+    {display.map((tool) => tool && (
+      <a class="article-card article-card--action" href={tool.url}>
+        <span class="category-badge">{tool.status}</span>
+        <h3>{tool.title}</h3>
+        <p>{tool.description}</p>
+      </a>
+    ))}
+  </div>
+</section>

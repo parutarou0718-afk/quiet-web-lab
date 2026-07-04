@@ -82,23 +82,21 @@ export function routeFromPath(pathname: string): RouteKey {
   return "/";
 }
 
-export const navLabels: Record<Locale, Record<"tools" | "recipes" | "guides" | "lora" | "services" | "workflows" | "products" | "contact", string>> = {
-  en: { tools: "Tools", recipes: "Recipes", guides: "Guides", lora: "LoRA", services: "Services", workflows: "Workflows", products: "Products", contact: "Contact" },
-  zh: { tools: "工具", recipes: "配方", guides: "指南", lora: "LoRA", services: "服务", workflows: "工作流", products: "产品", contact: "联系" },
-  ja: { tools: "ツール", recipes: "レシピ", guides: "ガイド", lora: "LoRA", services: "サービス", workflows: "ワークフロー", products: "製品", contact: "連絡" }
+export const navLabels: Record<Locale, Record<"home" | "tools" | "guides" | "services" | "workflows" | "products" | "contact", string>> = {
+  en: { home: "Home", tools: "Tools", workflows: "Workflows", services: "Services", products: "Products", guides: "Guides", contact: "Contact" },
+  zh: { home: "首页", tools: "工具", workflows: "工作流", services: "服务", products: "产品", guides: "指南", contact: "联系" },
+  ja: { home: "ホーム", tools: "ツール", workflows: "ワークフロー", services: "サービス", products: "製品", guides: "ガイド", contact: "連絡" }
 };
 
 export const navRoutes = [
+  { key: "home", route: "/" },
   { key: "tools", route: "/tools/" },
-  { key: "recipes", route: "/recipes/" },
-  { key: "guides", route: "/guides/" },
-  { key: "lora", route: "/lora/" },
-  { key: "services", route: "/services/" },
   { key: "workflows", route: "/workflows/" },
+  { key: "services", route: "/services/" },
   { key: "products", route: "/products/" },
+  { key: "guides", route: "/guides/" },
   { key: "contact", route: "/contact/" }
 ] as const;
-
 const enHome = {
   title: "AI Image Prompt Library and Builder",
   h1: "Build cleaner AI image prompts from reusable fragments, examples, and model notes.",
@@ -170,3 +168,5 @@ const enNews = {
 };
 
 export const newsPageCopy = { en: enNews, zh: enNews, ja: enNews } as const;
+
+

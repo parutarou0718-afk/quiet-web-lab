@@ -1,0 +1,24 @@
+﻿---
+import { productTemplates } from "@/data/products";
+const products = productTemplates.slice(0, 6);
+---
+
+<section class="content-section">
+  <div class="section-heading section-heading--split">
+    <div>
+      <p class="eyebrow">Products</p>
+      <h2>Products and Templates</h2>
+    </div>
+    <p class="muted">Future digital products and templates. No payment flow is enabled yet; use Contact or Waitlist for interest.</p>
+  </div>
+  <div class="article-grid">
+    {products.map((product) => (
+      <article class="article-card">
+        <span class="category-badge">{product.status}</span>
+        <h3>{product.title}</h3>
+        <p>{product.description}</p>
+        <p><strong>Includes:</strong> {product.includedItems.join(", ")}</p>
+      </article>
+    ))}
+  </div>
+</section>

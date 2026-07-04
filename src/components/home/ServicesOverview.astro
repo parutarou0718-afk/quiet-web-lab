@@ -1,0 +1,24 @@
+﻿---
+import { implementationServices } from "@/data/services";
+const services = implementationServices.slice(0, 8);
+---
+
+<section class="content-section">
+  <div class="section-heading section-heading--split">
+    <div>
+      <p class="eyebrow">Services</p>
+      <h2>AI Implementation Services</h2>
+    </div>
+    <p class="muted">Small practical service directions for turning AI tasks into usable workflows, websites, templates, and maintenance routines.</p>
+  </div>
+  <div class="service-grid">
+    {services.map((service) => (
+      <article class="solution-card solution-card--quiet">
+        <h3>{service.title}</h3>
+        <p><strong>Problem:</strong> {service.problem}</p>
+        <p><strong>What we build:</strong> {service.whatWeBuild}</p>
+        <p><strong>Deliverables:</strong> {service.deliverables.join(", ")}</p>
+      </article>
+    ))}
+  </div>
+</section>

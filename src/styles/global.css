@@ -1107,3 +1107,125 @@ pre, textarea {
   padding: 28px;
   background: var(--surface);
 }
+
+.home-hero {
+  display: grid;
+  gap: 24px;
+  align-items: stretch;
+  padding: clamp(42px, 8vw, 92px) 0 24px;
+}
+.home-hero__content {
+  display: grid;
+  gap: 18px;
+  max-width: 920px;
+}
+.home-hero__content h1 {
+  max-width: 920px;
+  font-size: clamp(2.7rem, 7vw, 5.6rem);
+  line-height: 0.98;
+}
+.home-hero__panel {
+  display: grid;
+  gap: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px;
+  background:
+    linear-gradient(145deg, rgba(232, 241, 238, 0.9), rgba(255, 255, 255, 0.95)),
+    var(--surface);
+  box-shadow: var(--shadow);
+}
+.home-hero__panel div {
+  display: grid;
+  gap: 8px;
+  border-bottom: 1px solid var(--line);
+  padding: 12px 0;
+}
+.home-hero__panel div:last-child { border-bottom: 0; }
+.home-hero__panel span,
+.card-meta span {
+  color: var(--accent-strong);
+  font-size: 0.76rem;
+  font-weight: 850;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.section-heading--split {
+  display: grid;
+  gap: 12px;
+  align-items: end;
+}
+.capability-grid,
+.service-grid {
+  display: grid;
+  gap: 14px;
+}
+.solution-card {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 18px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+.solution-card--quiet { box-shadow: none; }
+.solution-card h2,
+.solution-card h3 { margin: 0; }
+.solution-card p { margin: 0; color: var(--muted); }
+.solution-card strong { color: var(--ink); }
+.card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: space-between;
+}
+.compact-list {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+}
+.text-link {
+  width: fit-content;
+  color: var(--accent-strong);
+  font-weight: 850;
+}
+.article-card--action { display: grid; gap: 10px; }
+.category-badge--soon { background: #f4eadf; color: #8a4a22; }
+.workflow-list {
+  display: grid;
+  gap: 16px;
+}
+.workflow-card { gap: 16px; }
+.info-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+}
+.info-list div {
+  display: grid;
+  gap: 3px;
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+}
+.info-list dt {
+  color: var(--ink);
+  font-weight: 850;
+}
+.info-list dd {
+  margin: 0;
+  color: var(--muted);
+}
+.home-recipe-strip { margin-top: 18px; }
+.section-actions { margin-top: 18px; }
+.home-cta { background: linear-gradient(145deg, #ffffff, #edf2ef); }
+
+@media (min-width: 760px) {
+  .home-hero { grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.65fr); }
+  .section-heading--split { grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.7fr); }
+  .capability-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .service-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

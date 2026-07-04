@@ -1,172 +1,36 @@
 ﻿---
 import { getCollection } from "astro:content";
-import AdSlot from "@/components/AdSlot.astro";
-import RecipeCard from "@/components/RecipeCard.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { localizedPath } from "@/data/i18n";
-import { latestNews } from "@/data/news";
+import HeroSection from "@/components/home/HeroSection.astro";
+import CapabilityModules from "@/components/home/CapabilityModules.astro";
+import FeaturedTools from "@/components/home/FeaturedTools.astro";
+import ServicesOverview from "@/components/home/ServicesOverview.astro";
+import DemoCaseStudies from "@/components/home/DemoCaseStudies.astro";
+import ProductsPreview from "@/components/home/ProductsPreview.astro";
+import LatestGuides from "@/components/home/LatestGuides.astro";
+import ContactCTA from "@/components/home/ContactCTA.astro";
+import AdSlot from "@/components/AdSlot.astro";
 import { getCmsRecipes } from "@/lib/cms";
-import { siteConfig } from "@/config/site";
 
-const locale = "en";
-const tools = await getCollection("tools");
-const services = await getCollection("services");
-const workflows = await getCollection("workflows");
-const products = await getCollection("products");
-const caseStudies = await getCollection("case-studies");
-const guides = await getCollection("guides");
+const guides = [...await getCollection("guides")].sort((a, b) => Number(b.data.date) - Number(a.data.date)).slice(0, 3);
 const recipes = await getCmsRecipes();
-
-const featuredTool = tools.find((tool) => tool.slug === "prompt-builder") ?? tools[0];
-const featuredServices = services.slice(0, 3);
-const featuredWorkflows = workflows.slice(0, 3);
-const featuredProducts = products.slice(0, 3);
-const featuredCases = caseStudies.slice(0, 3);
-const latestGuides = [...guides].sort((a, b) => Number(b.data.date) - Number(a.data.date)).slice(0, 3);
 ---
 
 <BaseLayout
-  title="Practical AI Workflows and Prompt Systems"
-  description="Lightweight AI tools, reusable prompt systems, OCR workflows, automation templates, and static web products for practical production work."
+  title="AI Implementation Studio for Workflows, Prompt Systems, and Automation Tools"
+  description="Smart Prompt App builds practical AI workflows, prompt systems, automation templates, and lightweight web products for creators, students, small teams, and businesses."
   canonicalPath="/"
   showPromptCart={false}
-  locale={locale}
+  locale="en"
   routeKey="/"
 >
-  <section class="hero hub-hero">
-    <div>
-      <p class="eyebrow">Smart Prompt App by Quiet Web Lab</p>
-      <h1>Practical AI workflows, prompt systems, and automation tools.</h1>
-      <p class="lead">We build lightweight AI tools, reusable prompt systems, OCR workflows, automation templates, and static web products that turn AI from a toy into a working production process.</p>
-      <div class="hero-actions">
-        <a class="button" href={localizedPath("/tools/", locale)}>Explore Tools</a>
-        <a class="button secondary" href={localizedPath("/services/", locale)}>View Services</a>
-      </div>
-    </div>
-    <aside class="hero-panel hub-panel">
-      <div class="stat-grid">
-        <div class="stat"><strong>{tools.length}</strong><span>tools</span></div>
-        <div class="stat"><strong>{recipes.length}</strong><span>recipes</span></div>
-        <div class="stat"><strong>{workflows.length}</strong><span>workflows</span></div>
-        <div class="stat"><strong>static</strong><span>Cloudflare ready</span></div>
-      </div>
-    </aside>
-  </section>
-
-  <section class="content-section product-grid">
-    <a class="product-card product-card--ai" href={featuredTool?.data.toolUrl ?? "/builder/"}>
-      <span class="eyebrow">Featured Tool</span>
-      <h2>{featuredTool?.data.title ?? "Prompt Builder"}</h2>
-      <p>{featuredTool?.data.description ?? "Build cleaner AI image prompts from reusable fragments."}</p>
-      <span class="button">Open tool</span>
-    </a>
-    <a class="product-card product-card--models" href={localizedPath("/workflows/", locale)}>
-      <span class="eyebrow">Workflow Solutions</span>
-      <h2>Reusable systems for repeatable AI work.</h2>
-      <p>Document prompts, sample images, model notes, OCR flows, automation steps, and publishing decisions as maintainable workflows.</p>
-      <span class="button">View workflows</span>
-    </a>
-  </section>
-
+  <HeroSection />
+  <CapabilityModules />
+  <FeaturedTools />
   <AdSlot />
-
-  <section class="content-section">
-    <div class="section-heading">
-      <h2>Services Overview</h2>
-      <p class="muted">Small, practical implementation services for prompt systems, automation templates, and static AI utility sites.</p>
-    </div>
-    <div class="category-grid">
-      {featuredServices.map((service) => (
-        <a class="category-card" href={`/services/${service.slug}/`}>
-          <h3>{service.data.title}</h3>
-          <p>{service.data.description}</p>
-        </a>
-      ))}
-    </div>
-  </section>
-
-  <section class="content-section">
-    <div class="section-heading">
-      <h2>Workflow Solutions</h2>
-      <p class="muted">Demo workflows that explain the problem, solution, tools involved, output, and business use.</p>
-    </div>
-    <div class="article-grid">
-      {featuredWorkflows.map((workflow) => (
-        <a class="article-card" href={`/workflows/${workflow.slug}/`}>
-          <span class="category-badge">{workflow.data.status}</span>
-          <h3>{workflow.data.title}</h3>
-          <p>{workflow.data.description}</p>
-        </a>
-      ))}
-    </div>
-  </section>
-
-  <section class="content-section">
-    <div class="section-heading">
-      <h2>Demo Case Studies</h2>
-      <p class="muted">Clearly labeled demo cases. These pages explain workflow patterns and are not presented as real client engagements.</p>
-    </div>
-    <div class="article-grid">
-      {featuredCases.map((item) => (
-        <a class="article-card" href={`/case-studies/${item.slug}/`}>
-          <span class="category-badge">Demo</span>
-          <h3>{item.data.title}</h3>
-          <p>{item.data.description}</p>
-        </a>
-      ))}
-    </div>
-  </section>
-
-  <section class="content-section">
-    <div class="section-heading">
-      <h2>Products</h2>
-      <p class="muted">Digital prompt systems, workflow templates, and static AI products in planning and preview.</p>
-    </div>
-    <div class="article-grid">
-      {featuredProducts.map((product) => (
-        <a class="article-card" href={`/products/${product.slug}/`}>
-          <span class="category-badge">{product.data.status}</span>
-          <h3>{product.data.title}</h3>
-          <p>{product.data.description}</p>
-        </a>
-      ))}
-    </div>
-  </section>
-
-  <section class="content-section">
-    <div class="section-heading">
-      <h2>Latest Guides</h2>
-      <p class="muted">Short practical references for prompt writing and AI image workflow decisions.</p>
-    </div>
-    <div class="article-grid">
-      {latestGuides.map((guide) => (
-        <a class="article-card" href={`/guides/${guide.slug}/`}>
-          <h3>{guide.data.title}</h3>
-          <p>{guide.data.description}</p>
-        </a>
-      ))}
-    </div>
-  </section>
-
-  <section class="content-section">
-    <div class="section-heading">
-      <h2>Prompt Recipes</h2>
-      <p class="muted">Reusable prompt examples still remain a core part of the site.</p>
-    </div>
-    <div class="recipe-grid">
-      {recipes.slice(0, 3).map((recipe) => <RecipeCard recipe={recipe} locale={locale} />)}
-    </div>
-  </section>
-
-  <section class="content-section cta-section">
-    <div class="section-heading">
-      <h2>Need a practical AI workflow?</h2>
-      <p class="lead">Use the tools freely, read the guides, or contact us about turning a repeatable AI process into a static product or internal workflow.</p>
-      <div class="hero-actions">
-        <a class="button" href={localizedPath("/contact/", locale)}>Contact</a>
-        <a class="button secondary" href={localizedPath("/guides/", locale)}>Read guides</a>
-      </div>
-    </div>
-  </section>
+  <ServicesOverview />
+  <DemoCaseStudies />
+  <ProductsPreview />
+  <LatestGuides guides={guides} recipes={recipes} />
+  <ContactCTA />
 </BaseLayout>
-

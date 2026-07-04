@@ -1,0 +1,24 @@
+﻿---
+import { demoCaseStudies, demoDisclaimer } from "@/data/caseStudies";
+const cases = demoCaseStudies.slice(0, 6);
+---
+
+<section class="content-section">
+  <div class="section-heading section-heading--split">
+    <div>
+      <p class="eyebrow">Demo Cases</p>
+      <h2>Demo Case Studies</h2>
+    </div>
+    <p class="muted">{demoDisclaimer}</p>
+  </div>
+  <div class="article-grid">
+    {cases.map((item) => (
+      <article class="article-card">
+        <span class="category-badge">{item.status}</span>
+        <h3>{item.title}</h3>
+        <p>{item.description}</p>
+        <p><strong>Output:</strong> {item.output}</p>
+      </article>
+    ))}
+  </div>
+</section>

@@ -1,24 +1,26 @@
----
-import { getCollection } from "astro:content";
+﻿---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-
-const entries = await getCollection("services");
+import { implementationServices } from "@/data/services";
 ---
 
-<BaseLayout title="Services" description="AI workflow prototyping, prompt systems, automation templates, and static web product planning." canonicalPath="/services/" locale="en" routeKey="/services/">
+<BaseLayout title="AI Implementation Services" description="Practical AI workflow consulting, prompt system design, static AI tool websites, OCR workflows, n8n automation, and content production pipelines." canonicalPath="/services/" locale="en" routeKey="/services/">
   <section class="content-section">
     <div class="section-heading">
       <p class="eyebrow">Services</p>
-      <h1>Practical AI implementation services for small teams.</h1>
-      <p class="lead">We package prompt systems, OCR workflows, automation templates, and static tools into maintainable production processes.</p>
+      <h1>AI implementation services for small teams and practical builders.</h1>
+      <p class="lead">Services are scoped around usable outputs: workflow maps, prompt systems, static tool sites, document extraction plans, automation templates, and maintenance routines.</p>
     </div>
-    <div class="article-grid">
-      {entries.map((entry) => (
-        <a class="article-card" href={`/services/${entry.slug}/`}>
-          <span class="category-badge">{entry.data.icon}</span>
-          <h3>{entry.data.title}</h3>
-          <p>{entry.data.description}</p>
-        </a>
+    <div class="service-grid">
+      {implementationServices.map((service) => (
+        <article class="solution-card">
+          <div class="card-meta"><span>{service.category}</span><span>{service.status}</span></div>
+          <h2>{service.title}</h2>
+          <p>{service.description}</p>
+          <p><strong>What it solves:</strong> {service.problem}</p>
+          <p><strong>Who it is for:</strong> {service.whoFor.join(", ")}</p>
+          <p><strong>Deliverables:</strong> {service.deliverables.join(", ")}</p>
+          <p><strong>Example scenarios:</strong> {service.exampleScenarios.join(", ")}</p>
+        </article>
       ))}
     </div>
   </section>

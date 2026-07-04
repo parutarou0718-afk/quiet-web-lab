@@ -1,0 +1,26 @@
+﻿export type DemoCaseStudy = {
+  title: string;
+  slug: string;
+  description: string;
+  category: string;
+  status: 'Demo' | 'Prototype' | 'Active';
+  url: string;
+  tags: string[];
+  useCases: string[];
+  context: string;
+  problem: string;
+  workflow: string[];
+  output: string;
+  businessValue: string;
+};
+
+export const demoCaseStudies: DemoCaseStudy[] = [
+  { title: 'Prompt Builder Website Demo', slug: 'prompt-builder-website-demo', description: 'A demo showing how reusable prompt fragments can become a static tool website.', category: 'Image Tools', status: 'Active', url: '/builder/', tags: ['prompt', 'builder'], useCases: ['Prompt libraries', 'Image production'], context: 'A creator needs a cleaner way to assemble AI image prompts from repeatable pieces.', problem: 'Prompt fragments, negative prompts, and parameters are easy to lose or combine badly.', workflow: ['Define categories', 'Create reusable fragments', 'Add conflict checks', 'Publish as a static tool'], output: 'A browser-based prompt builder with copyable English prompts and visible checks.', businessValue: 'Turns local prompt knowledge into a public, reusable, SEO-friendly tool.' },
+  { title: 'University Research Planning Assistant Demo', slug: 'university-research-planning-assistant-demo', description: 'A demo workflow for turning rough academic topics into structured research prompts and outlines.', category: 'Text Workflows', status: 'Demo', url: '/guides/', tags: ['research', 'planning'], useCases: ['Research questions', 'Outline planning'], context: 'A student has a broad topic but needs a usable plan before drafting.', problem: 'AI chat output can be scattered if the research workflow is not structured first.', workflow: ['Clarify topic', 'Generate questions', 'Plan sources', 'Create outline and review prompts'], output: 'A structured research brief and reusable prompt set.', businessValue: 'Reduces blank-page time and keeps research prompts consistent.' },
+  { title: 'Logistics Document OCR Workflow Demo', slug: 'logistics-document-ocr-workflow-demo', description: 'A demo pattern for turning logistics documents into structured spreadsheet-ready outputs.', category: 'Document Workflows', status: 'Prototype', url: '/workflows/', tags: ['OCR', 'logistics'], useCases: ['Document parsing', 'Excel output'], context: 'An operator receives repeated document formats that need structured extraction.', problem: 'Manual transcription creates delays and mistakes.', workflow: ['Capture document', 'Extract text', 'Map fields', 'Review uncertain values', 'Export rows'], output: 'Spreadsheet-ready data with review notes.', businessValue: 'Saves repetitive manual work while keeping a human review step.' },
+  { title: 'AI Image Production Workflow Demo', slug: 'ai-image-production-workflow-demo', description: 'A demo showing prompt categories, sample image selection, model notes, and publishing flow.', category: 'Image Workflows', status: 'Demo', url: '/recipes/', tags: ['image', 'ComfyUI'], useCases: ['Sample libraries', 'Prompt recipes'], context: 'An image workflow needs consistent prompt examples and approved sample cards.', problem: 'Generated images are hard to reuse when filenames, prompts, and notes are disconnected.', workflow: ['Plan categories', 'Generate samples', 'Select approved images', 'Attach prompts and notes', 'Publish pages'], output: 'Prompt recipes and builder cards connected to visual examples.', businessValue: 'Makes image generation knowledge easier to teach, repeat, and update.' },
+  { title: 'AI Learning Mini Tool Demo', slug: 'ai-learning-mini-tool-demo', description: 'A demo pattern for small static learning tools that teach one AI workflow at a time.', category: 'Learning Tools', status: 'Demo', url: '/tools/', tags: ['learning', 'mini tool'], useCases: ['Interactive guides', 'Prompt practice'], context: 'A learner needs a small tool instead of a long tutorial page.', problem: 'Passive guides are easy to skim but hard to apply.', workflow: ['Choose one workflow', 'Create inputs', 'Show checks', 'Offer copyable output'], output: 'A focused static mini tool with practical prompts and examples.', businessValue: 'Turns documentation into a usable learning experience.' },
+  { title: 'Static SEO Site Generation Demo', slug: 'static-seo-site-generation-demo', description: 'A demo pattern for building fast static sites around tools, guides, templates, and workflows.', category: 'Web Products', status: 'Prototype', url: '/products/', tags: ['SEO', 'Astro'], useCases: ['Static product sites', 'Guide hubs'], context: 'A small product needs content pages, SEO metadata, and a deployable static structure.', problem: 'Good ideas often remain in folders instead of becoming discoverable pages.', workflow: ['Define page map', 'Create content model', 'Build reusable components', 'Generate sitemap', 'Deploy static output'], output: 'A fast site with structured pages, canonical URLs, and maintainable content files.', businessValue: 'Creates a foundation for organic traffic without complex infrastructure.' }
+];
+
+export const demoDisclaimer = 'These are demo case studies that show possible implementation patterns. They are not presented as real client projects.';

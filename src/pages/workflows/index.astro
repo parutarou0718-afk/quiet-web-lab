@@ -1,24 +1,32 @@
----
-import { getCollection } from "astro:content";
+﻿---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-
-const entries = await getCollection("workflows");
+import { workflowSolutions } from "@/data/workflows";
 ---
 
-<BaseLayout title="Workflow Solutions" description="Demo AI workflows for prompt systems, ComfyUI samples, OCR, automation, and static publishing." canonicalPath="/workflows/" locale="en" routeKey="/workflows/">
+<BaseLayout title="AI Workflow Solutions" description="Practical AI workflow solution patterns for OCR, research planning, image prompt production, content, automation, and static SEO sites." canonicalPath="/workflows/" locale="en" routeKey="/workflows/">
   <section class="content-section">
     <div class="section-heading">
       <p class="eyebrow">Workflows</p>
-      <h1>Workflow solutions for repeatable AI production.</h1>
-      <p class="lead">Each workflow describes the problem, solution, tools involved, output, and business use.</p>
+      <h1>Workflow solutions for practical AI implementation.</h1>
+      <p class="lead">Each workflow describes the problem, input, process, output, suitable users, and one possible implementation path.</p>
     </div>
-    <div class="article-grid">
-      {entries.map((entry) => (
-        <a class="article-card" href={`/workflows/${entry.slug}/`}>
-          <span class="category-badge">{entry.data.status}</span>
-          <h3>{entry.data.title}</h3>
-          <p>{entry.data.description}</p>
-        </a>
+    <div class="workflow-list">
+      {workflowSolutions.map((workflow) => (
+        <article class="solution-card workflow-card">
+          <div class="card-meta"><span>{workflow.category}</span><span>{workflow.status}</span></div>
+          <h2>{workflow.title}</h2>
+          <p>{workflow.description}</p>
+          <dl class="info-list">
+            <div><dt>Problem</dt><dd>{workflow.problem}</dd></div>
+            <div><dt>Input</dt><dd>{workflow.input}</dd></div>
+            <div><dt>Output</dt><dd>{workflow.output}</dd></div>
+            <div><dt>Suitable users</dt><dd>{workflow.suitableUsers.join(", ")}</dd></div>
+            <div><dt>Possible implementation</dt><dd>{workflow.possibleImplementation}</dd></div>
+          </dl>
+          <ul class="compact-list">
+            {workflow.process.map((step) => <li>{step}</li>)}
+          </ul>
+        </article>
       ))}
     </div>
   </section>

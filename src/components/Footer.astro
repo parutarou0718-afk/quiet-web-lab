@@ -11,10 +11,13 @@ const { locale = "en" } = Astro.props;
 const copy = {
   text: "Practical AI workflows, prompt systems, and lightweight automation tools.",
   tools: "Tools",
-  services: "Services",
   workflows: "Workflows",
+  services: "Services",
   products: "Products",
   cases: "Case Studies",
+  recipes: "Recipes",
+  guides: "Guides",
+  lora: "LoRA",
   contact: "Contact",
   privacy: "Privacy",
   terms: "Terms",
@@ -26,10 +29,13 @@ const copy = {
   <p>© {new Date().getFullYear()} {siteConfig.siteName}. {copy.text}</p>
   <nav aria-label="Footer navigation">
     <a href={localizedPath("/tools/", locale)}>{copy.tools}</a>
-    <a href={localizedPath("/services/", locale)}>{copy.services}</a>
     <a href={localizedPath("/workflows/", locale)}>{copy.workflows}</a>
+    <a href={localizedPath("/services/", locale)}>{copy.services}</a>
     <a href={localizedPath("/products/", locale)}>{copy.products}</a>
     <a href={localizedPath("/case-studies/", locale)}>{copy.cases}</a>
+    <a href={localizedPath("/recipes/", locale)}>{copy.recipes}</a>
+    <a href={localizedPath("/guides/", locale)}>{copy.guides}</a>
+    <a href={localizedPath("/lora/", locale)}>{copy.lora}</a>
     <a href={localizedPath("/contact/", locale)}>{copy.contact}</a>
     <a href={localizedPath("/privacy/", locale)}>{copy.privacy}</a>
     <a href={localizedPath("/terms/", locale)}>{copy.terms}</a>

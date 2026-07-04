@@ -1,24 +1,27 @@
----
-import { getCollection } from "astro:content";
+﻿---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-
-const entries = await getCollection("products");
+import { productTemplates } from "@/data/products";
 ---
 
-<BaseLayout title="Products" description="Digital prompt systems, workflow templates, and static AI tool products in planning and preview." canonicalPath="/products/" locale="en" routeKey="/products/">
+<BaseLayout title="AI Products and Templates" description="Future AI prompt packs, research templates, workflow checklists, LoRA captioning kits, static site templates, and n8n workflow templates." canonicalPath="/products/" locale="en" routeKey="/products/">
   <section class="content-section">
     <div class="section-heading">
       <p class="eyebrow">Products</p>
-      <h1>Small AI workflow products and templates.</h1>
-      <p class="lead">Products begin as practical internal systems, then become reusable templates or digital resources.</p>
+      <h1>Products and templates for practical AI workflows.</h1>
+      <p class="lead">These digital products are planned or in preview. No payment flow is enabled yet; use Contact or Waitlist if you want to discuss a specific template.</p>
+      <div class="hero-actions">
+        <a class="button" href="/contact/">Contact / Waitlist</a>
+      </div>
     </div>
     <div class="article-grid">
-      {entries.map((entry) => (
-        <a class="article-card" href={`/products/${entry.slug}/`}>
-          <span class="category-badge">{entry.data.status}</span>
-          <h3>{entry.data.title}</h3>
-          <p>{entry.data.description}</p>
-        </a>
+      {productTemplates.map((product) => (
+        <article class="article-card">
+          <span class="category-badge">{product.status}</span>
+          <h3>{product.title}</h3>
+          <p>{product.description}</p>
+          <p><strong>Included items:</strong> {product.includedItems.join(", ")}</p>
+          <p><strong>Target users:</strong> {product.targetUsers.join(", ")}</p>
+        </article>
       ))}
     </div>
   </section>

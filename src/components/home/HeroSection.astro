@@ -1,0 +1,21 @@
+﻿---
+import { localizedPath } from "@/data/i18n";
+const locale = "en";
+---
+
+<section class="home-hero">
+  <div class="home-hero__content">
+    <p class="eyebrow">AI Implementation Studio</p>
+    <h1>Practical AI workflows, prompt systems, and automation tools.</h1>
+    <p class="lead">We help creators, students, and small teams use AI more effectively through structured prompts, reusable workflows, lightweight tools, and implementation-ready templates.</p>
+    <div class="hero-actions">
+      <a class="button" href={localizedPath("/tools/", locale)}>Explore Tools</a>
+      <a class="button secondary" href={localizedPath("/services/", locale)}>View Services</a>
+    </div>
+  </div>
+  <aside class="home-hero__panel" aria-label="AI implementation focus areas">
+    <div><span>01</span><strong>Prompt systems that make AI easier to use</strong></div>
+    <div><span>02</span><strong>Workflow templates for real tasks</strong></div>
+    <div><span>03</span><strong>Lightweight tools without heavy infrastructure</strong></div>
+  </aside>
+</section>
