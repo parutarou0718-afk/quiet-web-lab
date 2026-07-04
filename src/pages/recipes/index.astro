@@ -1,10 +1,11 @@
----
+﻿---
 import RecipeCard from "@/components/RecipeCard.astro";
 import { recipePageCopy } from "@/data/recipePages";
+import { getCmsRecipes } from "@/lib/cms";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { recipes } from "@/data/recipes";
 
 const copy = recipePageCopy.en;
+const recipes = await getCmsRecipes();
 ---
 
 <BaseLayout title={copy.title} description={copy.description} canonicalPath="/recipes/" locale="en" routeKey="/recipes/">

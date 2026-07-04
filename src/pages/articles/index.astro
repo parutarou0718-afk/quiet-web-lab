@@ -1,0 +1,27 @@
+﻿---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const articles = (await getCollection("articles")).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title="AI Articles" description="Practical notes about AI workflows, prompt systems, automation, and lightweight production processes." canonicalPath="/articles/" locale="en" routeKey="/articles/">
+  <section class="content-section">
+    <div class="section-heading">
+      <p class="eyebrow">Articles</p>
+      <h1>AI implementation articles.</h1>
+      <p class="lead">Short, practical updates about prompt systems, local AI workflows, ComfyUI production notes, and small automation patterns.</p>
+    </div>
+    <div class="feature-grid">
+      {articles.map((article) => (
+        <a class="feature-card" href={`/articles/${article.slug}/`}>
+          {article.data.coverImage ? <img class="card-image" src={article.data.coverImage} alt="" loading="lazy" /> : null}
+          <p class="eyebrow">{article.data.category}</p>
+          <h2>{article.data.title}</h2>
+          <p>{article.data.description}</p>
+          <p class="muted">{article.data.date.toLocaleDateString("en-US")}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

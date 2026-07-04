@@ -1,20 +1,25 @@
----
+﻿---
 import PromptBlock from "@/components/PromptBlock.astro";
 import PromptCartButton from "@/components/PromptCartButton.astro";
 import PromptFragmentCard from "@/components/PromptFragmentCard.astro";
 import RecipeCard from "@/components/RecipeCard.astro";
 import { categoryLabel, localizedRecipe, recipePageCopy } from "@/data/recipePages";
+import { getCmsRecipes } from "@/lib/cms";
+import { getEntry } from "astro:content";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { getRecipe, recipes } from "@/data/recipes";
 
-export function getStaticPaths() {
+export async function getStaticPaths() {
+  const recipes = await getCmsRecipes();
   return recipes.map((recipe) => ({ params: { slug: recipe.slug }, props: { recipe } }));
 }
 
 const { recipe } = Astro.props;
-const related = recipe.relatedRecipes.map((slug) => getRecipe(slug)).filter(Boolean);
+const recipes = await getCmsRecipes();
+const related = recipe.relatedRecipes.map((slug) => recipes.find((item) => item.slug === slug)).filter(Boolean);
 const copy = recipePageCopy.en;
 const pageRecipe = localizedRecipe(recipe, "en");
+const recipeEntry = await getEntry("recipes", recipe.slug);
+const { Content } = recipeEntry ? await recipeEntry.render() : { Content: null };
 ---
 
 <BaseLayout title={pageRecipe.title} description={pageRecipe.shortDescription} canonicalPath={`/recipes/${recipe.slug}/`} image={recipe.image} locale="en" routeKey="/recipes/">
@@ -60,6 +65,7 @@ const pageRecipe = localizedRecipe(recipe, "en");
   </section>
 
   <section class="content-section article-body">
+    {Content ? <Content /> : null}
     <h2>{copy.commonMistakes}</h2>
     <ul>{pageRecipe.commonMistakes.map((mistake) => <li>{mistake}</li>)}</ul>
   </section>
@@ -71,3 +77,6 @@ const pageRecipe = localizedRecipe(recipe, "en");
     </div>
   </section>
 </BaseLayout>
+
+
+

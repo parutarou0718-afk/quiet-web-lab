@@ -1,0 +1,25 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const entries = await getCollection("products");
+---
+
+<BaseLayout title="Products" description="Digital prompt systems, workflow templates, and static AI tool products in planning and preview." canonicalPath="/products/" locale="en" routeKey="/products/">
+  <section class="content-section">
+    <div class="section-heading">
+      <p class="eyebrow">Products</p>
+      <h1>Small AI workflow products and templates.</h1>
+      <p class="lead">Products begin as practical internal systems, then become reusable templates or digital resources.</p>
+    </div>
+    <div class="article-grid">
+      {entries.map((entry) => (
+        <a class="article-card" href={`/products/${entry.slug}/`}>
+          <span class="category-badge">{entry.data.status}</span>
+          <h3>{entry.data.title}</h3>
+          <p>{entry.data.description}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

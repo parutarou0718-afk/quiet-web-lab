@@ -1,8 +1,8 @@
-export const siteConfig = {
-  siteName: "Quiet Web Lab",
+﻿export const siteConfig = {
+  siteName: "Smart Prompt App",
   siteUrl: "https://smartpromptapp.com",
   description:
-    "A static AI image prompt library with reusable prompt fragments, model comparisons, practical guides, and local creative tools.",
+    "Practical AI workflows, reusable prompt systems, automation templates, and static web products for turning AI into production processes.",
   analyticsId: "",
   analyticsEnabled: false,
   adsenseClientId: "",

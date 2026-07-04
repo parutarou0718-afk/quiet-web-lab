@@ -1,0 +1,25 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const entries = await getCollection("tools");
+---
+
+<BaseLayout title="AI Tools" description="Lightweight AI tools for prompt building, workflow planning, and creative production." canonicalPath="/tools/" locale="en" routeKey="/tools/">
+  <section class="content-section">
+    <div class="section-heading">
+      <p class="eyebrow">Tools</p>
+      <h1>Tools that turn AI workflows into reusable systems.</h1>
+      <p class="lead">Start with focused utilities that solve one practical workflow problem at a time.</p>
+    </div>
+    <div class="article-grid">
+      {entries.map((entry) => (
+        <a class="article-card" href={`/tools/${entry.slug}/`}>
+          <span class="category-badge">{entry.data.category}</span>
+          <h3>{entry.data.title}</h3>
+          <p>{entry.data.description}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

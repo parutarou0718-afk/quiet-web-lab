@@ -1,0 +1,18 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const locale = "zh";
+---
+
+<BaseLayout title="Products" description="This mirror page is reserved for the future localized site." canonicalPath="/zh/products/" locale={locale} routeKey="/products/" showPromptCart={false}>
+  <section class="content-section">
+    <div class="section-heading">
+      <p class="eyebrow">Mirror page</p>
+      <h1>Products</h1>
+      <p class="lead">Localized content for this section will be prepared after the English site structure is stable.</p>
+      <div class="hero-actions">
+        <a class="button" href="/products/">Open English version</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

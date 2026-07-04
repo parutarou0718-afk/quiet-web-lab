@@ -1,4 +1,4 @@
----
+﻿---
 import { siteConfig } from "@/config/site";
 import type { Locale } from "@/data/i18n";
 import { localizedPath } from "@/data/i18n";
@@ -8,48 +8,31 @@ interface Props {
 }
 
 const { locale = "en" } = Astro.props;
-
-const footerCopy = {
-  en: {
-    text: "Prompt tools, model notes, guides, and creative utilities.",
-    about: "About",
-    privacy: "Privacy",
-    terms: "Terms",
-    disclaimer: "Disclaimer",
-    contact: "Contact",
-    sitemap: "Sitemap"
-  },
-  zh: {
-    text: "提示词工具、模型笔记、指南和创意实用工具。",
-    about: "关于",
-    privacy: "隐私",
-    terms: "条款",
-    disclaimer: "免责声明",
-    contact: "联系",
-    sitemap: "网站地图"
-  },
-  ja: {
-    text: "プロンプトツール、モデルメモ、ガイド、制作向けユーティリティ。",
-    about: "概要",
-    privacy: "プライバシー",
-    terms: "規約",
-    disclaimer: "免責事項",
-    contact: "連絡先",
-    sitemap: "サイトマップ"
-  }
-} as const;
-
-const copy = footerCopy[locale];
+const copy = {
+  text: "Practical AI workflows, prompt systems, and lightweight automation tools.",
+  tools: "Tools",
+  services: "Services",
+  workflows: "Workflows",
+  products: "Products",
+  cases: "Case Studies",
+  contact: "Contact",
+  privacy: "Privacy",
+  terms: "Terms",
+  disclaimer: "Disclaimer"
+};
 ---
 
 <footer class="site-footer">
   <p>© {new Date().getFullYear()} {siteConfig.siteName}. {copy.text}</p>
   <nav aria-label="Footer navigation">
-    <a href={localizedPath("/about/", locale)}>{copy.about}</a>
+    <a href={localizedPath("/tools/", locale)}>{copy.tools}</a>
+    <a href={localizedPath("/services/", locale)}>{copy.services}</a>
+    <a href={localizedPath("/workflows/", locale)}>{copy.workflows}</a>
+    <a href={localizedPath("/products/", locale)}>{copy.products}</a>
+    <a href={localizedPath("/case-studies/", locale)}>{copy.cases}</a>
+    <a href={localizedPath("/contact/", locale)}>{copy.contact}</a>
     <a href={localizedPath("/privacy/", locale)}>{copy.privacy}</a>
     <a href={localizedPath("/terms/", locale)}>{copy.terms}</a>
     <a href={localizedPath("/disclaimer/", locale)}>{copy.disclaimer}</a>
-    <a href={localizedPath("/contact/", locale)}>{copy.contact}</a>
-    <a href="/sitemap.xml">{copy.sitemap}</a>
   </nav>
 </footer>

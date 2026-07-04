@@ -1,0 +1,25 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("tools");
+  return entries.map((entry) => ({ params: { slug: entry.slug }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<BaseLayout title={entry.data.title} description={entry.data.description} canonicalPath={`/tools/${entry.slug}/`} image={entry.data.coverImage} locale="en" routeKey="/tools/">
+  <article class="content-section article-body">
+    <div class="section-heading">
+      <p class="eyebrow">Tools</p>
+      <h1>{entry.data.title}</h1>
+      <p class="lead">{entry.data.description}</p>
+    </div>
+    
+    {entry.data.coverImage ? <img class="news-hero-image" src={entry.data.coverImage} alt="" /> : null}
+    <Content />
+  </article>
+</BaseLayout>

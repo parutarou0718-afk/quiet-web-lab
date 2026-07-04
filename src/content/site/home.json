@@ -1,0 +1,17 @@
+{
+  "featuredTools": [
+    "prompt-builder"
+  ],
+  "featuredServices": [
+    "ai-workflow-prototyping"
+  ],
+  "featuredWorkflows": [
+    "comfyui-prompt-sample-workflow"
+  ],
+  "featuredProducts": [
+    "prompt-library-starter-kit"
+  ],
+  "featuredCaseStudies": [
+    "prompt-library-demo"
+  ]
+}

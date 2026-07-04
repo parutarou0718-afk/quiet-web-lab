@@ -1,0 +1,26 @@
+﻿---
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const entries = await getCollection("case-studies");
+---
+
+<BaseLayout title="Demo Case Studies" description="Clearly marked demo case studies for AI prompt systems, workflow products, and static automation tools." canonicalPath="/case-studies/" locale="en" routeKey="/case-studies/">
+  <section class="content-section">
+    <div class="section-heading">
+      <p class="eyebrow">Demo Cases</p>
+      <h1>Demo case studies, clearly labeled as examples.</h1>
+      <p class="lead">These are demonstration case studies for explaining workflows. They are not presented as real client engagements.</p>
+    </div>
+    <div class="article-grid">
+      {entries.map((entry) => (
+        <a class="article-card" href={`/case-studies/${entry.slug}/`}>
+          <span class="category-badge">{entry.data.status}</span>
+          <h3>{entry.data.title}</h3>
+          <p>{entry.data.description}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+

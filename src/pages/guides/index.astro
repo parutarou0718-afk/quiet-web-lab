@@ -1,9 +1,11 @@
----
+﻿---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { guides } from "@/data/articles";
+import { getCmsGuides } from "@/lib/cms";
+
+const guides = await getCmsGuides();
 ---
 
-<BaseLayout title="Prompt Writing Guides" description="Practical AI image prompt writing guides for structure, poses, clothing, camera, negative prompts, and iteration." canonicalPath="/guides/">
+<BaseLayout title="Prompt Writing Guides" description="Practical AI image prompt writing guides for structure, poses, clothing, camera, negative prompts, and iteration." canonicalPath="/guides/" locale="en" routeKey="/guides/">
   <section class="content-section">
     <div class="section-heading">
       <p class="eyebrow">Guides</p>
@@ -11,10 +13,11 @@ import { guides } from "@/data/articles";
       <p class="lead">These guides explain prompt structure in plain English and connect directly to the recipe builder workflow.</p>
     </div>
     <div class="article-grid">
-      {guides.map(([slug, title, summary]) => (
-        <a class="article-card" href={`/guides/${slug}/`}>
-          <h3>{title}</h3>
-          <p>{summary}</p>
+      {guides.map((guide) => (
+        <a class="article-card" href={`/guides/${guide.slug}/`}>
+          <span class="category-badge">{guide.data.category}</span>
+          <h3>{guide.data.title}</h3>
+          <p>{guide.data.description}</p>
         </a>
       ))}
     </div>
