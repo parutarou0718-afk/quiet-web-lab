@@ -23,12 +23,12 @@ export const siteTools: SiteTool[] = [
   {
     title: 'Email Prompt Builder',
     slug: 'email-prompt-builder',
-    description: 'A planned prompt helper for drafting, rewriting, and adapting emails for different audiences.',
+    description: 'Turn rough email situations into structured AI prompts for drafting, rewriting, tone adjustment, and multilingual email versions.',
     category: 'Text Tools',
-    status: 'Coming Soon',
-    url: '/contact/',
+    status: 'Active',
+    url: '/tools/email-prompt-builder/',
     tags: ['email', 'writing', 'business'],
-    useCases: ['Client replies', 'Polite rewrites', 'Follow-up templates']
+    useCases: ['Client replies', 'Professor emails', 'Polite rewrites']
   },
   {
     title: 'Writing Improvement Prompt',
@@ -112,7 +112,8 @@ export const siteTools: SiteTool[] = [
   }
 ];
 
-export const featuredTools = siteTools.filter((tool) => ['research-prompt-assistant', 'prompt-builder', 'prompt-recipe-library', 'image-prompt-fragment-library', 'n8n-workflow-templates'].includes(tool.slug));
+export const featuredTools = siteTools.filter((tool) => ['research-prompt-assistant', 'email-prompt-builder', 'prompt-builder', 'prompt-recipe-library', 'image-prompt-fragment-library', 'n8n-workflow-templates'].includes(tool.slug));
+
 
 
 

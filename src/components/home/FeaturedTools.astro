@@ -2,6 +2,7 @@
 import { siteTools } from "@/data/tools";
 const display = [
   siteTools.find((tool) => tool.slug === "research-prompt-assistant"),
+  siteTools.find((tool) => tool.slug === "email-prompt-builder"),
   siteTools.find((tool) => tool.slug === "prompt-builder"),
   siteTools.find((tool) => tool.slug === "prompt-recipe-library"),
   { title: "LoRA Captioning Guide", slug: "lora-captioning-guide", description: "Learn how to prepare safe, original, and structured datasets for LoRA training.", category: "Image Tools", status: "Available", url: "/lora/", tags: ["LoRA", "captioning"], useCases: ["Dataset planning", "Caption structure"] },
@@ -27,3 +28,4 @@ const display = [
     ))}
   </div>
 </section>
+

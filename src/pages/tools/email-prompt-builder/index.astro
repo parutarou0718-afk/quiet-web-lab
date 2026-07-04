@@ -1,0 +1,68 @@
+﻿---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import EmailPromptBuilder from "@/components/EmailPromptBuilder";
+---
+
+<BaseLayout
+  title="Email Prompt Builder"
+  description="Generate structured AI prompts for drafting, rewriting, and adapting polite emails in English, Japanese, or Chinese."
+  canonicalPath="/tools/email-prompt-builder/"
+  locale="en"
+  routeKey="/tools/"
+>
+  <section class="content-section research-hero">
+    <div class="section-heading">
+      <p class="eyebrow">Free AI Prompt Tool</p>
+      <h1>Email Prompt Builder</h1>
+      <p class="lead">Turn a rough email situation into a structured AI prompt for drafting, rewriting, or adapting emails in English, Japanese, or Chinese.</p>
+      <p class="notice">This tool helps structure email-writing prompts. Users should review and edit any AI-generated email before sending.</p>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="content-grid">
+      <article class="prompt-block">
+        <h2>Why this tool helps</h2>
+        <p>Many people ask AI to "write an email" and get a generic result. This tool helps you give AI the right recipient, tone, context, task, and output format, so the email becomes more natural and appropriate.</p>
+      </article>
+      <article class="prompt-block">
+        <h2>Safe use note</h2>
+        <p>Use this tool for honest communication, not deception. Do not use it to impersonate someone, create phishing messages, harass others, or bypass school, company, or platform rules.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="section-heading">
+      <p class="eyebrow">Who this is for</p>
+      <h2>Clearer email prompts for everyday situations.</h2>
+    </div>
+    <div class="pill-list">
+      <span>Students writing to professors</span>
+      <span>Job seekers contacting recruiters</span>
+      <span>Professionals replying to clients</span>
+      <span>People writing polite Japanese emails</span>
+      <span>Users rewriting rough messages naturally</span>
+      <span>Non-native speakers writing formal emails</span>
+    </div>
+  </section>
+
+  <EmailPromptBuilder client:load />
+
+  <section class="content-section">
+    <div class="section-heading">
+      <p class="eyebrow">Before / After</p>
+      <h2>A vague request becomes a useful email prompt.</h2>
+    </div>
+    <div class="content-grid">
+      <article class="prompt-block">
+        <h3>Before</h3>
+        <p>"Write an email to my professor."</p>
+      </article>
+      <article class="prompt-block">
+        <h3>After</h3>
+        <p>"You are a professional email writing assistant. Write a polite Japanese email to my university professor asking whether I can submit my report two days late because I was sick. Use respectful academic wording, include a subject line, apologize briefly, and do not exaggerate."</p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

@@ -1354,3 +1354,30 @@ pre, textarea {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+.example-fill-buttons,
+.pill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.example-fill-buttons button,
+.pill-list span {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 8px 12px;
+  background: var(--surface-soft);
+  color: var(--accent-strong);
+  font-weight: 800;
+}
+
+.example-fill-buttons button:hover,
+.example-fill-buttons button:focus-visible {
+  border-color: var(--accent);
+  background: #e8f1ee;
+}
+
+.pill-list span {
+  color: var(--muted);
+}
