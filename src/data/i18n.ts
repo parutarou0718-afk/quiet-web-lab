@@ -16,6 +16,8 @@ export const localeLabels: Record<Locale, string> = {
 const pathMap = {
   "/": { en: "/", zh: "/zh/", ja: "/ja/" },
   "/tools/": { en: "/tools/", zh: "/zh/tools/", ja: "/ja/tools/" },
+  "/tools/research-prompt-assistant/": { en: "/tools/research-prompt-assistant/", zh: "/zh/tools/", ja: "/ja/tools/research-prompt-assistant/" },
+  "/tools/email-prompt-builder/": { en: "/tools/email-prompt-builder/", zh: "/zh/tools/", ja: "/ja/tools/email-prompt-builder/" },
   "/builder/": { en: "/builder/", zh: "/zh/builder/", ja: "/ja/builder/" },
   "/recipes/": { en: "/recipes/", zh: "/zh/recipes/", ja: "/ja/recipes/" },
   "/models/": { en: "/models/", zh: "/zh/models/", ja: "/ja/models/" },
@@ -168,5 +170,6 @@ const enNews = {
 };
 
 export const newsPageCopy = { en: enNews, zh: enNews, ja: enNews } as const;
+
 
 

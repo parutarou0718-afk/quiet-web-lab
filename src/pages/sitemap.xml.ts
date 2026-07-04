@@ -11,6 +11,8 @@ const staticPages = [
   "/tools/",
   "/tools/research-prompt-assistant/",
   "/tools/email-prompt-builder/",
+  "/ja/tools/research-prompt-assistant/",
+  "/ja/tools/email-prompt-builder/",
   "/services/",
   "/workflows/",
   "/products/",
@@ -111,6 +113,7 @@ export async function GET(): Promise<Response> {
     }
   });
 }
+
 
 
 

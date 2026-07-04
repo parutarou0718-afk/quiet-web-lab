@@ -1,90 +1,73 @@
----
-import AdSlot from "@/components/AdSlot.astro";
-import RecipeCard from "@/components/RecipeCard.astro";
+﻿---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { homeCopy, localizedPath, localizedSlugPath } from "@/data/i18n";
-import { latestNews } from "@/data/news";
-import { recipes } from "@/data/recipes";
-import { siteConfig } from "@/config/site";
+import { localizedPath } from "@/data/i18n";
 
 const locale = "ja";
-const copy = homeCopy[locale];
 ---
 
-<BaseLayout title={copy.title} description={siteConfig.description} canonicalPath="/ja/" showPromptCart={false} locale={locale} routeKey="/">
+<BaseLayout
+  title="実用的なAIワークフローとプロンプトツール"
+  description="Smart Prompt App は、文章作成、研究計画、メール作成、画像生成、業務自動化に使える軽量なAIツールとワークフローを提供します。"
+  canonicalPath="/ja/"
+  showPromptCart={false}
+  locale={locale}
+  routeKey="/"
+>
   <section class="hero hub-hero">
     <div>
       <p class="eyebrow">Smart Prompt App</p>
-      <h1>{copy.h1}</h1>
-      <p class="lead">{copy.lead}</p>
+      <h1>AIを、実際の作業に使える形へ。</h1>
+      <p class="lead">研究計画、メール作成、画像プロンプト、ドキュメント処理、業務自動化のための、軽量で使いやすいAIワークフローとプロンプトシステムをまとめています。</p>
       <div class="hero-actions">
-        <a class="button" href={localizedPath("/builder/", locale)}>{copy.builderCta}</a>
-        <a class="button secondary" href={localizedPath("/models/", locale)}>{copy.modelCta}</a>
+        <a class="button" href={localizedPath("/tools/", locale)}>ツールを見る</a>
+        <a class="button secondary" href={localizedPath("/services/", locale)}>サービスを見る</a>
       </div>
     </div>
     <aside class="hero-panel hub-panel">
       <div class="stat-grid">
-        <div class="stat"><strong>{recipes.length}</strong><span>{copy.recipes}</span></div>
-        <div class="stat"><strong>4</strong><span>{copy.models}</span></div>
-        <div class="stat"><strong>static</strong><span>{copy.static}</span></div>
-        <div class="stat"><strong>local</strong><span>{copy.local}</span></div>
+        <div class="stat"><strong>2</strong><span>利用可能な無料ツール</span></div>
+        <div class="stat"><strong>static</strong><span>Cloudflare Pages対応</span></div>
+        <div class="stat"><strong>no login</strong><span>ログイン不要</span></div>
+        <div class="stat"><strong>AI</strong><span>実装向けテンプレート</span></div>
       </div>
     </aside>
   </section>
 
-  <section class="content-section product-grid">
-    <a class="product-card product-card--ai" href={localizedPath("/builder/", locale)}>
-      <span class="eyebrow">{copy.promptBuilder}</span>
-      <h2>{copy.promptBuilderTitle}</h2>
-      <p>{copy.promptBuilderBody}</p>
-      <span class="button">{copy.promptBuilderButton}</span>
-    </a>
-    <a class="product-card product-card--models" href={localizedPath("/models/", locale)}>
-      <span class="eyebrow">{copy.modelGuide}</span>
-      <h2>{copy.modelGuideTitle}</h2>
-      <p>{copy.modelGuideBody}</p>
-      <span class="button">{copy.modelGuideButton}</span>
-    </a>
-  </section>
-
-  <AdSlot />
-
   <section class="content-section">
-    <div class="section-heading">
-      <h2>{copy.startHere}</h2>
-      <p class="muted">{copy.startLead}</p>
-    </div>
-    <div class="category-grid">
-      <a class="category-card" href={localizedPath("/recipes/", locale)}><h3>プロンプトレシピ</h3><p>再利用できる断片に分けられる完成例を閲覧できます。</p></a>
-      <a class="category-card" href={localizedPath("/guides/", locale)}><h3>プロンプトガイド</h3><p>構造、カメラ、ネガティブ、衣装、ポーズ、反復方法を学べます。</p></a>
-      <a class="category-card" href={localizedPath("/lora/", locale)}><h3>LoRA メモ</h3><p>データセット、キャプション、学習設定、テスト、整理方法をまとめます。</p></a>
-    </div>
-  </section>
-
-  <section class="content-section">
-    <div class="section-heading">
-      <h2>{copy.latestRecipes}</h2>
-      <p class="muted">{copy.latestRecipesLead}</p>
-    </div>
-    <div class="recipe-grid">
-      {recipes.slice(0, 3).map((recipe) => <RecipeCard recipe={recipe} locale={locale} />)}
-    </div>
-  </section>
-
-  <section class="content-section">
-    <div class="section-heading">
-      <h2>{copy.latestUpdates}</h2>
-      <p class="muted">{copy.latestUpdatesLead}</p>
+    <div class="section-heading section-heading--split">
+      <div>
+        <p class="eyebrow">Available Tools</p>
+        <h2>すぐ使える無料ツール</h2>
+      </div>
+      <p class="muted">第一版では、研究計画とメール作成に使えるプロンプト生成ツールを公開しています。</p>
     </div>
     <div class="article-grid">
-      {latestNews.slice(0, 3).map((post) => (
-        <a class="article-card" href={localizedSlugPath("/news/", post.slug, locale)}>
-          <span class="category-badge">{post.category}</span>
-          <time datetime={post.date}>{post.date}</time>
-          <h3>{post.title}</h3>
-          <p>{post.description}</p>
-        </a>
-      ))}
+      <a class="article-card article-card--action" href="/ja/tools/research-prompt-assistant/">
+        <span class="category-badge">Active</span>
+        <h3>Research Prompt Assistant</h3>
+        <p>曖昧な研究テーマを、AIに渡しやすい構造化プロンプトに変換します。卒論、研究質問、方法論、文献レビュー計画に便利です。</p>
+        <span class="button small-button">開く</span>
+      </a>
+      <a class="article-card article-card--action" href="/ja/tools/email-prompt-builder/">
+        <span class="category-badge">Active</span>
+        <h3>Email Prompt Builder</h3>
+        <p>メールの状況、相手、距離感、語調を整理して、ChatGPTなどで自然なメールを作るためのプロンプトに変換します。</p>
+        <span class="button small-button">開く</span>
+      </a>
+      <a class="article-card article-card--action" href={localizedPath("/builder/", locale)}>
+        <span class="category-badge">Available</span>
+        <h3>Image Prompt Builder</h3>
+        <p>画像生成用のプロンプト断片を組み合わせ、矛盾を確認しながら英語プロンプトを作れます。</p>
+        <span class="button small-button">開く</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="section-heading">
+      <p class="eyebrow">What We Build</p>
+      <h2>小さく始めて、実際の作業に組み込めるAIツール。</h2>
+      <p class="lead">プロンプト集だけでなく、研究、文章、画像制作、ドキュメント処理、n8n自動化などに展開できる静的サイト型のAI実装テンプレートを増やしていきます。</p>
     </div>
   </section>
 </BaseLayout>

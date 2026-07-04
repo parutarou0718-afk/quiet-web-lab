@@ -113,13 +113,58 @@ Output Format
 6. Risks and limitations
 7. Next steps`;
 
-export default function ResearchPromptAssistant() {
+export default function ResearchPromptAssistant({ locale = "en" }: { locale?: "en" | "ja" }) {
   const [form, setForm] = useState<FormState>(defaultForm);
   const [prompt, setPrompt] = useState("");
   const [error, setError] = useState("");
   const [copyStatus, setCopyStatus] = useState("");
 
   const canCopy = useMemo(() => prompt.trim().length > 0, [prompt]);
+  const ui = locale === "ja" ? {
+    formAria: "研究プロンプトフォーム",
+    field: "研究分野",
+    fieldPlaceholder: "Economics, Education, Linguistics, Sociology, Business, Media Studies...",
+    topic: "研究テーマ",
+    topicPlaceholder: "AI investment advice and university students",
+    level: "学術レベル",
+    target: "目的",
+    language: "回答言語",
+    context: "背景・条件",
+    contextPlaceholder: "授業の条件、使えるデータ、締切、AIに考慮してほしいことを書いてください。",
+    generate: "Promptを生成",
+    copy: "Promptをコピー",
+    clear: "フォームをクリア",
+    copyExample: "例をコピー",
+    outputEyebrow: "生成されたPrompt",
+    outputTitle: "AIツールにコピーして使えます",
+    outputPlaceholder: "生成された構造化プロンプトがここに表示されます。コピー前に編集できます。",
+    topicError: "研究テーマを入力してください。",
+    copied: "Promptをコピーしました。",
+    exampleCopied: "例のPromptをコピーしました。",
+    copyFailed: "コピーに失敗しました。テキストを選択して手動でコピーしてください。"
+  } : {
+    formAria: "Research prompt form",
+    field: "Research field",
+    fieldPlaceholder: "Economics, Education, Linguistics, Sociology, Business, Media Studies...",
+    topic: "Research topic",
+    topicPlaceholder: "AI investment advice and university students",
+    level: "Academic level",
+    target: "Target output",
+    language: "Preferred language",
+    context: "User background / extra context",
+    contextPlaceholder: "Describe your current idea, course requirements, data access, deadline, or anything the AI should consider.",
+    generate: "Generate Prompt",
+    copy: "Copy Prompt",
+    clear: "Clear Form",
+    copyExample: "Copy Example Prompt",
+    outputEyebrow: "Generated Prompt",
+    outputTitle: "Copy this into your AI tool",
+    outputPlaceholder: "Your generated structured prompt will appear here. You can edit it before copying.",
+    topicError: "Please enter a research topic first.",
+    copied: "Prompt copied.",
+    exampleCopied: "Example prompt copied.",
+    copyFailed: "Copy failed. Please select the text and copy it manually."
+  };
 
   const updateField = (key: keyof FormState, value: string) => {
     setForm((current) => ({ ...current, [key]: value }));
@@ -128,7 +173,7 @@ export default function ResearchPromptAssistant() {
 
   const generatePrompt = () => {
     if (!form.topic.trim()) {
-      setError("Please enter a research topic first.");
+      setError(ui.topicError);
       return;
     }
     setError("");
@@ -141,7 +186,7 @@ export default function ResearchPromptAssistant() {
       await navigator.clipboard.writeText(text);
       setCopyStatus(message);
     } catch {
-      setCopyStatus("Copy failed. Please select the text and copy it manually.");
+      setCopyStatus(ui.copyFailed);
     }
   };
 
@@ -154,53 +199,53 @@ export default function ResearchPromptAssistant() {
 
   return (
     <div className="research-tool-shell">
-      <section className="research-tool-form" aria-label="Research prompt form">
+      <section className="research-tool-form" aria-label={ui.formAria}>
         <label>
-          <span>Research field</span>
+          <span>{ui.field}</span>
           <input
             value={form.field}
             onChange={(event) => updateField("field", event.target.value)}
-            placeholder="Economics, Education, Linguistics, Sociology, Business, Media Studies..."
+            placeholder={ui.fieldPlaceholder}
           />
         </label>
 
         <label>
-          <span>Research topic <strong aria-hidden="true">*</strong></span>
+          <span>{ui.topic} <strong aria-hidden="true">*</strong></span>
           <input
             value={form.topic}
             onChange={(event) => updateField("topic", event.target.value)}
-            placeholder="AI investment advice and university students"
+            placeholder={ui.topicPlaceholder}
             aria-invalid={error ? "true" : "false"}
           />
         </label>
 
         <label>
-          <span>Academic level</span>
+          <span>{ui.level}</span>
           <select value={form.level} onChange={(event) => updateField("level", event.target.value)}>
             {academicLevels.map((level) => <option key={level} value={level}>{level}</option>)}
           </select>
         </label>
 
         <label>
-          <span>Target output</span>
+          <span>{ui.target}</span>
           <select value={form.target} onChange={(event) => updateField("target", event.target.value)}>
             {targetOutputs.map((target) => <option key={target} value={target}>{target}</option>)}
           </select>
         </label>
 
         <label>
-          <span>Preferred language</span>
+          <span>{ui.language}</span>
           <select value={form.language} onChange={(event) => updateField("language", event.target.value)}>
             {languages.map((language) => <option key={language} value={language}>{language}</option>)}
           </select>
         </label>
 
         <label className="research-tool-form__wide">
-          <span>User background / extra context</span>
+          <span>{ui.context}</span>
           <textarea
             value={form.context}
             onChange={(event) => updateField("context", event.target.value)}
-            placeholder="Describe your current idea, course requirements, data access, deadline, or anything the AI should consider."
+            placeholder={ui.contextPlaceholder}
             rows={6}
           />
         </label>
@@ -208,28 +253,29 @@ export default function ResearchPromptAssistant() {
         {error && <p className="form-error" role="alert">{error}</p>}
 
         <div className="research-tool-actions">
-          <button type="button" onClick={generatePrompt}>Generate Prompt</button>
-          <button type="button" onClick={() => canCopy && copyText(prompt, "Prompt copied.")} disabled={!canCopy}>Copy Prompt</button>
-          <button type="button" onClick={clearForm}>Clear Form</button>
-          <button type="button" onClick={() => copyText(examplePrompt, "Example prompt copied.")}>Copy Example Prompt</button>
+          <button type="button" onClick={generatePrompt}>{ui.generate}</button>
+          <button type="button" onClick={() => canCopy && copyText(prompt, ui.copied)} disabled={!canCopy}>{ui.copy}</button>
+          <button type="button" onClick={clearForm}>{ui.clear}</button>
+          <button type="button" onClick={() => copyText(examplePrompt, ui.exampleCopied)}>{ui.copyExample}</button>
         </div>
       </section>
 
       <section className="research-tool-output" aria-label="Generated prompt">
         <div className="research-tool-output__head">
           <div>
-            <p className="eyebrow">Generated Prompt</p>
-            <h2>Copy this into your AI tool</h2>
+            <p className="eyebrow">{ui.outputEyebrow}</p>
+            <h2>{ui.outputTitle}</h2>
           </div>
           {copyStatus && <span role="status">{copyStatus}</span>}
         </div>
         <textarea
           value={prompt}
           onChange={(event) => setPrompt(event.target.value)}
-          placeholder="Your generated structured prompt will appear here. You can edit it before copying."
+          placeholder={ui.outputPlaceholder}
           rows={20}
         />
       </section>
     </div>
   );
 }
+

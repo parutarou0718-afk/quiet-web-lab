@@ -1,18 +1,66 @@
----
+﻿---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
 const locale = "ja";
+const tools = [
+  {
+    title: "Research Prompt Assistant",
+    url: "/ja/tools/research-prompt-assistant/",
+    status: "Active",
+    description: "曖昧な研究アイデアを、研究計画、研究質問、方法論、提案書改善に使える構造化AIプロンプトへ変換します。",
+    uses: "卒論計画、研究質問、方法論の整理"
+  },
+  {
+    title: "Email Prompt Builder",
+    url: "/ja/tools/email-prompt-builder/",
+    status: "Active",
+    description: "メールの相手、距離感、語調、背景を整理し、英語・日本語・中国語のメール作成に使えるAIプロンプトを生成します。",
+    uses: "教授へのメール、顧客返信、丁寧な断り"
+  },
+  {
+    title: "Prompt Builder",
+    url: "/ja/builder/",
+    status: "Available",
+    description: "画像生成用のプロンプト断片を選び、矛盾を確認しながらコピー可能な英語プロンプトを作れます。",
+    uses: "画像プロンプト作成、断片管理、矛盾チェック"
+  },
+  {
+    title: "Writing Improvement Prompt",
+    url: "/ja/contact/",
+    status: "Coming Soon",
+    description: "文章の明確さ、トーン、構成を改善するためのプロンプトツールを準備中です。",
+    uses: "文章改善、自然な表現、構成チェック"
+  }
+];
 ---
 
-<BaseLayout title="Tools" description="This mirror page is reserved for the future localized site." canonicalPath="/ja/tools/" locale={locale} routeKey="/tools/" showPromptCart={false}>
+<BaseLayout
+  title="AIツール一覧"
+  description="研究計画、メール作成、画像プロンプト、文章改善に使えるAIツール一覧。"
+  canonicalPath="/ja/tools/"
+  locale={locale}
+  routeKey="/tools/"
+  showPromptCart={false}
+>
   <section class="content-section">
     <div class="section-heading">
-      <p class="eyebrow">Mirror page</p>
-      <h1>Tools</h1>
-      <p class="lead">Localized content for this section will be prepared after the English site structure is stable.</p>
-      <div class="hero-actions">
-        <a class="button" href="/tools/">Open English version</a>
-      </div>
+      <p class="eyebrow">Tools</p>
+      <h1>繰り返し使えるAIツール。</h1>
+      <p class="lead">思いつきの質問ではなく、相手・目的・形式を整理したプロンプトを作るための無料ツールです。</p>
+    </div>
+  </section>
+
+  <section class="content-section tool-category-section">
+    <div class="article-grid">
+      {tools.map((tool) => (
+        <a class="article-card article-card--action" href={tool.url}>
+          <span class={tool.status === "Coming Soon" ? "category-badge category-badge--soon" : "category-badge"}>{tool.status}</span>
+          <h3>{tool.title}</h3>
+          <p>{tool.description}</p>
+          <p><strong>用途:</strong> {tool.uses}</p>
+          <span class="button small-button">{tool.status === "Coming Soon" ? "準備中" : "開く"}</span>
+        </a>
+      ))}
     </div>
   </section>
 </BaseLayout>

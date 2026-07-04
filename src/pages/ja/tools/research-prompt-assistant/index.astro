@@ -1,0 +1,56 @@
+﻿---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ResearchPromptAssistant from "@/components/ResearchPromptAssistant";
+
+const locale = "ja";
+---
+
+<BaseLayout
+  title="Research Prompt Assistant"
+  description="卒論計画、研究質問、方法論、研究提案の整理に使える構造化AIプロンプトを生成します。"
+  canonicalPath="/ja/tools/research-prompt-assistant/"
+  locale={locale}
+  routeKey="/tools/research-prompt-assistant/"
+>
+  <section class="content-section research-hero">
+    <div class="section-heading">
+      <p class="eyebrow">Free AI Prompt Tool</p>
+      <h1>Research Prompt Assistant</h1>
+      <p class="lead">曖昧な研究アイデアを、卒論計画、研究質問、方法論、提案書改善に使える構造化AIプロンプトへ変換します。</p>
+      <p class="notice">このツールは研究の考え方とAIへの指示を整理するためのものです。提出用の最終論文を代わりに作成するものではありません。</p>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="content-grid">
+      <article class="prompt-block">
+        <h2>なぜ役に立つのか</h2>
+        <p>AIに曖昧な質問をすると、答えも曖昧になりがちです。このツールは、役割、背景、タスク、出力形式を整理して、研究計画に使いやすい回答を得るためのプロンプトを作ります。</p>
+      </article>
+      <article class="prompt-block">
+        <h2>学術利用について</h2>
+        <p>生成したプロンプトは、自分の研究計画を整理するために使ってください。架空の引用、偽のデータ、学校のルール違反につながる使い方は避け、必ず資料を確認してください。</p>
+      </article>
+    </div>
+  </section>
+
+  <ResearchPromptAssistant locale="ja" client:load />
+
+  <section class="content-section">
+    <div class="section-heading">
+      <p class="eyebrow">Before / After</p>
+      <h2>曖昧な依頼を、使いやすい研究プロンプトへ。</h2>
+    </div>
+    <div class="content-grid">
+      <article class="prompt-block">
+        <h3>Before</h3>
+        <p>「AIと投資について卒論テーマを考えて。」</p>
+      </article>
+      <article class="prompt-block">
+        <h3>After</h3>
+        <p>「あなたは経済学を専門とする研究アドバイザーです。私は大学生で、AI投資アドバイスと大学生について卒論を書こうとしています...」</p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
+

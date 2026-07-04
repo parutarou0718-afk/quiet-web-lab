@@ -174,13 +174,64 @@ Output Format
 3. Tone notes
 4. Optional shorter version`;
 
-export default function EmailPromptBuilder() {
+export default function EmailPromptBuilder({ locale = "en" }: { locale?: "en" | "ja" }) {
   const [form, setForm] = useState<FormState>(defaultForm);
   const [prompt, setPrompt] = useState("");
   const [error, setError] = useState("");
   const [copyStatus, setCopyStatus] = useState("");
 
   const canCopy = useMemo(() => prompt.trim().length > 0, [prompt]);
+  const ui = locale === "ja" ? {
+    formAria: "メールプロンプトフォーム",
+    exampleAria: "入力例",
+    emailType: "メールの種類",
+    recipient: "相手",
+    relationship: "距離感",
+    tone: "語調",
+    language: "出力言語",
+    outputPreference: "出力の目的",
+    roughMessage: "ラフな内容",
+    roughPlaceholder: "例: 体調不良でレポート提出を2日遅らせられるか、教授に相談したい。",
+    extraContext: "追加の背景",
+    extraPlaceholder: "例: ゼミの先生です。丁寧で責任感のある印象にしたいです。",
+    generate: "Promptを生成",
+    copy: "Promptをコピー",
+    clear: "フォームをクリア",
+    copyExample: "例をコピー",
+    outputEyebrow: "生成されたPrompt",
+    outputTitle: "AIツールにコピーして使えます",
+    outputPlaceholder: "生成されたメール用プロンプトがここに表示されます。コピー前に編集できます。",
+    roughError: "ラフな内容を入力してください。",
+    copied: "Promptをコピーしました。",
+    exampleCopied: "例のPromptをコピーしました。",
+    copyFailed: "コピーに失敗しました。テキストを選択して手動でコピーしてください。",
+    loadedSuffix: "を読み込みました。"
+  } : {
+    formAria: "Email prompt form",
+    exampleAria: "Example presets",
+    emailType: "Email type",
+    recipient: "Recipient",
+    relationship: "Relationship / distance",
+    tone: "Tone",
+    language: "Preferred language",
+    outputPreference: "Output preference",
+    roughMessage: "Rough message",
+    roughPlaceholder: "Example: I want to ask my professor if I can submit the report two days late because I was sick.",
+    extraContext: "Extra context",
+    extraPlaceholder: "Example: This is my seminar professor. I want to sound polite, responsible, and not too casual.",
+    generate: "Generate Prompt",
+    copy: "Copy Prompt",
+    clear: "Clear Form",
+    copyExample: "Copy Example Prompt",
+    outputEyebrow: "Generated Prompt",
+    outputTitle: "Copy this into your AI tool",
+    outputPlaceholder: "Your generated structured email prompt will appear here. You can edit it before copying.",
+    roughError: "Please enter your rough message first.",
+    copied: "Prompt copied.",
+    exampleCopied: "Example prompt copied.",
+    copyFailed: "Copy failed. Please select the text and copy it manually.",
+    loadedSuffix: " loaded."
+  };
 
   const updateField = (key: keyof FormState, value: string) => {
     setForm((current) => ({ ...current, [key]: value }));
@@ -191,12 +242,12 @@ export default function EmailPromptBuilder() {
     setForm(example.form);
     setPrompt("");
     setError("");
-    setCopyStatus(`${example.label} loaded.`);
+    setCopyStatus(`${example.label}${ui.loadedSuffix}`);
   };
 
   const generatePrompt = () => {
     if (!form.roughMessage.trim()) {
-      setError("Please enter your rough message first.");
+      setError(ui.roughError);
       return;
     }
     setError("");
@@ -209,7 +260,7 @@ export default function EmailPromptBuilder() {
       await navigator.clipboard.writeText(text);
       setCopyStatus(message);
     } catch {
-      setCopyStatus("Copy failed. Please select the text and copy it manually.");
+      setCopyStatus(ui.copyFailed);
     }
   };
 
@@ -222,72 +273,72 @@ export default function EmailPromptBuilder() {
 
   return (
     <div className="research-tool-shell">
-      <section className="research-tool-form" aria-label="Email prompt form">
-        <div className="example-fill-buttons research-tool-form__wide" aria-label="Example presets">
+      <section className="research-tool-form" aria-label={ui.formAria}>
+        <div className="example-fill-buttons research-tool-form__wide" aria-label={ui.exampleAria}>
           {examples.map((example) => (
             <button type="button" key={example.label} onClick={() => applyExample(example)}>{example.label}</button>
           ))}
         </div>
 
         <label>
-          <span>Email type</span>
+          <span>{ui.emailType}</span>
           <select value={form.emailType} onChange={(event) => updateField("emailType", event.target.value)}>
             {emailTypes.map((item) => <option key={item} value={item}>{item}</option>)}
           </select>
         </label>
 
         <label>
-          <span>Recipient</span>
+          <span>{ui.recipient}</span>
           <select value={form.recipient} onChange={(event) => updateField("recipient", event.target.value)}>
             {recipients.map((item) => <option key={item} value={item}>{item}</option>)}
           </select>
         </label>
 
         <label>
-          <span>Relationship / distance</span>
+          <span>{ui.relationship}</span>
           <select value={form.relationship} onChange={(event) => updateField("relationship", event.target.value)}>
             {relationships.map((item) => <option key={item} value={item}>{item}</option>)}
           </select>
         </label>
 
         <label>
-          <span>Tone</span>
+          <span>{ui.tone}</span>
           <select value={form.tone} onChange={(event) => updateField("tone", event.target.value)}>
             {tones.map((item) => <option key={item} value={item}>{item}</option>)}
           </select>
         </label>
 
         <label>
-          <span>Preferred language</span>
+          <span>{ui.language}</span>
           <select value={form.language} onChange={(event) => updateField("language", event.target.value)}>
             {languages.map((item) => <option key={item} value={item}>{item}</option>)}
           </select>
         </label>
 
         <label>
-          <span>Output preference</span>
+          <span>{ui.outputPreference}</span>
           <select value={form.outputPreference} onChange={(event) => updateField("outputPreference", event.target.value)}>
             {outputPreferences.map((item) => <option key={item} value={item}>{item}</option>)}
           </select>
         </label>
 
         <label className="research-tool-form__wide">
-          <span>Rough message <strong aria-hidden="true">*</strong></span>
+          <span>{ui.roughMessage} <strong aria-hidden="true">*</strong></span>
           <textarea
             value={form.roughMessage}
             onChange={(event) => updateField("roughMessage", event.target.value)}
-            placeholder="Example: I want to ask my professor if I can submit the report two days late because I was sick."
+            placeholder={ui.roughPlaceholder}
             rows={5}
             aria-invalid={error ? "true" : "false"}
           />
         </label>
 
         <label className="research-tool-form__wide">
-          <span>Extra context</span>
+          <span>{ui.extraContext}</span>
           <textarea
             value={form.extraContext}
             onChange={(event) => updateField("extraContext", event.target.value)}
-            placeholder="Example: This is my seminar professor. I want to sound polite, responsible, and not too casual."
+            placeholder={ui.extraPlaceholder}
             rows={5}
           />
         </label>
@@ -295,28 +346,29 @@ export default function EmailPromptBuilder() {
         {error && <p className="form-error" role="alert">{error}</p>}
 
         <div className="research-tool-actions">
-          <button type="button" onClick={generatePrompt}>Generate Prompt</button>
-          <button type="button" onClick={() => canCopy && copyText(prompt, "Prompt copied.")} disabled={!canCopy}>Copy Prompt</button>
-          <button type="button" onClick={clearForm}>Clear Form</button>
-          <button type="button" onClick={() => copyText(examplePrompt, "Example prompt copied.")}>Copy Example Prompt</button>
+          <button type="button" onClick={generatePrompt}>{ui.generate}</button>
+          <button type="button" onClick={() => canCopy && copyText(prompt, ui.copied)} disabled={!canCopy}>{ui.copy}</button>
+          <button type="button" onClick={clearForm}>{ui.clear}</button>
+          <button type="button" onClick={() => copyText(examplePrompt, ui.exampleCopied)}>{ui.copyExample}</button>
         </div>
       </section>
 
       <section className="research-tool-output" aria-label="Generated prompt">
         <div className="research-tool-output__head">
           <div>
-            <p className="eyebrow">Generated Prompt</p>
-            <h2>Copy this into your AI tool</h2>
+            <p className="eyebrow">{ui.outputEyebrow}</p>
+            <h2>{ui.outputTitle}</h2>
           </div>
           {copyStatus && <span role="status">{copyStatus}</span>}
         </div>
         <textarea
           value={prompt}
           onChange={(event) => setPrompt(event.target.value)}
-          placeholder="Your generated structured email prompt will appear here. You can edit it before copying."
+          placeholder={ui.outputPlaceholder}
           rows={20}
         />
       </section>
     </div>
   );
 }
+

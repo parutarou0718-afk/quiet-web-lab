@@ -1,0 +1,71 @@
+﻿---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import EmailPromptBuilder from "@/components/EmailPromptBuilder";
+
+const locale = "ja";
+---
+
+<BaseLayout
+  title="Email Prompt Builder"
+  description="英語・日本語・中国語の丁寧なメール作成、書き換え、語調調整に使える構造化AIプロンプトを生成します。"
+  canonicalPath="/ja/tools/email-prompt-builder/"
+  locale={locale}
+  routeKey="/tools/email-prompt-builder/"
+>
+  <section class="content-section research-hero">
+    <div class="section-heading">
+      <p class="eyebrow">Free AI Prompt Tool</p>
+      <h1>Email Prompt Builder</h1>
+      <p class="lead">メールの状況を整理し、英語・日本語・中国語でのメール作成、書き換え、語調調整に使える構造化AIプロンプトへ変換します。</p>
+      <p class="notice">このツールはメール作成用プロンプトを整理するためのものです。AIが生成したメールは、送信前に必ず自分で確認・編集してください。</p>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="content-grid">
+      <article class="prompt-block">
+        <h2>なぜ役に立つのか</h2>
+        <p>AIに「メールを書いて」とだけ頼むと、一般的すぎる文章になりがちです。このツールは、相手、距離感、語調、背景、出力形式を整理して、より自然で適切なメール案を得るためのプロンプトを作ります。</p>
+      </article>
+      <article class="prompt-block">
+        <h2>安全な使い方</h2>
+        <p>なりすまし、詐欺、フィッシング、嫌がらせ、脅迫、差別、ルール違反につながる用途には使わないでください。誠実なコミュニケーションの補助として利用してください。</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="section-heading">
+      <p class="eyebrow">Who this is for</p>
+      <h2>日常のメールを、より整理してAIに依頼できます。</h2>
+    </div>
+    <div class="pill-list">
+      <span>教授へ連絡する学生</span>
+      <span>採用担当者へ連絡する求職者</span>
+      <span>顧客に返信するビジネス利用者</span>
+      <span>自然な敬語メールを書きたい人</span>
+      <span>ラフな文章を自然に書き換えたい人</span>
+      <span>フォーマルな外国語メールを書く人</span>
+    </div>
+  </section>
+
+  <EmailPromptBuilder locale="ja" client:load />
+
+  <section class="content-section">
+    <div class="section-heading">
+      <p class="eyebrow">Before / After</p>
+      <h2>短すぎる依頼を、具体的なメールプロンプトへ。</h2>
+    </div>
+    <div class="content-grid">
+      <article class="prompt-block">
+        <h3>Before</h3>
+        <p>「教授にメールを書いて。」</p>
+      </article>
+      <article class="prompt-block">
+        <h3>After</h3>
+        <p>「あなたはプロのメール作成アシスタントです。体調不良のためレポート提出を2日遅らせられるか、大学の教授に丁寧な日本語で確認するメールを書いてください。件名を入れ、簡潔に謝罪し、大げさな表現は避けてください。」</p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
+

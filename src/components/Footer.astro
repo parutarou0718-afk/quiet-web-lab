@@ -8,21 +8,68 @@ interface Props {
 }
 
 const { locale = "en" } = Astro.props;
-const copy = {
-  text: "Practical AI workflows, prompt systems, and lightweight automation tools.",
-  tools: "Tools",
-  workflows: "Workflows",
-  services: "Services",
-  products: "Products",
-  cases: "Case Studies",
-  recipes: "Recipes",
-  guides: "Guides",
-  lora: "LoRA",
-  contact: "Contact",
-  privacy: "Privacy",
-  terms: "Terms",
-  disclaimer: "Disclaimer"
+const footerCopy: Record<Locale, {
+  text: string;
+  tools: string;
+  workflows: string;
+  services: string;
+  products: string;
+  cases: string;
+  recipes: string;
+  guides: string;
+  lora: string;
+  contact: string;
+  privacy: string;
+  terms: string;
+  disclaimer: string;
+}> = {
+  en: {
+    text: "Practical AI workflows, prompt systems, and lightweight automation tools.",
+    tools: "Tools",
+    workflows: "Workflows",
+    services: "Services",
+    products: "Products",
+    cases: "Case Studies",
+    recipes: "Recipes",
+    guides: "Guides",
+    lora: "LoRA",
+    contact: "Contact",
+    privacy: "Privacy",
+    terms: "Terms",
+    disclaimer: "Disclaimer"
+  },
+  zh: {
+    text: "实用 AI 工作流、提示词系统和轻量自动化工具。",
+    tools: "工具",
+    workflows: "工作流",
+    services: "服务",
+    products: "产品",
+    cases: "案例",
+    recipes: "提示词案例",
+    guides: "指南",
+    lora: "LoRA",
+    contact: "联系",
+    privacy: "隐私",
+    terms: "条款",
+    disclaimer: "免责声明"
+  },
+  ja: {
+    text: "実用的なAIワークフロー、プロンプトシステム、軽量な自動化ツール。",
+    tools: "ツール",
+    workflows: "ワークフロー",
+    services: "サービス",
+    products: "製品",
+    cases: "デモ事例",
+    recipes: "レシピ",
+    guides: "ガイド",
+    lora: "LoRA",
+    contact: "連絡",
+    privacy: "プライバシー",
+    terms: "利用規約",
+    disclaimer: "免責事項"
+  }
 };
+const copy = footerCopy[locale];
 ---
 
 <footer class="site-footer">
