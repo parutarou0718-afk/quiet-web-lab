@@ -1381,3 +1381,24 @@ pre, textarea {
 .pill-list span {
   color: var(--muted);
 }
+
+.template-switch-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.template-switch-actions button {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 11px;
+  background: var(--surface-soft);
+  color: var(--accent-strong);
+  font-weight: 800;
+}
+
+.template-switch-actions button:hover,
+.template-switch-actions button:focus-visible {
+  border-color: var(--accent);
+  background: #e8f1ee;
+}
