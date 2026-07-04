@@ -32,6 +32,9 @@ const { Content } = recipeEntry ? await recipeEntry.render() : { Content: null }
         <PromptCartButton fragment={{ id: `${recipe.slug}-full-positive`, category: "subject", label: `${pageRecipe.title} full positive prompt`, text: recipe.positivePrompt, sourceRecipeSlug: recipe.slug, sourceRecipeTitle: recipe.title }} label={copy.addFull} />
       </div>
     </div>
+    <figure class="recipe-hero-image">
+      <img src={recipe.image} alt="" loading="eager" />
+    </figure>
     <div class="detail-grid">
       <div>
         <PromptBlock title={copy.positive} text={recipe.positivePrompt} copyLabel={copy.copy} />
@@ -77,6 +80,8 @@ const { Content } = recipeEntry ? await recipeEntry.render() : { Content: null }
     </div>
   </section>
 </BaseLayout>
+
+
 
 
 

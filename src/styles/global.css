@@ -1402,3 +1402,18 @@ pre, textarea {
   border-color: var(--accent);
   background: #e8f1ee;
 }
+
+.recipe-hero-image {
+  margin: 28px 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface-soft);
+}
+
+.recipe-hero-image img {
+  display: block;
+  width: 100%;
+  max-height: 520px;
+  object-fit: cover;
+}
