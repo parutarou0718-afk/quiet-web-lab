@@ -10,6 +10,8 @@ export default defineConfig({
   output: "static",
   integrations: [react(), ...(isDevCommand ? [keystatic()] : [])],
   build: { format: "directory" },
-  vite: { cacheDir: viteCacheDir, optimizeDeps: { noDiscovery: true, include: [], exclude: [] } }
+  vite: {
+    cacheDir: viteCacheDir,
+    ...(isDevCommand ? {} : { optimizeDeps: { noDiscovery: true, include: [], exclude: [] } })
+  }
 });
-
