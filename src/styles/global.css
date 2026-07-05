@@ -1420,3 +1420,35 @@ pre, textarea {
   object-fit: cover;
 }
 
+
+.result-tool-actions {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.result-tool-actions .is-primary {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(28, 111, 88, 0.18);
+}
+
+.result-tool-actions .is-primary:hover,
+.result-tool-actions .is-primary:focus-visible {
+  border-color: var(--accent-strong);
+  background: var(--accent-strong);
+  color: #fff;
+}
+
+.result-tool-actions button:hover,
+.result-tool-actions button:focus-visible {
+  border-color: var(--accent);
+  background: #e8f1ee;
+}
+
+.result-tool-actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  box-shadow: none;
+}

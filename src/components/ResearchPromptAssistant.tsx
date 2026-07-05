@@ -264,9 +264,9 @@ export default function ResearchPromptAssistant({ locale = "en" }: { locale?: Lo
     context: "背景・条件",
     contextPlaceholder: "授業の条件、使えるデータ、締切、AIに考慮してほしいことを書いてください。",
     generate: "Promptを生成",
-    copy: "Promptをコピー",
+    copy: "生成結果をコピー",
     clear: "フォームをクリア",
-    copyExample: "例をコピー",
+    copyExample: "例文をコピー",
     outputAria: "生成されたプロンプト",
     outputEyebrow: "生成されたPrompt",
     outputTitle: "AIツールにコピーして使えます",
@@ -290,9 +290,9 @@ export default function ResearchPromptAssistant({ locale = "en" }: { locale?: Lo
     context: "User background / extra context",
     contextPlaceholder: "Describe your current idea, course requirements, data access, deadline, or anything the AI should consider.",
     generate: "Generate Prompt",
-    copy: "Copy Prompt",
+    copy: "Copy generated prompt",
     clear: "Clear Form",
-    copyExample: "Copy Example Prompt",
+    copyExample: "Copy example",
     outputAria: "Generated prompt",
     outputEyebrow: "Generated Prompt",
     outputTitle: "Copy this into your AI tool",
@@ -425,7 +425,7 @@ export default function ResearchPromptAssistant({ locale = "en" }: { locale?: Lo
           rows={20}
         />
         <div className='result-tool-actions' aria-label={ui.templateTools}>
-          <button type='button' onClick={() => canCopy && copyText(prompt, ui.copied)} disabled={!canCopy}>{ui.copy}</button>
+          <button className='is-primary' type='button' onClick={() => canCopy && copyText(prompt, ui.copied)} disabled={!canCopy}>{ui.copy}</button>
           <button type='button' onClick={() => copyText(normalizedLocale === 'ja' ? examplePromptJa : examplePromptEn, ui.exampleCopied)}>{ui.copyExample}</button>
           <button type='button' onClick={() => generateTemplate('ja', 'Japanese')}>{ui.japaneseTemplate}</button>
           <button type='button' onClick={() => generateTemplate('en', 'English')}>{ui.englishTemplate}</button>
@@ -434,5 +434,8 @@ export default function ResearchPromptAssistant({ locale = "en" }: { locale?: Lo
     </div>
   );
 }
+
+
+
 
 

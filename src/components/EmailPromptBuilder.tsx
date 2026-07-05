@@ -459,9 +459,9 @@ export default function EmailPromptBuilder({ locale = "en" }: { locale?: Locale 
     extraContext: "追加の背景",
     extraPlaceholder: "例: ゼミの先生です。丁寧で責任感のある印象にしたいです。",
     generate: "Promptを生成",
-    copy: "Promptをコピー",
+    copy: "生成結果をコピー",
     clear: "フォームをクリア",
-    copyExample: "例をコピー",
+    copyExample: "例文をコピー",
     outputAria: "生成されたプロンプト",
     outputEyebrow: "生成されたPrompt",
     outputTitle: "AIツールにコピーして使えます",
@@ -488,9 +488,9 @@ export default function EmailPromptBuilder({ locale = "en" }: { locale?: Locale 
     extraContext: "Extra context",
     extraPlaceholder: "Example: This is my seminar professor. I want to sound polite, responsible, and not too casual.",
     generate: "Generate Prompt",
-    copy: "Copy Prompt",
+    copy: "Copy generated prompt",
     clear: "Clear Form",
-    copyExample: "Copy Example Prompt",
+    copyExample: "Copy example",
     outputAria: "Generated prompt",
     outputEyebrow: "Generated Prompt",
     outputTitle: "Copy this into your AI tool",
@@ -650,7 +650,7 @@ export default function EmailPromptBuilder({ locale = "en" }: { locale?: Locale 
           rows={20}
         />
         <div className='result-tool-actions' aria-label={ui.templateTools}>
-          <button type='button' onClick={() => canCopy && copyText(prompt, ui.copied)} disabled={!canCopy}>{ui.copy}</button>
+          <button className='is-primary' type='button' onClick={() => canCopy && copyText(prompt, ui.copied)} disabled={!canCopy}>{ui.copy}</button>
           <button type='button' onClick={() => copyText(normalizedLocale === 'ja' ? examplePromptJa : examplePromptEn, ui.exampleCopied)}>{ui.copyExample}</button>
           <button type='button' onClick={() => generateTemplate('ja', 'Japanese')}>{ui.japaneseTemplate}</button>
           <button type='button' onClick={() => generateTemplate('en', 'English')}>{ui.englishTemplate}</button>
@@ -659,3 +659,6 @@ export default function EmailPromptBuilder({ locale = "en" }: { locale?: Locale 
     </div>
   );
 }
+
+
+
