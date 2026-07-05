@@ -1,13 +1,22 @@
----
+﻿---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { staticPageCopy } from "@/data/staticPages";
 
-const copy = staticPageCopy.contact.en;
+const email = "parutarou0718@gmail.com";
 ---
 
-<BaseLayout title={copy.title} description={copy.description} canonicalPath="/contact/" locale="en" routeKey="/contact/">
+<BaseLayout title="Contact" description="Contact Smart Prompt App by email for project inquiries, collaboration notes, and feedback." canonicalPath="/contact/" locale="en" routeKey="/contact/">
   <article class="content-section article-body">
-    <h1>{copy.h1}</h1>
-    {copy.body.map((paragraph) => <p>{paragraph}</p>)}
+    <p class="eyebrow">Contact</p>
+    <h1>Contact Smart Prompt App</h1>
+    <p>For project inquiries, collaboration notes, feedback, or correction requests, please contact us by email.</p>
+    <div class="solution-card">
+      <div>
+        <p class="eyebrow">Email</p>
+        <h2><a href={`mailto:${email}`}>{email}</a></h2>
+        <p>Please include your task, expected output, timeline, and any links or references that help explain the request.</p>
+      </div>
+      <a class="button" href={`mailto:${email}`}>Send Email</a>
+    </div>
+    <p class="muted">A public phone number is not listed at this stage. Email keeps requests easier to review and helps avoid spam calls.</p>
   </article>
 </BaseLayout>

@@ -1,13 +1,22 @@
----
+﻿---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { staticPageCopy } from "@/data/staticPages";
 
-const copy = staticPageCopy.contact.ja;
+const email = "parutarou0718@gmail.com";
 ---
 
-<BaseLayout title={copy.title} description={copy.description} canonicalPath="/ja/contact/" locale="ja" routeKey="/contact/">
+<BaseLayout title="お問い合わせ" description="Smart Prompt App へのプロジェクト相談、協業メモ、フィードバックはメールでご連絡ください。" canonicalPath="/ja/contact/" locale="ja" routeKey="/contact/">
   <article class="content-section article-body">
-    <h1>{copy.h1}</h1>
-    {copy.body.map((paragraph) => <p>{paragraph}</p>)}
+    <p class="eyebrow">お問い合わせ</p>
+    <h1>Smart Prompt App へのお問い合わせ</h1>
+    <p>プロジェクト相談、協業のご連絡、サイトへのフィードバック、内容修正のご依頼はメールでご連絡ください。</p>
+    <div class="solution-card">
+      <div>
+        <p class="eyebrow">メール</p>
+        <h2><a href={`mailto:${email}`}>{email}</a></h2>
+        <p>ご連絡の際は、相談内容、希望する成果物、希望時期、参考リンクや資料があれば一緒にお送りください。</p>
+      </div>
+      <a class="button" href={`mailto:${email}`}>メールを送る</a>
+    </div>
+    <p class="muted">現時点では電話番号は公開していません。メールのほうが内容を確認しやすく、迷惑電話も避けやすいためです。</p>
   </article>
 </BaseLayout>

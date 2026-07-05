@@ -1,13 +1,22 @@
----
+﻿---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { staticPageCopy } from "@/data/staticPages";
 
-const copy = staticPageCopy.contact.zh;
+const email = "parutarou0718@gmail.com";
 ---
 
-<BaseLayout title={copy.title} description={copy.description} canonicalPath="/zh/contact/" locale="zh" routeKey="/contact/">
+<BaseLayout title="联系方式" description="通过邮箱联系 Smart Prompt App，适用于项目咨询、合作说明和反馈。" canonicalPath="/zh/contact/" locale="zh" routeKey="/contact/">
   <article class="content-section article-body">
-    <h1>{copy.h1}</h1>
-    {copy.body.map((paragraph) => <p>{paragraph}</p>)}
+    <p class="eyebrow">联系</p>
+    <h1>联系 Smart Prompt App</h1>
+    <p>如果您有项目咨询、合作想法、网站反馈或内容修正建议，请通过邮箱联系。</p>
+    <div class="solution-card">
+      <div>
+        <p class="eyebrow">邮箱</p>
+        <h2><a href={`mailto:${email}`}>{email}</a></h2>
+        <p>来信时可以简单写明您的任务、希望得到的结果、时间要求，以及有帮助的链接或参考资料。</p>
+      </div>
+      <a class="button" href={`mailto:${email}`}>发送邮件</a>
+    </div>
+    <p class="muted">目前暂不公开电话号码。用邮箱沟通更方便整理需求，也能减少骚扰电话。</p>
   </article>
 </BaseLayout>
