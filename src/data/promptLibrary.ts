@@ -29,12 +29,12 @@ const builderImageById: Record<string, string> = {
   "kneeling": "/images/builder/kneeling.webp",
   "turn-back": "/images/builder/turn-back.webp",
   "dynamic-stance": "/images/builder/dynamic-stance.webp",
-  "waving": "/images/builder/waving.webp",
-  "umbrella": "/images/builder/umbrella.webp",
-  "reading": "/images/builder/reading.webp",
+  "waving": "/images/builder/waving.webp?v=2",
+  "umbrella": "/images/builder/umbrella.webp?v=2",
+  "reading": "/images/builder/reading.webp?v=2",
   "packing": "/images/builder/packing.webp",
-  "tea": "/images/builder/tea.webp",
-  "practice-sword": "/images/builder/practice-sword.webp",
+  "tea": "/images/builder/tea.webp?v=2",
+  "practice-sword": "/images/builder/practice-sword.webp?v=2",
   "casual-cardigan": "/images/builder/casual-cardigan.webp",
   "keikogi": "/images/builder/keikogi.webp",
   "traveler-cloak": "/images/builder/traveler-cloak.webp",
@@ -310,6 +310,8 @@ export const comfyShotList = libraryGroups
   }));
 
 export const allLibraryFragments = libraryGroups.flatMap((group) => group.fragments);
+
+
 
 
 
