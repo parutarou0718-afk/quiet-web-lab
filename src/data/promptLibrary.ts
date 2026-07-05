@@ -64,7 +64,16 @@ const builderImageById: Record<string, string> = {
   "storybook": "/images/builder/storybook.webp",
   "watercolor": "/images/builder/watercolor.webp",
   "concept-art": "/images/builder/concept-art.webp",
-  "isometric-game": "/images/builder/isometric-game.webp"
+  "isometric-game": "/images/builder/isometric-game.webp",
+  "clean": "/images/builder/quality-clean.webp",
+  "polished": "/images/builder/quality-polished.webp",
+  "readable": "/images/builder/quality-readable.webp",
+  "general": "/images/builder/negative-general.webp",
+  "composition": "/images/builder/negative-composition.webp",
+  "style-noise": "/images/builder/negative-style-noise.webp",
+  "sdxl-default": "/images/builder/parameters-sdxl.webp",
+  "landscape": "/images/builder/parameters-landscape.webp",
+  "sheet": "/images/builder/parameters-sheet.webp"
 };
 function item(category: PromptCategory, id: string, label: string, text: string, tags: string[] = []): PromptFragment {
   return {
@@ -186,7 +195,7 @@ export const libraryGroups: LibraryGroup[] = [
       item("style", "storybook", "Storybook", "cinematic storybook illustration, natural colors, gentle detail"),
       item("style", "watercolor", "Watercolor", "watercolor illustration, textured paper grain, gentle color washes"),
       item("style", "concept-art", "Concept art", "character concept art, clear material notes, production-ready design"),
-      item("style", "isometric-game", "Isometric game asset", "stylized isometric game asset illustration, readable scale")
+      item("style", "isometric-game", "Isometric game asset", "stylized isometric game asset illustration, readable scale"),
     ]
   },
   {
@@ -301,6 +310,7 @@ export const comfyShotList = libraryGroups
   }));
 
 export const allLibraryFragments = libraryGroups.flatMap((group) => group.fragments);
+
 
 
 
