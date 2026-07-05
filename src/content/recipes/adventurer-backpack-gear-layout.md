@@ -1,11 +1,11 @@
----
+﻿---
 title: Adventurer Backpack Gear Layout
 description: >-
   A prop-layout recipe that helps describe objects, spacing, and camera clarity.
   Use this recipe as a modular prompt lesson with reusable fragments for safe AI
   image generation.
 shortDescription: A prop-layout recipe that helps describe objects, spacing, and camera clarity.
-coverImage: /images/recipes/adventurer-backpack-gear-layout/coverImage.png
+coverImage: /images/recipes/example-07.webp
 category: style
 tags:
   - props
@@ -112,3 +112,4 @@ relatedRecipes:
   - cozy-study-room-character-scene
 ---
 Use this recipe as a modular prompt lesson. Start with the subject, add one readable pose, then layer clothing, scene, camera, lighting, mood, and style. The prompt fragments stay in English so they can be copied directly into most image models.
+

@@ -1,4 +1,4 @@
-import type { PromptCategory, PromptFragment } from "@/lib/promptCart";
+﻿import type { PromptCategory, PromptFragment } from "@/lib/promptCart";
 
 export type LibraryGroup = {
   category: PromptCategory;
@@ -18,6 +18,54 @@ export type ModelRecommendation = {
   comfyNotes: string;
 };
 
+const builderImageById: Record<string, string> = {
+  "original-girl": "/images/builder/original-girl.webp",
+  "traveler": "/images/builder/traveler.webp",
+  "tea-room": "/images/builder/tea-room.webp",
+  "fantasy-worker": "/images/builder/fantasy-worker.webp",
+  "standing": "/images/builder/standing.webp",
+  "walking": "/images/builder/walking.webp",
+  "sitting": "/images/builder/sitting.webp",
+  "kneeling": "/images/builder/kneeling.webp",
+  "turn-back": "/images/builder/turn-back.webp",
+  "dynamic-stance": "/images/builder/dynamic-stance.webp",
+  "waving": "/images/builder/waving.webp",
+  "umbrella": "/images/builder/umbrella.webp",
+  "reading": "/images/builder/reading.webp",
+  "packing": "/images/builder/packing.webp",
+  "tea": "/images/builder/tea.webp",
+  "practice-sword": "/images/builder/practice-sword.webp",
+  "casual-cardigan": "/images/builder/casual-cardigan.webp",
+  "keikogi": "/images/builder/keikogi.webp",
+  "traveler-cloak": "/images/builder/traveler-cloak.webp",
+  "herbalist": "/images/builder/herbalist.webp",
+  "detective-coat": "/images/builder/detective-coat.webp",
+  "festival": "/images/builder/festival.webp",
+  "tea-house": "/images/builder/tea-house.webp",
+  "rainy-street": "/images/builder/rainy-street.webp",
+  "study-room": "/images/builder/study-room.webp",
+  "forest-path": "/images/builder/forest-path.webp",
+  "workshop": "/images/builder/workshop.webp",
+  "market": "/images/builder/market.webp",
+  "full-body": "/images/builder/full-body.webp",
+  "medium-shot": "/images/builder/medium-shot.webp",
+  "close-up": "/images/builder/close-up.webp",
+  "low-angle": "/images/builder/low-angle.webp",
+  "high-angle": "/images/builder/high-angle.webp",
+  "isometric": "/images/builder/isometric.webp",
+  "window": "/images/builder/window.webp",
+  "golden-hour": "/images/builder/golden-hour.webp",
+  "neon": "/images/builder/neon.webp",
+  "desk-lamp": "/images/builder/desk-lamp.webp",
+  "overcast": "/images/builder/overcast.webp",
+  "studio": "/images/builder/studio.webp",
+  "anime-clean": "/images/builder/anime-clean.webp",
+  "semi-real": "/images/builder/semi-real.webp",
+  "storybook": "/images/builder/storybook.webp",
+  "watercolor": "/images/builder/watercolor.webp",
+  "concept-art": "/images/builder/concept-art.webp",
+  "isometric-game": "/images/builder/isometric-game.webp"
+};
 function item(category: PromptCategory, id: string, label: string, text: string, tags: string[] = []): PromptFragment {
   return {
     id: `library-${category}-${id}`,
@@ -25,6 +73,7 @@ function item(category: PromptCategory, id: string, label: string, text: string,
     label,
     text,
     sourceRecipeTitle: "Prompt Library",
+    image: builderImageById[id],
     tags: [category, ...tags]
   };
 }
@@ -252,3 +301,6 @@ export const comfyShotList = libraryGroups
   }));
 
 export const allLibraryFragments = libraryGroups.flatMap((group) => group.fragments);
+
+
+

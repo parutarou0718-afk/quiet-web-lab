@@ -287,7 +287,7 @@ pre, textarea {
   min-width: 138px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  padding: 10px;
+  padding: 8px;
   background: var(--surface);
   color: var(--ink);
   text-align: left;
@@ -449,7 +449,7 @@ pre, textarea {
   flex-wrap: wrap;
   border: 1px solid var(--line);
   border-radius: 8px;
-  padding: 10px;
+  padding: 8px;
   background: var(--surface);
 }
 .builder-sub-tabs button {
@@ -490,8 +490,8 @@ pre, textarea {
 }
 .builder-sample-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
+  grid-template-columns: repeat(auto-fill, minmax(126px, 1fr));
+  gap: 12px;
 }
 .sample-choice {
   display: grid;
@@ -499,7 +499,7 @@ pre, textarea {
   min-width: 0;
   border: 1px solid var(--line);
   border-radius: 8px;
-  padding: 10px;
+  padding: 8px;
   background: var(--surface);
   color: var(--ink);
   text-align: left;
@@ -1051,7 +1051,7 @@ pre, textarea {
     grid-template-columns: repeat(auto-fit, minmax(104px, 1fr));
   }
   .builder-sample-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
   }
   .prompt-frame-head {
     grid-template-columns: minmax(0, 1fr) auto;
@@ -1452,3 +1452,5 @@ pre, textarea {
   opacity: 0.55;
   box-shadow: none;
 }
+
+
