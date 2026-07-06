@@ -1,4 +1,4 @@
----
+﻿---
 title: "Prompt Library Starter Kit"
 description: "A planned static prompt library package for teams that want reusable AI image prompt fragments."
 coverImage: "/images/covers/prompt-library-starter-kit.webp"
@@ -10,4 +10,5 @@ targetUsers: ["Solo creators", "Small content teams", "AI workflow learners"]
 callToAction: "Contact us about the starter kit"
 ---
 
-This product page is a preview placeholder for future downloadable prompt systems and workflow templates.
+This preview introduces a starter kit for organizing reusable prompt systems and workflow templates. More details can be discussed by email.
+

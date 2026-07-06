@@ -1,0 +1,13 @@
+﻿---
+import { siteConfig } from "@/config/site";
+---
+
+{
+  siteConfig.adsenseClientId ? (
+    <script
+      async
+      src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${siteConfig.adsenseClientId}`}
+      crossorigin="anonymous"
+    />
+  ) : null
+}

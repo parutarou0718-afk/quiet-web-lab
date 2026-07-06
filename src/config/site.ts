@@ -5,7 +5,7 @@
     "Practical AI workflows, reusable prompt systems, automation templates, and static web products for turning AI into production processes.",
   analyticsId: "",
   analyticsEnabled: false,
-  adsenseClientId: "",
+  adsenseClientId: "ca-pub-2485721016178543",
   adsenseSlotId: ""
 } as const;
 
@@ -16,3 +16,4 @@ export function canonicalUrl(pathname: string): string {
   const path = pathname.startsWith("/") ? pathname : `/${pathname}`;
   return `${base}${path}`;
 }
+
