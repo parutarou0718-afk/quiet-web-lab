@@ -71,6 +71,16 @@ export const siteTools: SiteTool[] = [
     useCases: ['Scene fragments', 'Pose selection', 'Style references']
   },
   {
+    title: 'Document Watch Assistant',
+    slug: 'document-watch-assistant',
+    description: 'A logistics desktop automation prototype that watches AN, DO, and DO-less files, groups ticket status by HBL or MBL, and reminds operators what still needs review.',
+    category: 'Document Tools',
+    status: 'Active',
+    url: '/tools/document-watch-assistant/',
+    tags: ['logistics', 'documents', 'monitoring'],
+    useCases: ['AN and DO monitoring', 'HBL/MBL status grouping', 'Manual review queues']
+  },
+  {
     title: 'PDF to Excel OCR Workflow',
     slug: 'pdf-to-excel-ocr-workflow',
     description: 'A planned workflow for extracting structured rows from PDF documents into spreadsheet-ready outputs.',
@@ -112,7 +122,8 @@ export const siteTools: SiteTool[] = [
   }
 ];
 
-export const featuredTools = siteTools.filter((tool) => ['research-prompt-assistant', 'email-prompt-builder', 'prompt-builder', 'prompt-recipe-library', 'image-prompt-fragment-library', 'n8n-workflow-templates'].includes(tool.slug));
+export const featuredTools = siteTools.filter((tool) => ['research-prompt-assistant', 'email-prompt-builder', 'document-watch-assistant', 'prompt-builder', 'prompt-recipe-library', 'image-prompt-fragment-library', 'n8n-workflow-templates'].includes(tool.slug));
+
 
 
 

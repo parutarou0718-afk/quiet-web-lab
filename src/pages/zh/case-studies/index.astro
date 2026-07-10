@@ -1,18 +1,69 @@
----
+﻿---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
 const locale = "zh";
+const disclaimer = "以下案例是用于说明实现模式的 demo / prototype，不代表真实客户项目。";
+const cases = [
+  {
+    title: "单证监听助手 Demo",
+    status: "Prototype",
+    category: "Logistics Automation",
+    description: "把混乱的共享单证文件夹整理成可看的 AN / DO 票据状态面板。",
+    context: "货代操作人员通过共享文件夹、传真导出目录或邮件附件目录接收 AN、DO、DO-less、Sea Waybill、Telex Release 等文件。",
+    problem: "文件容易漏看、重复看，或者看到了但没有及时和对应 HBL/MBL 对上。",
+    output: "桌面状态面板，显示新到单证、缺失单证、待人工确认文件、已齐备票据和归档状态。",
+    value: "减少重复查文件夹和漏看风险，同时保留人工核对路径。",
+    steps: ["只读监听源目录", "复制文件到本地暂存区", "识别单证类型", "按 HBL/MBL 聚合", "不确定文件进入人工核对池", "输出本地事件"]
+  },
+  {
+    title: "Prompt Builder Website Demo",
+    status: "Active",
+    category: "Image Tools",
+    description: "把可复用的提示词片段做成静态网站工具。",
+    context: "创作者需要更清楚地管理图像提示词片段。",
+    problem: "正向词、负向词、参数和样图分散后很难复用。",
+    output: "可复制英文提示词并显示冲突检查的网页工具。",
+    value: "把本地提示词经验变成可公开、可维护的工具。",
+    steps: ["定义分类", "创建片段", "加入冲突检查", "发布静态工具"]
+  },
+  {
+    title: "物流单证 OCR 工作流 Demo",
+    status: "Prototype",
+    category: "Document Workflows",
+    description: "把物流文件中的信息整理成可检查的表格输出。",
+    context: "操作人员反复处理格式相似的物流单证。",
+    problem: "手动抄录速度慢且容易出错。",
+    output: "带人工确认备注的表格化数据。",
+    value: "减少重复输入，同时保留人工检查。",
+    steps: ["读取文件", "提取文本", "映射字段", "检查不确定值", "导出表格"]
+  }
+];
 ---
 
-<BaseLayout title="Case Studies" description="This mirror page is reserved for the future localized site." canonicalPath="/zh/case-studies/" locale={locale} routeKey="/case-studies/" showPromptCart={false}>
+<BaseLayout title="Demo 案例" description="用于说明 AI 工具、单证自动化和工作流实现模式的 demo 案例。" canonicalPath="/zh/case-studies/" locale={locale} routeKey="/case-studies/" showPromptCart={false}>
   <section class="content-section">
     <div class="section-heading">
-      <p class="eyebrow">Mirror page</p>
-      <h1>Case Studies</h1>
-      <p class="lead">Localized content for this section will be prepared after the English site structure is stable.</p>
-      <div class="hero-actions">
-        <a class="button" href="/case-studies/">Open English version</a>
-      </div>
+      <p class="eyebrow">Demo Case Studies</p>
+      <h1>用 Demo 展示可落地的实现模式。</h1>
+      <p class="lead">{disclaimer}</p>
+    </div>
+    <div class="workflow-list">
+      {cases.map((item) => (
+        <article class="solution-card workflow-card">
+          <div class="card-meta"><span>{item.category}</span><span>{item.status}</span></div>
+          <h2>{item.title}</h2>
+          <p>{item.description}</p>
+          <dl class="info-list">
+            <div><dt>背景</dt><dd>{item.context}</dd></div>
+            <div><dt>问题</dt><dd>{item.problem}</dd></div>
+            <div><dt>输出</dt><dd>{item.output}</dd></div>
+            <div><dt>业务价值</dt><dd>{item.value}</dd></div>
+          </dl>
+          <ul class="compact-list">
+            {item.steps.map((step) => <li>{step}</li>)}
+          </ul>
+        </article>
+      ))}
     </div>
   </section>
 </BaseLayout>

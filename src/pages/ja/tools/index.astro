@@ -18,35 +18,28 @@ const tools = [
     uses: "教授へのメール、顧客返信、丁寧な断り"
   },
   {
+    title: "ドキュメント監視アシスタント",
+    url: "/tools/document-watch-assistant/",
+    status: "Prototype",
+    description: "貨物輸送・物流向けのデスクトップ自動化プロトタイプです。AN、DO、DO-less ファイルを監視し、HBL/MBL ごとに書類状況をまとめ、確認が必要なファイルを知らせます。",
+    uses: "AN/DO監視、不足書類の確認、手動レビュー"
+  },
+  {
     title: "Prompt Builder",
     url: "/ja/builder/",
     status: "Available",
     description: "画像生成用のプロンプト断片を選び、矛盾を確認しながらコピー可能な英語プロンプトを作れます。",
     uses: "画像プロンプト作成、断片管理、矛盾チェック"
-  },
-  {
-    title: "Writing Improvement Prompt",
-    url: "/ja/contact/",
-    status: "Coming Soon",
-    description: "文章の明確さ、トーン、構成を改善するためのプロンプトツールを準備中です。",
-    uses: "文章改善、自然な表現、構成チェック"
   }
 ];
 ---
 
-<BaseLayout
-  title="AIツール一覧"
-  description="研究計画、メール作成、画像プロンプト、文章改善に使えるAIツール一覧。"
-  canonicalPath="/ja/tools/"
-  locale={locale}
-  routeKey="/tools/"
-  showPromptCart={false}
->
+<BaseLayout title="AIツール一覧" description="研究計画、メール作成、画像プロンプト、物流書類の自動化に使えるAIツール一覧。" canonicalPath="/ja/tools/" locale={locale} routeKey="/tools/" showPromptCart={false}>
   <section class="content-section">
     <div class="section-heading">
       <p class="eyebrow">Tools</p>
       <h1>繰り返し使えるAIツール。</h1>
-      <p class="lead">思いつきの質問ではなく、相手・目的・形式を整理したプロンプトを作るための無料ツールです。</p>
+      <p class="lead">単発のチャットではなく、入力、ルール、確認、出力を整理した実用的なワークフローとして使えるツールです。</p>
     </div>
   </section>
 
@@ -58,7 +51,7 @@ const tools = [
           <h3>{tool.title}</h3>
           <p>{tool.description}</p>
           <p><strong>用途:</strong> {tool.uses}</p>
-          <span class="button small-button">{tool.status === "Coming Soon" ? "準備中" : "開く"}</span>
+          <span class="button small-button">開く</span>
         </a>
       ))}
     </div>

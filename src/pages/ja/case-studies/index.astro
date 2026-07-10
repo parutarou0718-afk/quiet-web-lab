@@ -1,18 +1,69 @@
----
+﻿---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
 const locale = "ja";
+const disclaimer = "以下は実装パターンを説明するための demo / prototype であり、実在の顧客案件として提示するものではありません。";
+const cases = [
+  {
+    title: "ドキュメント監視アシスタント Demo",
+    status: "Prototype",
+    category: "Logistics Automation",
+    description: "共有フォルダ内の物流書類を、AN / DO のチケット状況パネルとして整理するデモです。",
+    context: "フォワーダーの担当者は、共有フォルダ、FAX出力フォルダ、メール添付保存先から AN、DO、DO-less、Sea Waybill、Telex Release などを受け取ります。",
+    problem: "新しいファイルの見落とし、重複確認、HBL/MBL との紐づけ漏れが起きやすくなります。",
+    output: "到着書類、不足書類、手動確認ファイル、完了チケット、アーカイブ状態を表示するデスクトップパネル。",
+    value: "フォルダ確認の手間と見落としリスクを減らしつつ、手動確認の安全な流れを残します。",
+    steps: ["元フォルダを読み取り専用で監視", "ローカル一時フォルダへコピー", "書類タイプを分類", "HBL/MBL ごとに集約", "不明ファイルを手動確認へ", "ローカルイベントを出力"]
+  },
+  {
+    title: "Prompt Builder Website Demo",
+    status: "Active",
+    category: "Image Tools",
+    description: "再利用できるプロンプト断片を静的サイトのツールとして公開するデモです。",
+    context: "画像生成ユーザーがプロンプト断片を整理して使いたい場面。",
+    problem: "正向プロンプト、ネガティブ、パラメータ、サンプル画像が分散すると再利用しにくくなります。",
+    output: "英語プロンプトをコピーでき、矛盾チェックも見えるブラウザツール。",
+    value: "ローカルの知識を公開可能で更新しやすいツールに変えます。",
+    steps: ["分類を定義", "断片を作成", "矛盾チェックを追加", "静的ツールとして公開"]
+  },
+  {
+    title: "物流書類 OCR ワークフロー Demo",
+    status: "Prototype",
+    category: "Document Workflows",
+    description: "物流書類から情報を取り出し、確認可能な表形式に整理するデモです。",
+    context: "担当者が似た形式の物流書類を繰り返し処理する場面。",
+    problem: "手入力は時間がかかり、ミスも起きやすいです。",
+    output: "確認メモ付きの表形式データ。",
+    value: "繰り返し入力を減らしながら、人による確認を残します。",
+    steps: ["ファイルを取得", "テキストを抽出", "フィールドへ整理", "不確実な値を確認", "表形式で出力"]
+  }
+];
 ---
 
-<BaseLayout title="Case Studies" description="This mirror page is reserved for the future localized site." canonicalPath="/ja/case-studies/" locale={locale} routeKey="/case-studies/" showPromptCart={false}>
+<BaseLayout title="Demo ケーススタディ" description="AIツール、物流書類自動化、ワークフロー実装パターンを示すデモケース。" canonicalPath="/ja/case-studies/" locale={locale} routeKey="/case-studies/" showPromptCart={false}>
   <section class="content-section">
     <div class="section-heading">
-      <p class="eyebrow">Mirror page</p>
-      <h1>Case Studies</h1>
-      <p class="lead">Localized content for this section will be prepared after the English site structure is stable.</p>
-      <div class="hero-actions">
-        <a class="button" href="/case-studies/">Open English version</a>
-      </div>
+      <p class="eyebrow">Demo Case Studies</p>
+      <h1>実装パターンを Demo として見せる。</h1>
+      <p class="lead">{disclaimer}</p>
+    </div>
+    <div class="workflow-list">
+      {cases.map((item) => (
+        <article class="solution-card workflow-card">
+          <div class="card-meta"><span>{item.category}</span><span>{item.status}</span></div>
+          <h2>{item.title}</h2>
+          <p>{item.description}</p>
+          <dl class="info-list">
+            <div><dt>背景</dt><dd>{item.context}</dd></div>
+            <div><dt>課題</dt><dd>{item.problem}</dd></div>
+            <div><dt>出力</dt><dd>{item.output}</dd></div>
+            <div><dt>価値</dt><dd>{item.value}</dd></div>
+          </dl>
+          <ul class="compact-list">
+            {item.steps.map((step) => <li>{step}</li>)}
+          </ul>
+        </article>
+      ))}
     </div>
   </section>
 </BaseLayout>

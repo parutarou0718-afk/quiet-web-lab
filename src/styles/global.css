@@ -156,6 +156,19 @@ p, li { line-height: 1.68; }
   border-radius: 8px;
   background: var(--surface);
 }
+.article-card {
+  display: grid;
+  gap: 10px;
+  overflow: hidden;
+}
+.article-card-media {
+  width: calc(100% + 32px);
+  aspect-ratio: 16 / 9;
+  margin: -16px -16px 2px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface-soft);
+  object-fit: cover;
+}
 .recipe-card { overflow: hidden; }
 .recipe-thumb {
   display: grid;

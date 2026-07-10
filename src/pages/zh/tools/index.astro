@@ -1,18 +1,59 @@
----
+﻿---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
 const locale = "zh";
+const tools = [
+  {
+    title: "研究提示词助手",
+    url: "/tools/research-prompt-assistant/",
+    status: "可用",
+    description: "把模糊的研究想法整理成可复制到 ChatGPT、Claude 或 Gemini 的结构化提示词。",
+    uses: "论文选题、研究问题、方法论规划"
+  },
+  {
+    title: "邮件提示词生成器",
+    url: "/tools/email-prompt-builder/",
+    status: "可用",
+    description: "根据收件人、距离感、语气和背景，生成用于写邮件或改写邮件的结构化提示词。",
+    uses: "教授邮件、客户回复、礼貌拒绝"
+  },
+  {
+    title: "单证监听助手",
+    url: "/tools/document-watch-assistant/",
+    status: "原型",
+    description: "面向货代/物流场景的桌面自动化原型，用于监听 AN、DO、DO-less 文件，按 HBL/MBL 聚合票据状态，并提醒待人工确认内容。",
+    uses: "AN/DO 监听、缺单提醒、人工核对池"
+  },
+  {
+    title: "Prompt Builder",
+    url: "/zh/builder/",
+    status: "可用",
+    description: "选择图像提示词片段，检查冲突，并输出适合模型使用的英文提示词。",
+    uses: "图片提示词、片段管理、冲突检查"
+  }
+];
 ---
 
-<BaseLayout title="Tools" description="This mirror page is reserved for the future localized site." canonicalPath="/zh/tools/" locale={locale} routeKey="/tools/" showPromptCart={false}>
+<BaseLayout title="AI 工具" description="用于研究、邮件、图像提示词和物流单证自动化的实用 AI 工具。" canonicalPath="/zh/tools/" locale={locale} routeKey="/tools/" showPromptCart={false}>
   <section class="content-section">
     <div class="section-heading">
-      <p class="eyebrow">Mirror page</p>
-      <h1>Tools</h1>
-      <p class="lead">Localized content for this section will be prepared after the English site structure is stable.</p>
-      <div class="hero-actions">
-        <a class="button" href="/tools/">Open English version</a>
-      </div>
+      <p class="eyebrow">Tools</p>
+      <h1>能反复使用的 AI 工具。</h1>
+      <p class="lead">这些工具不是一次性的聊天示例，而是把输入、规则、检查和输出整理成可重复使用的工作流程。</p>
+    </div>
+  </section>
+
+  <section class="content-section tool-category-section">
+    <div class="article-grid">
+      {tools.map((tool) => (
+        <a class="article-card article-card--action" href={tool.url}>
+          <span class="category-badge">{tool.status}</span>
+          <h3>{tool.title}</h3>
+          <p>{tool.description}</p>
+          <p><strong>适用场景:</strong> {tool.uses}</p>
+          <span class="button small-button">查看</span>
+        </a>
+      ))}
     </div>
   </section>
 </BaseLayout>

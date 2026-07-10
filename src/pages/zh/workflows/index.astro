@@ -1,18 +1,68 @@
----
+﻿---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
 const locale = "zh";
+const workflows = [
+  {
+    title: "物流单证监听工作流",
+    category: "Document Workflows",
+    status: "原型",
+    description: "监听共享文件夹或本地目录中的 AN、DO、DO-less 文件，按 HBL/MBL 聚合状态，并把不确定文件交给人工核对。",
+    problem: "货代操作人员需要反复检查文件夹，容易漏看新单证、重复查看旧文件，或没有及时把文件和对应 HBL/MBL 对上。",
+    input: "共享文件夹、本地文件夹、AN/DO/DO-less PDF、文件名线索、港口或关键词规则。",
+    output: "按票聚合的状态面板，显示 AN 到达、DO 到达、缺失单证、待人工确认和已齐备票据。",
+    users: "货代操作、物流单证团队、小型业务自动化项目",
+    steps: ["只读监听源目录", "复制到本地暂存目录", "识别单证类型", "按 HBL/MBL 聚合", "不确定文件进入人工核对池", "输出本地事件供未来主流程使用"]
+  },
+  {
+    title: "PDF 到表格 OCR 工作流",
+    category: "Document Workflows",
+    status: "模板",
+    description: "把重复格式的 PDF 或扫描件整理为可检查、可导出的表格数据。",
+    problem: "人工复制 PDF 字段速度慢，也容易出错。",
+    input: "PDF、扫描件、截图或导出的图片。",
+    output: "CSV / Excel 风格的结构化行，并标注不确定字段。",
+    users: "运营人员、中小企业、研究资料整理",
+    steps: ["提取文本或图像区域", "映射字段", "检查不确定值", "导出表格"]
+  },
+  {
+    title: "AI 图片提示词生产工作流",
+    category: "Image Workflows",
+    status: "Demo",
+    description: "把提示词片段、样图、模型笔记和发布页面连接起来。",
+    problem: "提示词、样图和模型备注分散后，很难复用和教学。",
+    input: "提示词分类、模型笔记、样图、质量规则。",
+    output: "带样图和可复制片段的提示词库。",
+    users: "AI 图片创作者、ComfyUI 用户",
+    steps: ["规划分类", "生成样图", "挑选可用图", "绑定提示词", "发布页面"]
+  }
+];
 ---
 
-<BaseLayout title="Workflows" description="This mirror page is reserved for the future localized site." canonicalPath="/zh/workflows/" locale={locale} routeKey="/workflows/" showPromptCart={false}>
+<BaseLayout title="AI 工作流方案" description="面向文档、物流、图像提示词和内容生产的实用 AI 工作流方案。" canonicalPath="/zh/workflows/" locale={locale} routeKey="/workflows/" showPromptCart={false}>
   <section class="content-section">
     <div class="section-heading">
-      <p class="eyebrow">Mirror page</p>
-      <h1>Workflows</h1>
-      <p class="lead">Localized content for this section will be prepared after the English site structure is stable.</p>
-      <div class="hero-actions">
-        <a class="button" href="/workflows/">Open English version</a>
-      </div>
+      <p class="eyebrow">Workflows</p>
+      <h1>把 AI 变成可执行的工作流程。</h1>
+      <p class="lead">这里展示的不是大而全 Agent，而是可以落到真实任务里的流程模块：输入是什么、怎么处理、输出什么、哪里需要人工确认。</p>
+    </div>
+    <div class="workflow-list">
+      {workflows.map((workflow) => (
+        <article class="solution-card workflow-card">
+          <div class="card-meta"><span>{workflow.category}</span><span>{workflow.status}</span></div>
+          <h2>{workflow.title}</h2>
+          <p>{workflow.description}</p>
+          <dl class="info-list">
+            <div><dt>问题</dt><dd>{workflow.problem}</dd></div>
+            <div><dt>输入</dt><dd>{workflow.input}</dd></div>
+            <div><dt>输出</dt><dd>{workflow.output}</dd></div>
+            <div><dt>适合用户</dt><dd>{workflow.users}</dd></div>
+          </dl>
+          <ul class="compact-list">
+            {workflow.steps.map((step) => <li>{step}</li>)}
+          </ul>
+        </article>
+      ))}
     </div>
   </section>
 </BaseLayout>

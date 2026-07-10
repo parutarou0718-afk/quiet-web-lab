@@ -1,18 +1,68 @@
----
+﻿---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
 const locale = "ja";
+const workflows = [
+  {
+    title: "物流書類監視ワークフロー",
+    category: "Document Workflows",
+    status: "Prototype",
+    description: "共有フォルダやローカルフォルダ内の AN、DO、DO-less ファイルを監視し、HBL/MBL ごとに書類状況をまとめ、不確実なファイルを手動確認へ回します。",
+    problem: "物流担当者はフォルダを何度も確認する必要があり、新しい書類の見落とし、重複確認、HBL/MBL との紐づけ漏れが起きやすくなります。",
+    input: "共有フォルダ、ローカルフォルダ、AN/DO/DO-less PDF、ファイル名の手がかり、港やキーワードのルール。",
+    output: "AN 到着、DO 到着、不足書類、手動確認、完了状態をまとめたチケット状況パネル。",
+    users: "フォワーダー、物流オペレーション、書類処理チーム",
+    steps: ["元フォルダを読み取り専用で監視", "新規ファイルをローカルへコピー", "書類タイプを分類", "HBL/MBL ごとに集約", "不明ファイルを手動確認へ", "将来の主ワークフロー向けにイベントを出力"]
+  },
+  {
+    title: "PDF to Excel OCR ワークフロー",
+    category: "Document Workflows",
+    status: "Template",
+    description: "PDF やスキャン書類から表形式に近いデータを取り出すための実用的な流れです。",
+    problem: "PDF からの手入力は時間がかかり、入力ミスも起きやすいです。",
+    input: "PDF、スキャン書類、スクリーンショット、画像。",
+    output: "確認可能な CSV / Excel 形式の行データ。",
+    users: "小規模チーム、業務担当者、資料整理ユーザー",
+    steps: ["テキストや画像領域を抽出", "フィールドを整理", "不確実な値を確認", "表形式へ出力"]
+  },
+  {
+    title: "AI画像プロンプト制作ワークフロー",
+    category: "Image Workflows",
+    status: "Demo",
+    description: "プロンプト断片、サンプル画像、モデルメモ、公開ページをつなげる制作フローです。",
+    problem: "生成画像、プロンプト、モデルメモが分散すると、再利用や説明が難しくなります。",
+    input: "プロンプト分類、モデルメモ、サンプル画像、品質ルール。",
+    output: "サンプル画像付きの再利用可能なプロンプトライブラリ。",
+    users: "AI画像制作者、ComfyUIユーザー",
+    steps: ["分類を決める", "サンプルを生成", "採用画像を選ぶ", "プロンプトとメモを接続", "ページとして公開"]
+  }
+];
 ---
 
-<BaseLayout title="Workflows" description="This mirror page is reserved for the future localized site." canonicalPath="/ja/workflows/" locale={locale} routeKey="/workflows/" showPromptCart={false}>
+<BaseLayout title="AIワークフロー方案" description="文書、物流、画像プロンプト、コンテンツ制作に使える実用的なAIワークフロー。" canonicalPath="/ja/workflows/" locale={locale} routeKey="/workflows/" showPromptCart={false}>
   <section class="content-section">
     <div class="section-heading">
-      <p class="eyebrow">Mirror page</p>
-      <h1>Workflows</h1>
-      <p class="lead">Localized content for this section will be prepared after the English site structure is stable.</p>
-      <div class="hero-actions">
-        <a class="button" href="/workflows/">Open English version</a>
-      </div>
+      <p class="eyebrow">Workflows</p>
+      <h1>AIを実作業の流れに変える。</h1>
+      <p class="lead">ここでは大きな万能Agentではなく、入力、処理、出力、手動確認の境界が見える実用的な業務モジュールを紹介します。</p>
+    </div>
+    <div class="workflow-list">
+      {workflows.map((workflow) => (
+        <article class="solution-card workflow-card">
+          <div class="card-meta"><span>{workflow.category}</span><span>{workflow.status}</span></div>
+          <h2>{workflow.title}</h2>
+          <p>{workflow.description}</p>
+          <dl class="info-list">
+            <div><dt>課題</dt><dd>{workflow.problem}</dd></div>
+            <div><dt>入力</dt><dd>{workflow.input}</dd></div>
+            <div><dt>出力</dt><dd>{workflow.output}</dd></div>
+            <div><dt>対象ユーザー</dt><dd>{workflow.users}</dd></div>
+          </dl>
+          <ul class="compact-list">
+            {workflow.steps.map((step) => <li>{step}</li>)}
+          </ul>
+        </article>
+      ))}
     </div>
   </section>
 </BaseLayout>
