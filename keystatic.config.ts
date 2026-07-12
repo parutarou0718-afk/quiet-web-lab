@@ -51,10 +51,17 @@ const titleField = fields.slug({ name: { label: "标题（会自动生成网址 
 
 export default config({
   storage: {
-    kind: "local"
+    kind: "github",
+    repo: "parutarou0718-afk/quiet-web-lab"
   },
   ui: {
-    brand: { name: "Smart Prompt App 内容后台" }
+    brand: { name: "Smart Prompt App 内容后台" },
+    navigation: {
+      "日常内容": ["articles", "guides"],
+      "提示词与工具": ["recipes", "tools"],
+      "业务页面": ["workflows", "products", "caseStudies", "services"],
+      "站点设置": ["home"]
+    }
   },
   collections: {
     articles: collection({
@@ -277,3 +284,4 @@ export default config({
     })
   }
 });
+

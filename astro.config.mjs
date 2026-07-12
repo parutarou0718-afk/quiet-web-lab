@@ -1,4 +1,5 @@
 ﻿import { fileURLToPath } from "node:url";
+import cloudflare from "@astrojs/cloudflare";
 import react from "@astrojs/react";
 import keystatic from "@keystatic/astro";
 import { defineConfig } from "astro/config";
@@ -8,10 +9,12 @@ const isDevCommand = process.argv.includes("dev") || process.env.npm_lifecycle_e
 
 export default defineConfig({
   output: "static",
-  integrations: [react(), ...(isDevCommand ? [keystatic()] : [])],
+  adapter: cloudflare(),
+  integrations: [react(), keystatic()],
   build: { format: "directory" },
   vite: {
     cacheDir: viteCacheDir,
     ...(isDevCommand ? {} : { optimizeDeps: { noDiscovery: true, include: [], exclude: [] } })
   }
 });
+

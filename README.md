@@ -1,12 +1,10 @@
-# Smart Prompt App
+﻿# Smart Prompt App
 
-Smart Prompt App 是一个基于 Astro + TypeScript + 原生 CSS 的静态站，用来展示 AI implementation solution provider 的主站内容、Prompt Builder、Prompt Recipes、Guides、LoRA 学习页、工作流、产品、服务和 demo case studies。
-
-站点不使用数据库，不需要登录，不需要后端服务。内容通过 Git-based CMS 写入 Markdown / JSON 文件，再提交到 GitHub，由 Cloudflare Pages 自动构建发布。
+Smart Prompt App 是一个基于 Astro + TypeScript 的静态优先网站，用来展示 AI implementation / prompt systems / automation workflows / lightweight tools。网站部署在 Cloudflare Pages，公开页面保持静态优先，内容后台使用 Keystatic 管理 `src/content/` 和 `public/images/` 中的文件。
 
 ## 本地运行
 
-如果使用项目内置 Node：
+如果使用项目自带 Node：
 
 ```powershell
 .tools\node-v20.19.4-win-x64\npm.cmd install
@@ -20,13 +18,13 @@ npm install
 npm run dev
 ```
 
-本地站点：
+本地网站：
 
 ```text
 http://127.0.0.1:4321/
 ```
 
-Keystatic 内容后台：
+内容后台：
 
 ```text
 http://127.0.0.1:4321/keystatic/
@@ -44,104 +42,83 @@ npm run build
 dist
 ```
 
-当前本地验证结果：`npm install` 通过，`npm run build` 通过。
-
-## Cloudflare Pages 部署
+## Cloudflare Pages 部署设置
 
 推荐设置：
 
 - Framework preset: Astro
 - Build command: `npm run build`
 - Build output directory: `dist`
-- Node version: 20 或以上
+- Node version: 20 或更高
 
-域名和站点配置在：
+当前项目使用 `@astrojs/cloudflare` 和 `output: "static"`。普通公开页面仍然预渲染，`/keystatic/` 和 `/api/keystatic/` 由 Cloudflare Pages Functions 处理，用于在线内容后台。
 
-```text
-src/config/site.ts
-```
+## 在线 Keystatic 后台
 
-当前 `siteUrl` 使用：
+后台地址：
 
 ```text
-https://smartpromptapp.com
+https://smartpromptapp.com/keystatic/
 ```
 
-## 内容后台方案
-
-当前使用 Keystatic。
-
-后台配置文件：
+当前 Keystatic 使用 GitHub storage，内容会提交到：
 
 ```text
-keystatic.config.ts
+parutarou0718-afk/quiet-web-lab
 ```
 
-Astro 内容集合配置：
+### 需要创建 GitHub OAuth App
+
+在 GitHub 打开：Settings -> Developer settings -> OAuth Apps -> New OAuth App。
+
+填写建议：
+
+- Application name: `Smart Prompt App Keystatic`
+- Homepage URL: `https://smartpromptapp.com`
+- Authorization callback URL: `https://smartpromptapp.com/api/keystatic/github/oauth/callback`
+
+创建后复制 Client ID 和 Client Secret。
+
+### Cloudflare Pages 环境变量
+
+在 Cloudflare Pages 项目里打开 Settings -> Environment variables，添加：
 
 ```text
-src/content/config.ts
+KEYSTATIC_GITHUB_CLIENT_ID=你的 GitHub OAuth Client ID
+KEYSTATIC_GITHUB_CLIENT_SECRET=你的 GitHub OAuth Client Secret
+KEYSTATIC_SECRET=一串随机长密码
 ```
 
-Keystatic 当前以本地编辑模式运行：打开本地开发服务器后进入 `/keystatic/`，新增或编辑内容会写入 `src/content/` 和 `public/images/`。改完后提交 GitHub，Cloudflare Pages 会自动重新部署。
+`KEYSTATIC_SECRET` 可以自己写一串足够长的随机字符，例如 32 位以上。不要提交到 GitHub。
 
-## 内容存储位置
+添加变量后，重新部署一次 Cloudflare Pages。
 
-文章：
+如果 Cloudflare 日志明确提示缺少 `SESSION` KV binding，再创建一个名为 `SESSION` 的 KV 绑定；没有报错时可以先不处理。
+
+## 内容后台能管理什么
+
+Keystatic 管理以下内容：
 
 ```text
 src/content/articles/
-```
-
-Guides：
-
-```text
 src/content/guides/
-```
-
-Prompt Recipes：
-
-```text
 src/content/recipes/
-```
-
-Workflows：
-
-```text
 src/content/workflows/
-```
-
-Products：
-
-```text
 src/content/products/
-```
-
-Demo Case Studies：
-
-```text
 src/content/case-studies/
-```
-
-Services：
-
-```text
 src/content/services/
-```
-
-Tools：
-
-```text
 src/content/tools/
-```
-
-首页 featured 配置：
-
-```text
 src/content/site/home.json
 ```
 
-## 图片存储位置
+后台里对应中文分组：
+
+- 日常内容：文章 / 新闻、指南文章
+- 提示词与工具：提示词配方、工具
+- 业务页面：工作流方案、产品、演示案例、服务
+- 站点设置：首页展示设置
+
+## 图片位置
 
 通用封面图：
 
@@ -155,106 +132,97 @@ Recipe 图片：
 public/images/recipes/
 ```
 
-正文内图片：
+正文图片：
 
 ```text
 public/images/content/
 ```
 
-在 Keystatic 中选择或上传图片时，会写入这些目录。页面里保存的是 `/images/...` 这种公开访问路径。
+在 Keystatic 里上传图片后，它会保存到这些目录。公开页面使用 `/images/...` 路径读取图片。
 
-## 如何新增文章
+## 新增文章
 
-1. 运行 `npm run dev`。
-2. 打开 `http://127.0.0.1:4321/keystatic/`。
-3. 进入 `Articles / Blog`。
-4. 点击新增。
-5. 填写 title、description、coverImage、date、author、category、tags 和 body。
-6. 保存后运行 `npm run build` 检查。
-7. 提交并推送到 GitHub。
+1. 打开 `/keystatic/`。
+2. 进入“文章 / 新闻”或“指南文章”。
+3. 新建条目，填写标题、SEO 描述、封面图、日期、作者、分类、标签和正文。
+4. 保存并提交到 GitHub。
+5. GitHub 更新后，Cloudflare Pages 会自动重新部署。
 
-文章页面会生成在：
+文章页面地址一般是：
 
 ```text
 /articles/your-slug/
+/guides/your-slug/
 ```
 
-## 如何新增 Prompt Recipe
+## 新增 Prompt Recipe
 
-1. 进入 Keystatic 的 `Prompt Recipes`。
-2. 填写 title、SEO description、short card description、category、tags。
-3. 填写 positivePrompt、negativePrompt、parameters、modelNotes。
-4. 在 `Prompt breakdown fragments` 中添加可拆分的提示词片段。
-5. 在 `Variations` 中添加变体提示词。
-6. 填写 commonMistakes、suitableUses、relatedRecipes。
-7. 保存后运行 `npm run build`。
+1. 打开后台的“提示词配方”。
+2. 填写标题、描述、短描述、封面图、分类和标签。
+3. 填写正向提示词、负向提示词、参数、模型建议。
+4. 在“提示词拆分片段”里添加可复用片段。
+5. 保存并提交。
 
-Recipe 页面会生成在：
+页面地址：
 
 ```text
 /recipes/your-slug/
 ```
 
-## 如何新增 Workflow / Product / Case Study
+## 新增 Workflow / Product / Case Study / Service / Tool
 
-在 Keystatic 中分别进入：
+分别进入后台中的：
 
-- `Workflows`
-- `Products`
-- `Demo Case Studies`
+- 工作流方案
+- 产品
+- 演示案例
+- 服务
+- 工具
 
-按字段填写即可。Demo case studies 必须保持 demo 表述，不要写成真实客户案例。
+填写对应字段后保存。演示案例请保持 demo 声明，不要写成真实客户案例。
 
-对应页面：
+页面地址一般是：
 
 ```text
 /workflows/your-slug/
 /products/your-slug/
 /case-studies/your-slug/
-```
-
-## 如何新增 Service / Tool
-
-在 Keystatic 中分别进入：
-
-- `Services`
-- `Tools`
-
-Services 用来写服务介绍、交付物和适用场景。Tools 用来写站内工具或外部工具入口。
-
-对应页面：
-
-```text
 /services/your-slug/
 /tools/your-slug/
 ```
 
 ## SEO
 
-每个内容页会从内容字段自动生成：
+每个内容页会从内容字段生成：
 
 - title
 - description
 - canonical
 - Open Graph image
 
-`sitemap.xml` 会包含 CMS 生成的 articles、guides、recipes、tools、services、workflows、products 和 case studies 页面。
+站点域名配置在：
 
-## 合规内容规则
+```text
+src/config/site.ts
+```
 
-全站内容应保持全年龄、AdSense 友好：
+当前正式域名：
 
-- 不写成人、色情、擦边内容。
-- 不写血腥暴力内容。
-- 不做真实人物仿冒或人脸复刻。
-- 不做名人、影视、动漫等侵权 IP 复刻。
-- Demo case studies 必须明确是 demo。
+```text
+https://smartpromptapp.com
+```
 
-## 多语言说明
+## 合规边界
 
-当前保留 English / 中文 / 日本語 的语言按钮和基础路由。完整中文、日文镜像站建议后续单独实施，避免现在破坏主站结构。
+网站内容保持全年龄、AdSense 友好：
 
-## Git 更新流程
+- 不发布成人或擦边内容。
+- 不发布血腥暴力内容。
+- 不做真实人物仿冒、人脸复刻或名人仿冒。
+- 不复刻侵权 IP 角色。
+- Demo case studies 必须明确说明是演示案例。
+
+## 常用 Git 更新流程
 
 ```powershell
 git status
@@ -263,4 +231,6 @@ git commit -m "Update site content"
 git push origin main
 ```
 
-推送到 GitHub 后，Cloudflare Pages 会按 `npm run build` 自动部署。
+推送到 GitHub 后，Cloudflare Pages 会自动执行 `npm run build` 并发布。
+
+
