@@ -65,6 +65,7 @@ export const loraPageCopy = {
 const guideTranslations: Record<Locale, Record<string, { title: string; summary: string }>> = {
   en: {},
   zh: {
+    "ai-coding-agent-token-workflow-guide": { title: "AI 编码 Agent Token 工作流指南", summary: "面向真实开发的指南：先固定产品行为，再考虑办公电脑上的性能限制，最后把可复用的工程规则沉淀成 Codex Skill。" },
     "how-to-write-better-prompts": { title: "如何写出更好的 AI 生图提示词", summary: "从具体主体开始，再加入一个清楚动作、一个场景、一个镜头和一个光线方向。" },
     "prompt-structure": { title: "提示词结构：主体、动作、服装、场景、镜头、光线", summary: "稳定的图像提示词通常从主体走向环境，再补充镜头、光线和风格。" },
     "pose-prompts": { title: "如何清楚描述姿势", summary: "使用站立、坐姿、行走、转身、回头等简单身体语言，并避免互相冲突的姿势。" },
@@ -74,6 +75,7 @@ const guideTranslations: Record<Locale, Record<string, { title: string; summary:
     "prompt-iteration-workflow": { title: "提示词迭代工作流", summary: "每次测试只改变一个重要部分，先保存主体和场景，再比较姿势、镜头和光线。" }
   },
   ja: {
+    "ai-coding-agent-token-workflow-guide": { title: "AI コーディング Agent のトークン運用ガイド", summary: "実際の開発に向けたガイドです。製品の挙動、オフィス PC で動く性能条件、再利用できる開発ルールを整理します。" },
     "how-to-write-better-prompts": { title: "よりよいAI画像プロンプトの書き方", summary: "具体的な主体から始め、動作、場面、カメラ、光を一つずつ足します。" },
     "prompt-structure": { title: "プロンプト構造：主体、動作、衣装、場面、カメラ、光", summary: "安定したプロンプトは、主体から周囲の文脈へ順に広げると扱いやすくなります。" },
     "pose-prompts": { title: "ポーズをわかりやすく書く方法", summary: "立つ、座る、歩く、振り返るなど、単純な身体表現を使います。" },
