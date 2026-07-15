@@ -2,7 +2,7 @@
 import AdSlot from "@/components/AdSlot.astro";
 import RecipeCard from "@/components/RecipeCard.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import DevelopmentReviewFeature from "@/components/home/DevelopmentReviewFeature.astro";
+import DevelopmentGuideFeature from "@/components/home/DevelopmentGuideFeature.astro";
 import { homeCopy, localizedPath, localizedSlugPath } from "@/data/i18n";
 import { latestNews } from "@/data/news";
 import { recipes } from "@/data/recipes";
@@ -50,7 +50,7 @@ const copy = homeCopy[locale];
 
   <AdSlot />
 
-  <DevelopmentReviewFeature locale="zh" />
+  <DevelopmentGuideFeature locale="zh" />
 
   <section class="content-section">
     <div class="section-heading">

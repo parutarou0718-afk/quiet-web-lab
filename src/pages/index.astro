@@ -9,7 +9,7 @@ import DemoCaseStudies from "@/components/home/DemoCaseStudies.astro";
 import ProductsPreview from "@/components/home/ProductsPreview.astro";
 import LatestGuides from "@/components/home/LatestGuides.astro";
 import ContactCTA from "@/components/home/ContactCTA.astro";
-import DevelopmentReviewFeature from "@/components/home/DevelopmentReviewFeature.astro";
+import DevelopmentGuideFeature from "@/components/home/DevelopmentGuideFeature.astro";
 import AdSlot from "@/components/AdSlot.astro";
 import { getCmsRecipes } from "@/lib/cms";
 
@@ -30,7 +30,7 @@ const recipes = await getCmsRecipes();
   <FeaturedTools />
   <AdSlot />
   <ServicesOverview />
-  <DevelopmentReviewFeature locale="en" />
+  <DevelopmentGuideFeature locale="en" />
   <DemoCaseStudies />
   <ProductsPreview />
   <LatestGuides guides={guides} recipes={recipes} />
